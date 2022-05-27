@@ -18,19 +18,90 @@ class numbermarchTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    func testNewBattleFromValues() throws {
+        let battle = try! Battle(armyValues: [1,2,3,4,5])
+        XCTAssertTrue(battle.enemies.count == 0)
+    }
+    
+    func testNewBattle() throws {
+        let battle = try! Battle(army: [
+            Enemy(value: 1),
+            Enemy(value: 2),
+            Enemy(value: 3),
+            Enemy(value: 4),
+            Enemy(value: 5),
+            ])
+        XCTAssertTrue(battle.enemies.count == 0)
+    }
+    
+    func testAddEnemy() throws {
+        let battle = try! Battle(army: [
+            Enemy(value: 1),
+            Enemy(value: 2),
+            Enemy(value: 3),
+            Enemy(value: 4),
+            Enemy(value: 5),
+            ])
+        
+        let _ = battle.addNextEnemyToBattle()
+        XCTAssertTrue(battle.enemies.count == 1, "Should be one enemy on the battlefield")
+        XCTAssertTrue(battle.enemies[0].value == 1)
+    }
+    
+    func testAddManyEnemies() throws {
+        let battle = try! Battle(army: [
+            Enemy(value: 1),
+            Enemy(value: 2),
+            Enemy(value: 3),
+            Enemy(value: 4),
+            Enemy(value: 5),
+            ])
+        
+        let _ = battle.addNextEnemyToBattle()
+        let _ = battle.addNextEnemyToBattle()
+        let _ = battle.addNextEnemyToBattle()
+        
+        XCTAssertTrue(battle.enemies.count == 3, "Should be three enemies on the battlefield")
+        XCTAssertTrue(battle.enemies[0].value == 1)
+        XCTAssertTrue(battle.enemies[1].value == 2)
+        XCTAssertTrue(battle.enemies[2].value == 3)
     }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func testShootAndKill() throws {
+        let battle = try! Battle(army: [
+            Enemy(value: 1),
+            Enemy(value: 2),
+            Enemy(value: 3),
+            Enemy(value: 4),
+            Enemy(value: 5),
+            ])
+        
+        let _ = battle.addNextEnemyToBattle()
+        let _ = battle.addNextEnemyToBattle()
+        let _ = battle.addNextEnemyToBattle()
+        
+        battle.shoot(value: 2)
+        XCTAssertTrue(battle.enemies.count == 2)
+        XCTAssertTrue(battle.enemies[0].value == 1)
+        XCTAssertTrue(battle.enemies[1].value == 3)
     }
-
+    
+    func testShootAndMiss() throws {
+        let battle = try! Battle(army: [
+            Enemy(value: 1),
+            Enemy(value: 2),
+            Enemy(value: 3),
+            Enemy(value: 4),
+            Enemy(value: 5),
+            ])
+        
+        let _ = battle.addNextEnemyToBattle()
+        let _ = battle.addNextEnemyToBattle()
+        let _ = battle.addNextEnemyToBattle()
+        
+        XCTAssertTrue(battle.enemies.count == 3)
+        battle.shoot(value: 8)
+        XCTAssertTrue(battle.enemies.count == 3)
+    }
+    
 }
