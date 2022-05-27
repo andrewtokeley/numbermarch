@@ -124,7 +124,8 @@ final class GameView: UserInterface {
     // MARK: - Event Handlers
     
     @objc func newGameClick(sender: UIButton) {
-        self.presenter.didSelectNewGame()
+        self.battlefieldScene?.displayMessage(message: " 8-016430")
+        //self.presenter.didSelectNewGame()
     }
     
     @objc func aimButtonClick(sender: UIButton) {

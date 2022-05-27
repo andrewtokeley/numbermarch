@@ -62,7 +62,8 @@ class DigitalCharacterNode: NumberNode {
         [0,0,1,0,1,0,1], // n
         [1,0,0,1,0,0,1], // 3 lives
         [0,0,0,1,0,0,1], // 2 lives
-        [0,0,0,1,0,0,0], // 1 life
+        [0,0,0,0,0,0,1], // 1 life or hyphen
+        [0,0,0,0,0,0,0], // space
     ]
     
     private var bars:[SKShapeNode] = [SKShapeNode]()

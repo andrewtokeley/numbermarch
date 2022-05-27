@@ -28,28 +28,44 @@ class BattlefieldScene: SKScene {
     
     private var isRetreating: Bool = false
     
-    /// The number of enemies that are visible on the battlefield
-    private var numberOfEnemiesOnBattlefield: Int = 6
+    /**
+     Number of spaces available for characters on the battlefield.
+    
+     This returned value is the number of enemies visible on the battlefield (``numberOfEnemiesOnBattlefield``) plus three, to make room for a gap, the gun and then the lives indicator.
+     */
+    private var numberOfSpacesOnBattleField: Int {
+        return numberOfEnemiesOnBattlefield + 3
+    }
+    
+    private let livesScreenPosition = 3
+    private let gunScreenPosition = 2
     
     /// The number of points an ememy needs to move for one step.
     private var stepIncrement: CGFloat {
         // the screen is split into 'step' spaces for the enemies plus 1 space for the player and another for the lives indicator
-        return self.size.width/CGFloat(self.numberOfEnemiesOnBattlefield + 2)
+        return self.size.width/CGFloat(self.numberOfSpacesOnBattleField)
     }
     
-    /// Returns whether the first enemy has reached position 2
+    /// Returns whether the first enemy has reached the lives indicator position
     private var enemiesInvaded: Bool {
-        return self.enemies.first?.numberNode.screenPosition == 2
+        return self.enemies.first?.numberNode.screenPosition == self.numberOfSpacesOnBattleField - self.numberOfEnemiesOnBattlefield
     }
     
     /**
      Based on the number of steps and the width of an enemy. Assumes all enemies are the same width.
      */
     private var enemyEntryStartPoint: CGPoint {
-        return positionAtStep(self.numberOfEnemiesOnBattlefield + 2)
+        return positionAtStep(self.numberOfSpacesOnBattleField)
     }
     
     // MARK: - Public Properties
+    
+    /**
+     The number of enemies that are visible on the battlefield.
+     
+     The default value is 6, but can change this for larger screens
+     */
+    private var numberOfEnemiesOnBattlefield: Int = 6
     
     /**
      The time interval enemies wait before taking each step.
@@ -63,6 +79,8 @@ class BattlefieldScene: SKScene {
     
     /**
      Speed of enemies, as measured by the time it takes to take one step
+     
+     Property is deprecated, use ``stepTimeInterval`` instead
      */
     @available(*, deprecated, message: "Use stepTimeInterval instead")
     public var currentSpeed: CGFloat = 50
@@ -72,14 +90,16 @@ class BattlefieldScene: SKScene {
      */
     public lazy var gun: GunNode = {
         let player = GunNode(value: 1)
-        player.position = positionAtStep(1)
+        player.position = positionAtStep(self.gunScreenPosition)
         return player
     }()
     
-    /// Node that represents the number of lives left
+    /**
+     ``DigitalLivesNode`` SKSpriteNode that represents the number of lives left
+     */
     public lazy var lives: DigitalLivesNode = {
         let lives = DigitalLivesNode(lives: 3)
-        lives.position = positionAtStep(2)
+        lives.position = positionAtStep(self.livesScreenPosition)
         lives.lives = 3
         return lives
     }()
@@ -97,6 +117,13 @@ class BattlefieldScene: SKScene {
         return CGPoint(x: self.stepIncrement * CGFloat(step) - 0.5 * self.stepIncrement, y: self.size.height/2)
     }
     
+    /**
+     Removes all nodes from the scene
+     */
+    private func clearScreen() {
+        self.removeEnemies()
+        self.removeAllChildren()
+    }
     
     // MARK: - Initialisation
     
@@ -120,6 +147,44 @@ class BattlefieldScene: SKScene {
     }
     
     // MARK: - Public Methods
+    
+    /**
+     Displays numbers and spaces to the screen.
+     
+     Note you can only display the numbers 0 to 9 and spaces, all other characters will be ignored.
+     
+     Additionally, if the number of characters in the message exceed the space on the screen as indicated by ``numberOfSpacesOnBattleField``, they will not be displayed
+     */
+    public func displayMessage(message: String) {
+        
+        // clear the battlefield
+        self.clearScreen()
+        
+        // 1 base position to place character on screen
+        var position = 1
+        while position <= self.numberOfSpacesOnBattleField && position <= message.count {
+            var value = NumberNodeValue.space.rawValue
+            let char = message[position - 1]
+            
+            if char.isNumber {
+                value = Int(String(message[position - 1])) ?? NumberNodeValue.space.rawValue
+            } else {
+                // only characters allowed are space and hyphen
+                if char == " " {
+                    value = NumberNodeValue.space.rawValue
+                } else if char == "-" {
+                    value = NumberNodeValue.onebar.rawValue
+                }
+            }
+            
+            // create a node to represent character
+            let node = DigitalCharacterNode(value: value)
+            node.position = self.positionAtStep(position)
+            self.addChild(node)
+            
+            position += 1
+        }
+    }
     
     /**
      Initiates the game loop, move enemies, add new enemy, move, add...
@@ -236,7 +301,7 @@ class BattlefieldScene: SKScene {
         self.enemies.append(enemyNode)
         
         enemyNode.numberNode.position = self.enemyEntryStartPoint
-        enemyNode.numberNode.screenPosition = self.numberOfEnemiesOnBattlefield + 2
+        enemyNode.numberNode.screenPosition = self.numberOfSpacesOnBattleField
         enemyNode.numberNode.zPosition = 0
         
         addChild(enemyNode.numberNode)
