@@ -8,6 +8,25 @@
 import Foundation
 
 /**
+ Status of the enemy, alive, dead or ready to battle!
+ */
+enum EnemyStatus {
+    /// Enemy is engaged on the battlefield and still alive
+    case Alive
+    /// Enemy is on the battlefield but dead
+    case Dead
+    /// Enemy is ready to come on the battlefield
+    case Ready
+}
+
+enum EnemyType {
+    /// Regular soldier
+    case Soldier
+    /// Mothership, extra points for killing
+    case Mothership
+}
+
+/**
  Structure that represents an enemy
  */
 struct Enemy: Equatable {
@@ -25,23 +44,4 @@ struct Enemy: Equatable {
     /// The status of the enemy.
     var status: EnemyStatus = .Ready
     
-}
-
-/**
- Status of the enemy, alive, dead or ready to battle!
- */
-enum EnemyStatus {
-    /// Enemy is engaged on the battlefield and still alive
-    case Alive
-    /// Enemy is on the battlefield but dead
-    case Dead
-    /// Enemy is ready to come on the battlefield
-    case Ready
-}
-
-enum EnemyType {
-    /// Regular soldier
-    case Soldier
-    /// Mothership, extra points for killing
-    case Mothership
 }

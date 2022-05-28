@@ -11,6 +11,7 @@ import Foundation
 enum AppModules: String, ViperitModule {
     case game
     case loader
+    case calculator
     var viewType: ViperitViewType {
         if self == .loader {
             return .storyboard

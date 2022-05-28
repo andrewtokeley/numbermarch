@@ -8,7 +8,7 @@
 import Foundation
 import SpriteKit
 
-enum NumberNodeValue: Int {
+enum DisplayCharacter: Int {
     case zero = 0
     case one = 1
     case two = 2

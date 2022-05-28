@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Viperit
 
 // MARK: - CalculatorPresenter Class
 final class CalculatorPresenter: Presenter {

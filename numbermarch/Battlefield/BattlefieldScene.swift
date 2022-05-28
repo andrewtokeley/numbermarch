@@ -164,17 +164,17 @@ class BattlefieldScene: SKScene {
         var position = self.numberOfSpacesOnBattleField
         var charIndex = message.count - 1
         while charIndex >= 0 {
-            var value = NumberNodeValue.space.rawValue
+            var value = DisplayCharacter.space.rawValue
             let char = message[charIndex]
             
             if char.isNumber {
-                value = Int(String(char)) ?? NumberNodeValue.space.rawValue
+                value = Int(String(char)) ?? DisplayCharacter.space.rawValue
             } else {
                 // only characters allowed are space and hyphen
                 if char == " " {
-                    value = NumberNodeValue.space.rawValue
+                    value = DisplayCharacter.space.rawValue
                 } else if char == "-" {
-                    value = NumberNodeValue.onebar.rawValue
+                    value = DisplayCharacter.onebar.rawValue
                 }
             }
             

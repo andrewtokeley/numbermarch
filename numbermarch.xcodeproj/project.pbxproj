@@ -58,6 +58,9 @@
 		D86D00AF28303D1100113F26 /* NSArray+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D86D00AB28303D1100113F26 /* NSArray+PureLayout.m */; };
 		D86D00B128303E3D00113F26 /* AppModules.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86D00B028303E3D00113F26 /* AppModules.swift */; };
 		D86D00B328306ECC00113F26 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D86D00B228306ECC00113F26 /* LaunchScreen.storyboard */; };
+		D878A8912841D5D1001CD2F9 /* ScreenProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878A8902841D5D1001CD2F9 /* ScreenProtocol.swift */; };
+		D878A8932841D83F001CD2F9 /* KeyboardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878A8922841D83F001CD2F9 /* KeyboardDelegate.swift */; };
+		D878A8962841DA6C001CD2F9 /* ScreenScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878A8952841DA6C001CD2F9 /* ScreenScene.swift */; };
 		D87ED4CD2832D8DE00BA6DF4 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87ED4CC2832D8DE00BA6DF4 /* String.swift */; };
 		D87ED4CF2832DCE800BA6DF4 /* WarRulesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87ED4CE2832DCE800BA6DF4 /* WarRulesProtocol.swift */; };
 		D87ED4D12832E1E400BA6DF4 /* BaseWarRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87ED4D02832E1E400BA6DF4 /* BaseWarRules.swift */; };
@@ -139,6 +142,9 @@
 		D86D00AC28303D1100113F26 /* NSLayoutConstraint+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+PureLayout.h"; sourceTree = "<group>"; };
 		D86D00B028303E3D00113F26 /* AppModules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModules.swift; sourceTree = "<group>"; };
 		D86D00B228306ECC00113F26 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D878A8902841D5D1001CD2F9 /* ScreenProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenProtocol.swift; sourceTree = "<group>"; };
+		D878A8922841D83F001CD2F9 /* KeyboardDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDelegate.swift; sourceTree = "<group>"; };
+		D878A8952841DA6C001CD2F9 /* ScreenScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenScene.swift; sourceTree = "<group>"; };
 		D87ED4CC2832D8DE00BA6DF4 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		D87ED4CE2832DCE800BA6DF4 /* WarRulesProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarRulesProtocol.swift; sourceTree = "<group>"; };
 		D87ED4D02832E1E400BA6DF4 /* BaseWarRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseWarRules.swift; sourceTree = "<group>"; };
@@ -248,11 +254,9 @@
 		D8603870282F4B2600781EA5 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D878A88F2841D59B001CD2F9 /* War */,
+				D878A88E2841D58B001CD2F9 /* Calculator */,
 				D87ED4D628349F3C00BA6DF4 /* Rules */,
-				D8603871282F4B3A00781EA5 /* Battle.swift */,
-				D8603873282F4B4F00781EA5 /* Enemy.swift */,
-				D8603875282F4C4900781EA5 /* BattleDelegate.swift */,
-				D87ED4D22832E37E00BA6DF4 /* War.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -289,6 +293,7 @@
 		D86D005D28302F5700113F26 /* Battlefield */ = {
 			isa = PBXGroup;
 			children = (
+				D878A8942841DA56001CD2F9 /* Screen */,
 				D86D0062283031B700113F26 /* BattlefieldScene.swift */,
 				D82F3E2F2830862F00436EDF /* BattlefieldSceneDelegate.swift */,
 				D82F3E37283226FA00436EDF /* CharacterNode.swift */,
@@ -355,6 +360,34 @@
 				D86D00A528303D1100113F26 /* PureLayoutDefines.h */,
 			);
 			path = PureLayout;
+			sourceTree = "<group>";
+		};
+		D878A88E2841D58B001CD2F9 /* Calculator */ = {
+			isa = PBXGroup;
+			children = (
+				D878A8902841D5D1001CD2F9 /* ScreenProtocol.swift */,
+				D878A8922841D83F001CD2F9 /* KeyboardDelegate.swift */,
+			);
+			path = Calculator;
+			sourceTree = "<group>";
+		};
+		D878A88F2841D59B001CD2F9 /* War */ = {
+			isa = PBXGroup;
+			children = (
+				D8603871282F4B3A00781EA5 /* Battle.swift */,
+				D8603873282F4B4F00781EA5 /* Enemy.swift */,
+				D8603875282F4C4900781EA5 /* BattleDelegate.swift */,
+				D87ED4D22832E37E00BA6DF4 /* War.swift */,
+			);
+			path = War;
+			sourceTree = "<group>";
+		};
+		D878A8942841DA56001CD2F9 /* Screen */ = {
+			isa = PBXGroup;
+			children = (
+				D878A8952841DA6C001CD2F9 /* ScreenScene.swift */,
+			);
+			path = Screen;
 			sourceTree = "<group>";
 		};
 		D87ED4D628349F3C00BA6DF4 /* Rules */ = {
@@ -470,6 +503,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D87ED4D32832E37E00BA6DF4 /* War.swift in Sources */,
+				D878A8912841D5D1001CD2F9 /* ScreenProtocol.swift in Sources */,
 				D87ED4CD2832D8DE00BA6DF4 /* String.swift in Sources */,
 				D86D00932830393F00113F26 /* Presenter.swift in Sources */,
 				D86D005928302EDB00113F26 /* GamePresenter.swift in Sources */,
@@ -478,6 +512,7 @@
 				D86D009E2830398000113F26 /* UserInterface+SwiftUI.swift in Sources */,
 				D8603876282F4C4900781EA5 /* BattleDelegate.swift in Sources */,
 				D86D00AF28303D1100113F26 /* NSArray+PureLayout.m in Sources */,
+				D878A8962841DA6C001CD2F9 /* ScreenScene.swift in Sources */,
 				D86D0063283031B700113F26 /* BattlefieldScene.swift in Sources */,
 				D8603874282F4B4F00781EA5 /* Enemy.swift in Sources */,
 				D82F3E342830BF8700436EDF /* DigitalLivesNode.swift in Sources */,
@@ -511,6 +546,7 @@
 				D86D00A22830398000113F26 /* UserInterface+Collection.swift in Sources */,
 				D86D00972830393F00113F26 /* ViperitModule.swift in Sources */,
 				D86D008F2830393F00113F26 /* DisplayData.swift in Sources */,
+				D878A8932841D83F001CD2F9 /* KeyboardDelegate.swift in Sources */,
 				D86D00912830393F00113F26 /* UserInterface.swift in Sources */,
 				D824E4172841D02B00C144F1 /* CalculatorView.swift in Sources */,
 				D82F3E2E28307B7E00436EDF /* WarService.swift in Sources */,

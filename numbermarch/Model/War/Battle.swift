@@ -7,6 +7,19 @@
 
 import Foundation
 
+/**
+ Enumerator to identify unhandled errors related to a Battle instance.
+ */
+enum BattleError: Error {
+    case ArmyHasNoEnemies
+    case TooManyEnemiesInArmy
+}
+
+/**
+ Represents a SpaceInvaders battle where digits move across the screen and you have to shoot them down before they get too close.
+ 
+ Battle instances are typically used within a ``War`` instance to represent the waves of increasingly fast battles you must wage.
+ */
 class Battle {
     
     // MARK: - Public Properties
@@ -15,7 +28,7 @@ class Battle {
     public var delegate: BattleDelegate?
     
     /**
-     Enemies who are still alive on the battlefield
+     Enemies who are alive on the battlefield
      */
     public var enemies: [Enemy]! {
         return army.filter { $0.status == EnemyStatus.Alive }
@@ -34,7 +47,7 @@ class Battle {
     private var shotTotal: Int = 0
     
     /**
-    Returns the enemy that is lined up to enter the battlefield next
+    Returns the enemy that is lined up to enter the battlefield next.
      */
     private var nextEnemyIndex: Int? {
         return army.firstIndex(where: { $0.status == .Ready })
@@ -78,9 +91,11 @@ class Battle {
     
     /**
      Adds a mothership to the enemies army. It will be inserted before the current  nextEnemy and therefore will become the nextEnemy to enter the battlefield.
+     
+     Whether to add a Mothership is determined by asking the BattlefieldDelegate after each successful kill. Different war rules will determine the criteria. Classic rule is when you kills enemies whose values add up to a multiple of 10.
      */
     private func addMothership() {
-        let mothership = Enemy(value: 10, status: .Ready)
+        let mothership = Enemy(value: DisplayCharacter.mothership.rawValue, status: .Ready)
         
         // add the mothership before the nextEnemy
         if let index = self.nextEnemyIndex {
@@ -165,12 +180,4 @@ class Battle {
         self.delegate?.battle(self, shotMissedWithValue: value)        
     }
     
-}
-
-/**
- Enumerator to identify unhandled errors related to a Battle instance.
- */
-enum BattleError: Error {
-    case ArmyHasNoEnemies
-    case TooManyEnemiesInArmy
 }

@@ -6,7 +6,7 @@
 //
 //
 
-import Viperit
+
 
 //MARK: - CalculatorRouter API
 protocol CalculatorRouterApi: RouterProtocol {
@@ -14,6 +14,7 @@ protocol CalculatorRouterApi: RouterProtocol {
 
 //MARK: - CalculatorView API
 protocol CalculatorViewApi: UserInterfaceProtocol {
+    
 }
 
 //MARK: - CalculatorPresenter API

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Viperit
+
 
 // MARK: - CalculatorDisplayData class
 final class CalculatorDisplayData: DisplayData {

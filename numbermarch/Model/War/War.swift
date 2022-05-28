@@ -7,6 +7,9 @@
 
 import Foundation
 
+/**
+ A War class represents a set of Battles that need to be fought before victory is achieved.
+ */
 class War {
     
     // MARK: - Private Properties
