@@ -187,7 +187,10 @@ class BattlefieldScene: SKScene {
     }
     
     /**
-     Initiates the game loop, move enemies, add new enemy, move, add...
+     Initiates the game loop to march enemies each step, add new enemies and repeat.
+     
+     - Parameters:
+        - addFirst: if true, each iteration will first add a new enemy (if one exists) and then march the enemies all forward. Otherwise, new enemies are added after the march step. This is useful when restarting the march after killing an enemy and retreating other enemies. In this case you want to move first then add. If you have started a new battle then you need to add first.
      */
     public func advanceEnemies(addFirst: Bool = true) {
 
