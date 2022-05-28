@@ -149,7 +149,7 @@ class BattlefieldScene: SKScene {
     // MARK: - Public Methods
     
     /**
-     Displays numbers and spaces to the screen.
+     Displays numbers and spaces to the screen. Display is always right aligned.
      
      Note you can only display the numbers 0 to 9 and spaces, all other characters will be ignored.
      
@@ -160,14 +160,15 @@ class BattlefieldScene: SKScene {
         // clear the battlefield
         self.clearScreen()
         
-        // 1 base position to place character on screen
-        var position = 1
-        while position <= self.numberOfSpacesOnBattleField && position <= message.count {
+        // 1 base position to place character on screen. Start at the far right.
+        var position = self.numberOfSpacesOnBattleField
+        var charIndex = message.count - 1
+        while charIndex >= 0 {
             var value = NumberNodeValue.space.rawValue
-            let char = message[position - 1]
+            let char = message[charIndex]
             
             if char.isNumber {
-                value = Int(String(message[position - 1])) ?? NumberNodeValue.space.rawValue
+                value = Int(String(char)) ?? NumberNodeValue.space.rawValue
             } else {
                 // only characters allowed are space and hyphen
                 if char == " " {
@@ -182,7 +183,8 @@ class BattlefieldScene: SKScene {
             node.position = self.positionAtStep(position)
             self.addChild(node)
             
-            position += 1
+            position -= 1
+            charIndex -= 1
         }
     }
     

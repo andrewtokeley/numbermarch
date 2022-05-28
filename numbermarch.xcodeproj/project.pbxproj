@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		D816B5BC283D649000907412 /* GunNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D816B5BB283D649000907412 /* GunNode.swift */; };
 		D824E40B28416CD900C144F1 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D824E40A28416CD900C144F1 /* README.md */; };
+		D824E4122841D02B00C144F1 /* CalculatorDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D824E40C2841D02B00C144F1 /* CalculatorDisplayData.swift */; };
+		D824E4132841D02B00C144F1 /* CalculatorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D824E40D2841D02B00C144F1 /* CalculatorPresenter.swift */; };
+		D824E4142841D02B00C144F1 /* CalculatorRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D824E40E2841D02B00C144F1 /* CalculatorRouter.swift */; };
+		D824E4152841D02B00C144F1 /* CalculatorModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D824E40F2841D02B00C144F1 /* CalculatorModuleApi.swift */; };
+		D824E4162841D02B00C144F1 /* CalculatorInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D824E4102841D02B00C144F1 /* CalculatorInteractor.swift */; };
+		D824E4172841D02B00C144F1 /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D824E4112841D02B00C144F1 /* CalculatorView.swift */; };
 		D82F3E2A2830783500436EDF /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82F3E292830783500436EDF /* UIColorExtension.swift */; };
 		D82F3E2C28307AED00436EDF /* WarFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82F3E2B28307AED00436EDF /* WarFactory.swift */; };
 		D82F3E2E28307B7E00436EDF /* WarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82F3E2D28307B7E00436EDF /* WarService.swift */; };
@@ -74,6 +80,12 @@
 /* Begin PBXFileReference section */
 		D816B5BB283D649000907412 /* GunNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GunNode.swift; sourceTree = "<group>"; };
 		D824E40A28416CD900C144F1 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D824E40C2841D02B00C144F1 /* CalculatorDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorDisplayData.swift; sourceTree = "<group>"; };
+		D824E40D2841D02B00C144F1 /* CalculatorPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorPresenter.swift; sourceTree = "<group>"; };
+		D824E40E2841D02B00C144F1 /* CalculatorRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorRouter.swift; sourceTree = "<group>"; };
+		D824E40F2841D02B00C144F1 /* CalculatorModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorModuleApi.swift; sourceTree = "<group>"; };
+		D824E4102841D02B00C144F1 /* CalculatorInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorInteractor.swift; sourceTree = "<group>"; };
+		D824E4112841D02B00C144F1 /* CalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
 		D82F3E292830783500436EDF /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		D82F3E2B28307AED00436EDF /* WarFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarFactory.swift; sourceTree = "<group>"; };
 		D82F3E2D28307B7E00436EDF /* WarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarService.swift; sourceTree = "<group>"; };
@@ -154,6 +166,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D824E4182841D03700C144F1 /* Calculator */ = {
+			isa = PBXGroup;
+			children = (
+				D824E40C2841D02B00C144F1 /* CalculatorDisplayData.swift */,
+				D824E40D2841D02B00C144F1 /* CalculatorPresenter.swift */,
+				D824E40E2841D02B00C144F1 /* CalculatorRouter.swift */,
+				D824E40F2841D02B00C144F1 /* CalculatorModuleApi.swift */,
+				D824E4102841D02B00C144F1 /* CalculatorInteractor.swift */,
+				D824E4112841D02B00C144F1 /* CalculatorView.swift */,
+			);
+			path = Calculator;
+			sourceTree = "<group>";
+		};
 		D82F3E282830782300436EDF /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,6 +260,7 @@
 		D860387728302B4D00781EA5 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				D824E4182841D03700C144F1 /* Calculator */,
 				D860387828302B5400781EA5 /* Game */,
 				D86D00B028303E3D00113F26 /* AppModules.swift */,
 			);
@@ -456,9 +482,11 @@
 				D8603874282F4B4F00781EA5 /* Enemy.swift in Sources */,
 				D82F3E342830BF8700436EDF /* DigitalLivesNode.swift in Sources */,
 				D87ED4CF2832DCE800BA6DF4 /* WarRulesProtocol.swift in Sources */,
+				D824E4132841D02B00C144F1 /* CalculatorPresenter.swift in Sources */,
 				D86D00AD28303D1100113F26 /* NSLayoutConstraint+PureLayout.m in Sources */,
 				D86D005A28302EDB00113F26 /* GameRouter.swift in Sources */,
 				D86D005C28302EDB00113F26 /* GameView.swift in Sources */,
+				D824E4122841D02B00C144F1 /* CalculatorDisplayData.swift in Sources */,
 				D82F3E2C28307AED00436EDF /* WarFactory.swift in Sources */,
 				D860383B282F403500781EA5 /* AppDelegate.swift in Sources */,
 				D86D005B28302EDB00113F26 /* GameInteractor.swift in Sources */,
@@ -474,6 +502,7 @@
 				D82F3E2A2830783500436EDF /* UIColorExtension.swift in Sources */,
 				D87ED4D828349FED00BA6DF4 /* Mod10WarRules.swift in Sources */,
 				D82F3E3628317E0B00436EDF /* SKNodeExtension.swift in Sources */,
+				D824E4152841D02B00C144F1 /* CalculatorModuleApi.swift in Sources */,
 				D86D00952830393F00113F26 /* Module.swift in Sources */,
 				D86A48CE2838A6A800C3BE8D /* EnemyNode.swift in Sources */,
 				D86D006128302FE400113F26 /* DigitalCharacterEnemy.swift in Sources */,
@@ -483,8 +512,11 @@
 				D86D00972830393F00113F26 /* ViperitModule.swift in Sources */,
 				D86D008F2830393F00113F26 /* DisplayData.swift in Sources */,
 				D86D00912830393F00113F26 /* UserInterface.swift in Sources */,
+				D824E4172841D02B00C144F1 /* CalculatorView.swift in Sources */,
 				D82F3E2E28307B7E00436EDF /* WarService.swift in Sources */,
 				D8603872282F4B3A00781EA5 /* Battle.swift in Sources */,
+				D824E4142841D02B00C144F1 /* CalculatorRouter.swift in Sources */,
+				D824E4162841D02B00C144F1 /* CalculatorInteractor.swift in Sources */,
 				D86D00AE28303D1100113F26 /* ALView+PureLayout.m in Sources */,
 				D86D00962830393F00113F26 /* ViperitError.swift in Sources */,
 				D87ED4D12832E1E400BA6DF4 /* BaseWarRules.swift in Sources */,
