@@ -31,8 +31,27 @@ class Battle {
      Enemies who are alive on the battlefield
      */
     public var enemies: [Enemy]! {
-        return army.filter { $0.status == EnemyStatus.Alive }
+        return battlefield.filter({ $0?.status == EnemyStatus.Alive }).map { $0! }
     }
+    
+    /**
+     Represents the position of all the active enemies and spaces on the battlefield.
+     
+     The first element is one step away from the enemies winning the battle.
+     
+     The length of the array is equal to ``battleSize``
+     */
+    public var battlefield: [Enemy?] = [Enemy?]()
+    
+    /**
+     Maximum number of enemies on the battlefield before the battle is lost
+     */
+    public var battleSize: Int
+    
+    /**
+     Indicates whether the battle has been lost
+     */
+    public var battleLost: Bool = false
     
     // MARK: - Private Properties
 
@@ -44,7 +63,12 @@ class Battle {
     /**
      Internal total of the cummulative total of all enemies shot. This is used to determine whether a mother ship should be added
      */
-    private var shotTotal: Int = 0
+    //private var shotTotal: Int = 0
+    
+    /**
+     If the rules say you can spawn a mothership, but the enemies are aleady too advanced, set this flag to true to ensure the mothership will appear in the next wave (i.e. when the battle restarts after enemies have won and the user still has lives)
+     */
+    private var spawnMothershipInNextWave: Bool = false
     
     /**
     Returns the enemy that is lined up to enter the battlefield next.
@@ -56,7 +80,7 @@ class Battle {
     /**
      Returns the number of enemies still alive or ready to enter the battlefield
      */
-    private var remainingEnemies: Int {
+    public var remainingEnemies: Int {
         let remaining = army.filter({ $0.status == .Alive || $0.status == .Ready })
         return remaining.count
     }
@@ -65,13 +89,21 @@ class Battle {
     
     /**
      Default constructor
+     
+     - Parameters:
+        - army: array of enemies representing the entire army
+        - battleSize: the number of enemies allowed on a battle before the battle is lost
+        - delegate: called to notify of significant battle events
      */
-    init(army: [Enemy], delegate: BattleDelegate? = nil) throws {
+    init(army: [Enemy], battleSize: Int, delegate: BattleDelegate? = nil) throws {
         guard army.count != 0 else { throw BattleError.ArmyHasNoEnemies }
         guard army.count <= 30 else { throw BattleError.TooManyEnemiesInArmy }
         
         self.delegate = delegate
         self.army = army
+        self.battleLost = false
+        self.battleSize = battleSize
+        self.battlefield = Array(repeating: nil, count: battleSize)
     }
     
     /**
@@ -83,6 +115,7 @@ class Battle {
         
         try self.init(
             army: armyValues.map( { return Enemy(value: $0) }),
+            battleSize: 6,
             delegate: delegate
         )
     }
@@ -106,6 +139,14 @@ class Battle {
         }
     }
     
+    private func handleBattleLost() {
+        self.battleLost = true
+        
+        // you lose any motherships that might have come in the next wave
+        self.spawnMothershipInNextWave = false
+        self.delegate?.battleLost()
+    }
+    
     // MARK: Methods
     
     /**
@@ -114,11 +155,45 @@ class Battle {
     public var nextEnemy: Enemy? {
         return army.first(where: { $0.status == .Ready })
     }
+    
+    /**
+     Advances the enemies on the battlefield one place and, if it exists, adds a new enemy onto the battlefield
+     
+     - Returns:
+     Returns true if a new enemy was successfully added, or the remaining enemies can still advance, otherwise false
+     */
+    public func advanceEnemies() -> Bool {
+        guard battleLost == false else { return false }
+        guard remainingEnemies != 0 else { return false }
+        
+        if self.battlefield[0] != nil {
+            self.handleBattleLost()
+            return false
+        } else {
+            // move all enemies up a place
+            for i in 0...self.battleSize - 2 {
+                self.battlefield[i] = self.battlefield[i + 1]
+            }
+            if let index = army.firstIndex(where: { $0.status == .Ready }) {
+                // add the next enemy at the end of the battlefield
+                self.army[index].status = .Alive
+                self.battlefield[self.battleSize - 1] = self.army[index]
+            } else {
+                // add a blank space at the end of the battlefield
+                self.battlefield[self.battleSize - 1] = nil
+            }
+        }
+        return true
+    }
+    
     /**
      Adds the next available enemy to the battlefield.
      */
     public func addNextEnemyToBattle() -> Enemy? {
         
+        if self.enemies.count == self.battleSize {
+            self.delegate?.battleLost()
+        }
         // get the next member of the army who is ready to fight
         if let index = army.firstIndex(where: { $0.status == .Ready })
         {
@@ -141,6 +216,13 @@ class Battle {
                 army[i].status = .Dead
             }
         }
+        self.battlefield = Array(repeating: nil, count: self.battleSize)
+        self.battleLost = false
+        
+        if self.spawnMothershipInNextWave {
+            self.addMothership()
+            self.spawnMothershipInNextWave = false
+        }
     }
     
     /**
@@ -153,24 +235,37 @@ class Battle {
     public func shoot(value: Int, distance: CGFloat = 0) {
         
         // find the first enemy who is still alive and kill them!
-        if let index = self.army.firstIndex(where: { $0.status == .Alive && $0.value == value }) {
+        if let armyIndex = self.army.firstIndex(where: { $0.status == .Alive && $0.value == value }),
+           let battlefieldIndex = self.battlefield.firstIndex(where: { $0?.value == value }) {
             
             // mark the enemy as toast
-            self.army[index].status = .Dead
+            self.army[armyIndex].status = .Dead
         
-            // keep a running total of the values of the enemies killed
-            self.shotTotal += self.army[index].value
+            // move all enemies before this back a space
+            for i in stride(from: battlefieldIndex, through: 1, by: -1) {
+                self.battlefield[i] = self.battlefield[i - 1]
+            }
+            self.battlefield[0] = nil
             
+//            // keep a running total of the values of the enemies killed
+//            self.shotTotal += self.army[armyIndex].value
+//
             // let listeners know a death occurred
-            self.delegate?.battle(self, killedEnemy: army[index], distance: distance)
+            self.delegate?.battle(self, killedEnemy: army[armyIndex], index: battlefieldIndex)
             
             // let listeners know if the battle is over
+            print("remaining \(remainingEnemies)")
             if remainingEnemies == 0 {
                 self.delegate?.battleAllEnemiesKilled(self)
             } else {
-                // if the game isn't over yet, see if we need to add a mothership
+                // if the game isn't over yet and enemies haven't finished
                 if self.delegate?.battle(self, shouldSpawnMotheshipAfterKillOfValue: value) ?? false {
-                    self.addMothership()
+                    if self.battlefield.last != nil {
+                        self.addMothership()
+                        self.spawnMothershipInNextWave = false
+                    } else {
+                        self.spawnMothershipInNextWave = true
+                    }
                 }
             }
             return

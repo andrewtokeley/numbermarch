@@ -37,7 +37,7 @@ extension WarService: WarServiceInterface {
     
     func createWar(rules: WarRulesProtocol, completion: ((War, Error?) -> Void)?) {
         let battles = self.createBattles(rules: rules)
-        let war = War(battles: battles) //, rules: rules)
+        let war = War(battles: battles, rules: rules)
         completion?(war, nil)
     }
     

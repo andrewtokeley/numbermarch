@@ -16,10 +16,14 @@ class Mod10WarRules: BaseWarRules {
     }
     
     override func shouldSpawnMothership(lastKillValue: Int, level: Int) -> Bool {
-        self.cummulativeKillScore += lastKillValue
-        if self.cummulativeKillScore > 0 && self.cummulativeKillScore % 10 == 0 {
-            self.cummulativeKillScore = 0
-            return true
+        if let character = DisplayCharacter(rawValue: lastKillValue) {
+            if character != .mothership {
+                self.cummulativeKillScore += lastKillValue
+                if self.cummulativeKillScore > 0 && self.cummulativeKillScore % 10 == 0 {
+                    self.cummulativeKillScore = 0
+                    return true
+                }
+            }
         }
         return false
     }

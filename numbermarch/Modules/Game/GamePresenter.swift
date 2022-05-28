@@ -137,19 +137,18 @@ class GamePresenter: Presenter {
 }
 
 extension GamePresenter: BattleDelegate {
-
+    func battleLost() {
+        //
+    }
+    
     func battle(_ battle: Battle, shouldSpawnMotheshipAfterKillOfValue value: Int) -> Bool {
         return interactor.shouldSpawnMotheship(value: value)
     }
     
-    func battle(_ battle: Battle, killedEnemy enemy: Enemy, distance: CGFloat) {
-        view.killEnemy(enemy: enemy)
-        interactor.didKillEnemy(enemy: enemy, distance: distance)
+    func battle(_ battle: Battle, killedEnemy: Enemy, index: Int) {
+        view.killEnemy(enemy: killedEnemy)
+        interactor.didKillEnemy(enemy: killedEnemy, distance: 0)
     }
-    
-//    func battle(_ battle: Battle, newEnemy enemy: Enemy) {
-//        //view.displayNewEnemy(enemy: enemy)
-//    }
     
     func battle(_ battle: Battle, shotMissedWithValue: Int) {
         //

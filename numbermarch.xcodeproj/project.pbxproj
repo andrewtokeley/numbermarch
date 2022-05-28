@@ -23,6 +23,10 @@
 		D82F3E3628317E0B00436EDF /* SKNodeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82F3E3528317E0B00436EDF /* SKNodeExtension.swift */; };
 		D82F3E38283226FB00436EDF /* CharacterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82F3E37283226FA00436EDF /* CharacterNode.swift */; };
 		D82F3E3A2832343B00436EDF /* CGPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82F3E392832343B00436EDF /* CGPointExtension.swift */; };
+		D84F148A2841FE7E00886521 /* SpaceInvaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84F14892841FE7E00886521 /* SpaceInvaders.swift */; };
+		D84F148C2841FE8900886521 /* GamesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84F148B2841FE8900886521 /* GamesProtocol.swift */; };
+		D84F148E28420D1300886521 /* CalculatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84F148D28420D1300886521 /* CalculatorProtocol.swift */; };
+		D84F14902842209500886521 /* ScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84F148F2842209500886521 /* ScreenTests.swift */; };
 		D860383B282F403500781EA5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D860383A282F403500781EA5 /* AppDelegate.swift */; };
 		D8603844282F403600781EA5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8603843282F403600781EA5 /* Assets.xcassets */; };
 		D8603852282F403600781EA5 /* numbermarchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8603851282F403600781EA5 /* numbermarchTests.swift */; };
@@ -97,6 +101,10 @@
 		D82F3E3528317E0B00436EDF /* SKNodeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKNodeExtension.swift; sourceTree = "<group>"; };
 		D82F3E37283226FA00436EDF /* CharacterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterNode.swift; sourceTree = "<group>"; };
 		D82F3E392832343B00436EDF /* CGPointExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPointExtension.swift; sourceTree = "<group>"; };
+		D84F14892841FE7E00886521 /* SpaceInvaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceInvaders.swift; sourceTree = "<group>"; };
+		D84F148B2841FE8900886521 /* GamesProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesProtocol.swift; sourceTree = "<group>"; };
+		D84F148D28420D1300886521 /* CalculatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorProtocol.swift; sourceTree = "<group>"; };
+		D84F148F2842209500886521 /* ScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTests.swift; sourceTree = "<group>"; };
 		D8603837282F403500781EA5 /* numbermarch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = numbermarch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D860383A282F403500781EA5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8603843282F403600781EA5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -175,12 +183,14 @@
 		D824E4182841D03700C144F1 /* Calculator */ = {
 			isa = PBXGroup;
 			children = (
+				D878A8942841DA56001CD2F9 /* Screen */,
 				D824E40C2841D02B00C144F1 /* CalculatorDisplayData.swift */,
 				D824E40D2841D02B00C144F1 /* CalculatorPresenter.swift */,
 				D824E40E2841D02B00C144F1 /* CalculatorRouter.swift */,
 				D824E40F2841D02B00C144F1 /* CalculatorModuleApi.swift */,
 				D824E4102841D02B00C144F1 /* CalculatorInteractor.swift */,
 				D824E4112841D02B00C144F1 /* CalculatorView.swift */,
+				D84F148D28420D1300886521 /* CalculatorProtocol.swift */,
 			);
 			path = Calculator;
 			sourceTree = "<group>";
@@ -194,6 +204,32 @@
 				D87ED4CC2832D8DE00BA6DF4 /* String.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D84F14862841FC3E00886521 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D82F3E2B28307AED00436EDF /* WarFactory.swift */,
+				D82F3E2D28307B7E00436EDF /* WarService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		D84F14872841FE6000886521 /* Games */ = {
+			isa = PBXGroup;
+			children = (
+				D84F14882841FE6900886521 /* SpaceInvaders */,
+				D84F148B2841FE8900886521 /* GamesProtocol.swift */,
+			);
+			path = Games;
+			sourceTree = "<group>";
+		};
+		D84F14882841FE6900886521 /* SpaceInvaders */ = {
+			isa = PBXGroup;
+			children = (
+				D84F14892841FE7E00886521 /* SpaceInvaders.swift */,
+			);
+			path = SpaceInvaders;
 			sourceTree = "<group>";
 		};
 		D860382E282F403500781EA5 = {
@@ -218,17 +254,18 @@
 		D8603839282F403500781EA5 /* numbermarch */ = {
 			isa = PBXGroup;
 			children = (
+				D860386F282F42DD00781EA5 /* numbermarch-Bridging-Header.h */,
+				D8603848282F403600781EA5 /* Info.plist */,
+				D86D00B228306ECC00113F26 /* LaunchScreen.storyboard */,
 				D860383A282F403500781EA5 /* AppDelegate.swift */,
 				D8603843282F403600781EA5 /* Assets.xcassets */,
 				D86D005D28302F5700113F26 /* Battlefield */,
 				D82F3E282830782300436EDF /* Extensions */,
 				D86A48C628383CDC00C3BE8D /* Images */,
-				D8603848282F403600781EA5 /* Info.plist */,
-				D86D00B228306ECC00113F26 /* LaunchScreen.storyboard */,
 				D8603870282F4B2600781EA5 /* Model */,
 				D860387728302B4D00781EA5 /* Modules */,
-				D860386F282F42DD00781EA5 /* numbermarch-Bridging-Header.h */,
 				D860386A282F408200781EA5 /* PodImports */,
+				D84F14862841FC3E00886521 /* Services */,
 			);
 			path = numbermarch;
 			sourceTree = "<group>";
@@ -238,6 +275,7 @@
 			children = (
 				D8603851282F403600781EA5 /* numbermarchTests.swift */,
 				D87ED4D428337AF500BA6DF4 /* WarTests.swift */,
+				D84F148F2842209500886521 /* ScreenTests.swift */,
 			);
 			path = numbermarchTests;
 			sourceTree = "<group>";
@@ -254,6 +292,7 @@
 		D8603870282F4B2600781EA5 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D84F14872841FE6000886521 /* Games */,
 				D878A88F2841D59B001CD2F9 /* War */,
 				D878A88E2841D58B001CD2F9 /* Calculator */,
 				D87ED4D628349F3C00BA6DF4 /* Rules */,
@@ -293,7 +332,6 @@
 		D86D005D28302F5700113F26 /* Battlefield */ = {
 			isa = PBXGroup;
 			children = (
-				D878A8942841DA56001CD2F9 /* Screen */,
 				D86D0062283031B700113F26 /* BattlefieldScene.swift */,
 				D82F3E2F2830862F00436EDF /* BattlefieldSceneDelegate.swift */,
 				D82F3E37283226FA00436EDF /* CharacterNode.swift */,
@@ -301,8 +339,6 @@
 				D86A48C7283840AD00C3BE8D /* DigitalCharacterNode.swift */,
 				D82F3E332830BF8700436EDF /* DigitalLivesNode.swift */,
 				D86A48C92838A1E900C3BE8D /* NumberNode.swift */,
-				D82F3E2B28307AED00436EDF /* WarFactory.swift */,
-				D82F3E2D28307B7E00436EDF /* WarService.swift */,
 				D86A48CD2838A6A800C3BE8D /* EnemyNode.swift */,
 				D816B5BB283D649000907412 /* GunNode.swift */,
 			);
@@ -365,7 +401,6 @@
 		D878A88E2841D58B001CD2F9 /* Calculator */ = {
 			isa = PBXGroup;
 			children = (
-				D878A8902841D5D1001CD2F9 /* ScreenProtocol.swift */,
 				D878A8922841D83F001CD2F9 /* KeyboardDelegate.swift */,
 			);
 			path = Calculator;
@@ -386,6 +421,7 @@
 			isa = PBXGroup;
 			children = (
 				D878A8952841DA6C001CD2F9 /* ScreenScene.swift */,
+				D878A8902841D5D1001CD2F9 /* ScreenProtocol.swift */,
 			);
 			path = Screen;
 			sourceTree = "<group>";
@@ -516,6 +552,7 @@
 				D86D0063283031B700113F26 /* BattlefieldScene.swift in Sources */,
 				D8603874282F4B4F00781EA5 /* Enemy.swift in Sources */,
 				D82F3E342830BF8700436EDF /* DigitalLivesNode.swift in Sources */,
+				D84F148E28420D1300886521 /* CalculatorProtocol.swift in Sources */,
 				D87ED4CF2832DCE800BA6DF4 /* WarRulesProtocol.swift in Sources */,
 				D824E4132841D02B00C144F1 /* CalculatorPresenter.swift in Sources */,
 				D86D00AD28303D1100113F26 /* NSLayoutConstraint+PureLayout.m in Sources */,
@@ -523,7 +560,9 @@
 				D86D005C28302EDB00113F26 /* GameView.swift in Sources */,
 				D824E4122841D02B00C144F1 /* CalculatorDisplayData.swift in Sources */,
 				D82F3E2C28307AED00436EDF /* WarFactory.swift in Sources */,
+				D84F148A2841FE7E00886521 /* SpaceInvaders.swift in Sources */,
 				D860383B282F403500781EA5 /* AppDelegate.swift in Sources */,
+				D84F148C2841FE8900886521 /* GamesProtocol.swift in Sources */,
 				D86D005B28302EDB00113F26 /* GameInteractor.swift in Sources */,
 				D82F3E38283226FB00436EDF /* CharacterNode.swift in Sources */,
 				D86D00A12830398000113F26 /* UserInterface+Split.swift in Sources */,
@@ -566,6 +605,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D87ED4D528337AF500BA6DF4 /* WarTests.swift in Sources */,
+				D84F14902842209500886521 /* ScreenTests.swift in Sources */,
 				D8603852282F403600781EA5 /* numbermarchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

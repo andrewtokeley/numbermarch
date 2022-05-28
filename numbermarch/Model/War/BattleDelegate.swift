@@ -17,10 +17,10 @@ protocol BattleDelegate {
      
      - Parameters:
         - battle: battle instance in which the enemy was killed
-        - killedEnemy: the ``Enemy`` instance that was killed
-        - distance: the distance, in screen units, the enemy was from the defender.
+        - enemy: Enemy instance killed
+        - index: index of the enemy killed
      */
-    func battle(_ battle: Battle, killedEnemy enemy: Enemy, distance: CGFloat)
+    func battle(_ battle: Battle, killedEnemy: Enemy, index: Int)
     
     /**
      Implement this method to be notified when a shot was fired but missed its target
@@ -51,4 +51,9 @@ protocol BattleDelegate {
         - shouldSpawnMotheshipAfterKillOfValue: value of the last enemy killed
      */
     func battle(_ battle: Battle, shouldSpawnMotheshipAfterKillOfValue value: Int) -> Bool
+    
+    /**
+     Called when the battle is lost
+     */
+    func battleLost()
 }

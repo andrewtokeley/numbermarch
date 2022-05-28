@@ -38,7 +38,7 @@ struct Enemy: Equatable {
     
     /// Type of enemy
     var type: EnemyType {
-        return value == 0 ? .Mothership : .Soldier
+        return value == DisplayCharacter.mothership.rawValue ? .Mothership : .Soldier
     }
     
     /// The status of the enemy.

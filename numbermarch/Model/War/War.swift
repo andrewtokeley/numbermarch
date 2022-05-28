@@ -19,6 +19,8 @@ class War {
     
     // MARK: - Public Properties
     
+    public var rules: WarRulesProtocol
+    
     public var battle: Battle? {
         return (battleIndex >= 0 && battleIndex <= battles.count - 1) ? battles[battleIndex] : nil
     }
@@ -26,8 +28,9 @@ class War {
 
     // MARK: - Initialisers
     
-    init(battles: [Battle]) {
+    init(battles: [Battle], rules: WarRulesProtocol) {
         self.battles = battles
+        self.rules = rules
     }
     
     // MARK: - Public Methods

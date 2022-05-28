@@ -8,15 +8,19 @@
 
 import UIKit
 import SpriteKit
+import SwiftUI
 
 //MARK: CalculatorView Class
 final class CalculatorView: UserInterface {
     
     // MARK: - Public Properties
     private let GAME_SIZE: CGSize = CGSize(width: 300, height: 300)
-    public var keyboardDelegate: KeyboardDelegate?
+    
+    var keyboardDelegate: KeyboardDelegate?
     
     // MARK: - Private Properties
+    
+    private var game: GamesProtocol?
     
     private var screenScene: ScreenScene? {
         return screenView.scene as? ScreenScene
@@ -38,12 +42,22 @@ final class CalculatorView: UserInterface {
         return view
     }()
 
+    private lazy var gameButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Game", for: .normal)
+        button.setTitleColor(.gameBattlefieldText, for: .normal)
+        button.backgroundColor = .gameBattlefield
+        button.tag = CalculatorKey.game.rawValue
+        button.addTarget(self, action: #selector(keyboardButtonClick), for: .touchUpInside)
+        return button
+    }()
+    
     private lazy var aimButton: UIButton = {
         let button = UIButton()
         button.setTitle("Aim", for: .normal)
         button.setTitleColor(.gameBattlefieldText, for: .normal)
         button.backgroundColor = .gameBattlefield
-        button.tag = DisplayCharacter.five.rawValue
+        button.tag = CalculatorKey.point.rawValue
         button.addTarget(self, action: #selector(keyboardButtonClick), for: .touchUpInside)
         return button
     }()
@@ -53,7 +67,7 @@ final class CalculatorView: UserInterface {
         button.setTitle("Shoot", for: .normal)
         button.setTitleColor(.gameBattlefieldText, for: .normal)
         button.backgroundColor = .gameBattlefield
-        button.tag = DisplayCharacter.eight.rawValue
+        button.tag = CalculatorKey.plus.rawValue
         button.addTarget(self, action: #selector(keyboardButtonClick), for: .touchUpInside)
         return button
     }()
@@ -69,6 +83,8 @@ final class CalculatorView: UserInterface {
             scene.scaleMode = .aspectFit
             scene.backgroundColor = .gameBattlefield
             scene.freezeCharacters(screenPosition: 2)
+            self.game = SpaceInvaders(screen: scene)
+            self.keyboardDelegate = self.game as? KeyboardDelegate
             screenView.presentScene(scene)
         }
     }
@@ -84,7 +100,7 @@ final class CalculatorView: UserInterface {
         self.view.addSubview(aimButton)
         self.view.addSubview(shootButton)
         self.view.addSubview(screenView)
-        
+        self.view.addSubview(gameButton)
         self.setConstraints()
     }
     
@@ -101,6 +117,11 @@ final class CalculatorView: UserInterface {
         aimButton.autoPinEdge(toSuperviewEdge: .bottom, withInset: 100)
         aimButton.autoSetDimension(.width, toSize: 100)
         aimButton.autoSetDimension(.height, toSize: 100)
+        
+        gameButton.autoPinEdge(.left, to: .right, of: aimButton, withOffset: 10)
+        gameButton.autoPinEdge(toSuperviewEdge: .bottom, withInset: 100)
+        gameButton.autoSetDimension(.width, toSize: 100)
+        gameButton.autoSetDimension(.height, toSize: 100)
         
         shootButton.autoPinEdge(.right, to: .right, of: screenView)
         shootButton.autoPinEdge(toSuperviewEdge: .bottom, withInset: 100)
@@ -129,17 +150,13 @@ final class CalculatorView: UserInterface {
         if let input = sender.input {
             switch input {
             case UIKeyCommand.inputLeftArrow:
-                //let _ = self.battlefieldScene?.gun.aim()
+                self.keyboardDelegate?.keyPressed(key: .point)
                 return
             case UIKeyCommand.inputRightArrow:
-//                if battlefieldScene?.canShoot ?? false {
-//                    if let value = battlefieldScene?.aim() {
-//                        presenter.didShoot(value: value)
-//                    }
-//                }
+                self.keyboardDelegate?.keyPressed(key: .plus)
                 return
             case UIKeyCommand.inputUpArrow:
-                //presenter.didSelectNewGame()
+                self.game?.start()
                 return
             default: return
             }
@@ -147,8 +164,13 @@ final class CalculatorView: UserInterface {
     }
     
     @objc private func keyboardButtonClick(sender: UIButton) {
-        if let character = DisplayCharacter(rawValue: sender.tag) {
-            self.screenScene?.append(character)
+        if let key = CalculatorKey(rawValue: sender.tag) {
+            switch key {
+            case .game:
+                self.game?.start()
+            default:
+                self.keyboardDelegate?.keyPressed(key: key)
+            }
         }
     }
 }

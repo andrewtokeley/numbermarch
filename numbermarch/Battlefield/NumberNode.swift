@@ -8,6 +8,9 @@
 import Foundation
 import SpriteKit
 
+/**
+ Represents a character that can be displayed on a screen
+ */
 enum DisplayCharacter: Int {
     case zero = 0
     case one = 1

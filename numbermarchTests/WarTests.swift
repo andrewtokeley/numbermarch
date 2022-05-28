@@ -40,14 +40,23 @@ class WarTests: XCTestCase {
         
     }
     
-//    func testMothership10() {
-//        
-//        let war = War(battles: [
-//            try! Battle(armyValues: [1,5,3,6,5])
-//            ])
-//        war.battle?.delegate 
-//        
-//    }
+    func testMothership10() {
+        let expectation = self.expectation(description: "testMothership10")
+        var newWar: War?
+        
+        let rules = Mod10WarRules()
+        warService.createWar(rules: rules) { war, error in
+            newWar = war
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5, handler: nil)
+       
+        let battle = newWar?.moveToNextBattle() // first battle
+        let _ = battle?.advanceEnemies()
+        
+        
+        
+    }
 
 //    func testPerformanceExample() throws {
 //        // This is an example of a performance test case.
