@@ -55,6 +55,8 @@
 		D878A8912841D5D1001CD2F9 /* ScreenProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878A8902841D5D1001CD2F9 /* ScreenProtocol.swift */; };
 		D878A8932841D83F001CD2F9 /* KeyboardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878A8922841D83F001CD2F9 /* KeyboardDelegate.swift */; };
 		D878A8962841DA6C001CD2F9 /* ScreenScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878A8952841DA6C001CD2F9 /* ScreenScene.swift */; };
+		D878A89928446809001CD2F9 /* KeyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878A89828446809001CD2F9 /* KeyNode.swift */; };
+		D878A89B28446934001CD2F9 /* CalculatorKeyEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878A89A28446934001CD2F9 /* CalculatorKeyEnum.swift */; };
 		D87ED4CD2832D8DE00BA6DF4 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87ED4CC2832D8DE00BA6DF4 /* String.swift */; };
 		D87ED4CF2832DCE800BA6DF4 /* WarRulesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87ED4CE2832DCE800BA6DF4 /* WarRulesProtocol.swift */; };
 		D87ED4D32832E37E00BA6DF4 /* War.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87ED4D22832E37E00BA6DF4 /* War.swift */; };
@@ -131,6 +133,8 @@
 		D878A8902841D5D1001CD2F9 /* ScreenProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenProtocol.swift; sourceTree = "<group>"; };
 		D878A8922841D83F001CD2F9 /* KeyboardDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDelegate.swift; sourceTree = "<group>"; };
 		D878A8952841DA6C001CD2F9 /* ScreenScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenScene.swift; sourceTree = "<group>"; };
+		D878A89828446809001CD2F9 /* KeyNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyNode.swift; sourceTree = "<group>"; };
+		D878A89A28446934001CD2F9 /* CalculatorKeyEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorKeyEnum.swift; sourceTree = "<group>"; };
 		D87ED4CC2832D8DE00BA6DF4 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		D87ED4CE2832DCE800BA6DF4 /* WarRulesProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarRulesProtocol.swift; sourceTree = "<group>"; };
 		D87ED4D22832E37E00BA6DF4 /* War.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = War.swift; sourceTree = "<group>"; };
@@ -159,6 +163,7 @@
 		D824E4182841D03700C144F1 /* Calculator */ = {
 			isa = PBXGroup;
 			children = (
+				D878A897284467F1001CD2F9 /* Keys */,
 				D878A8942841DA56001CD2F9 /* Screen */,
 				D824E40C2841D02B00C144F1 /* CalculatorDisplayData.swift */,
 				D824E40D2841D02B00C144F1 /* CalculatorPresenter.swift */,
@@ -385,6 +390,15 @@
 			path = Screen;
 			sourceTree = "<group>";
 		};
+		D878A897284467F1001CD2F9 /* Keys */ = {
+			isa = PBXGroup;
+			children = (
+				D878A89828446809001CD2F9 /* KeyNode.swift */,
+				D878A89A28446934001CD2F9 /* CalculatorKeyEnum.swift */,
+			);
+			path = Keys;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -493,6 +507,7 @@
 				D86D009E2830398000113F26 /* UserInterface+SwiftUI.swift in Sources */,
 				D8603876282F4C4900781EA5 /* BattleDelegate.swift in Sources */,
 				D86D00AF28303D1100113F26 /* NSArray+PureLayout.m in Sources */,
+				D878A89928446809001CD2F9 /* KeyNode.swift in Sources */,
 				D878A8962841DA6C001CD2F9 /* ScreenScene.swift in Sources */,
 				D8603874282F4B4F00781EA5 /* Enemy.swift in Sources */,
 				D84F148E28420D1300886521 /* CalculatorProtocol.swift in Sources */,
@@ -525,6 +540,7 @@
 				D84F14972843252000886521 /* DefaultBattleRules.swift in Sources */,
 				D878A8932841D83F001CD2F9 /* KeyboardDelegate.swift in Sources */,
 				D86D00912830393F00113F26 /* UserInterface.swift in Sources */,
+				D878A89B28446934001CD2F9 /* CalculatorKeyEnum.swift in Sources */,
 				D824E4172841D02B00C144F1 /* CalculatorView.swift in Sources */,
 				D82F3E2E28307B7E00436EDF /* WarService.swift in Sources */,
 				D8603872282F4B3A00781EA5 /* Battle.swift in Sources */,

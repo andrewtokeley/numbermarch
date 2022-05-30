@@ -9,6 +9,7 @@ import Foundation
 
 import SpriteKit
 
+
 /**
  Represents a character that can be displayed on a screen
  */
@@ -104,6 +105,49 @@ class DigitalCharacterNode: SKSpriteNode {
         [0,0,0,0,0,0,1], // 1 life or hyphen
         [0,0,0,0,0,0,0], // space
     ]
+    
+    // MARK: - Initializers
+    
+    init(character: DigitalCharacter, size: CGSize = CGSize(width: 15, height: 40)) {
+        self.character = character
+        super.init(texture: nil, color: .clear, size: size)
+        
+        self.addChild(self.barTop)
+        self.addChild(self.barTopRight)
+        self.addChild(self.barBottomRight)
+        self.addChild(self.barBottom)
+        self.addChild(self.barBottomLeft)
+        self.addChild(self.barTopLeft)
+        self.addChild(self.barMiddle)
+        
+        self.bars.append(contentsOf: [self.barTop,
+                                      self.barTopRight,
+                                      self.barBottomRight,
+                                      self.barBottom,
+                                      self.barBottomLeft,
+                                      self.barTopLeft,
+                                      self.barMiddle])
+        self.configureCharacter(character)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Private Methods
+    
+    private func configureCharacter(_ character: DigitalCharacter) {
+        guard character.rawValue < self.valueBarMap.count else { return }
+        
+        let visibleBars = self.valueBarMap[character.rawValue]
+        for (index,item) in self.bars.enumerated() {
+            item.fillColor = visibleBars[index] == 1 ? UIColor.gameBattlefieldText : UIColor.gameBattlefieldTextBackground
+            item.strokeColor = visibleBars[index] == 1 ? UIColor.gameBattlefieldText : UIColor.gameBattlefieldTextBackground
+        }
+    }
+    
+    
+    // MARK: - Bar Nodes
     
     /// Array containing all the bars of the character
     private var bars:[SKShapeNode] = [SKShapeNode]()
@@ -282,46 +326,6 @@ class DigitalCharacterNode: SKSpriteNode {
         node.position = CGPoint(x: 0, y: 0)
         return node
     }()
-    
-    // MARK: - Initializers
-    
-    init(character: DigitalCharacter, size: CGSize = CGSize(width: 15, height: 40)) {
-        self.character = character
-        super.init(texture: nil, color: .clear, size: size)
-        
-        self.addChild(self.barTop)
-        self.addChild(self.barTopRight)
-        self.addChild(self.barBottomRight)
-        self.addChild(self.barBottom)
-        self.addChild(self.barBottomLeft)
-        self.addChild(self.barTopLeft)
-        self.addChild(self.barMiddle)
-        
-        self.bars.append(contentsOf: [self.barTop,
-                                      self.barTopRight,
-                                      self.barBottomRight,
-                                      self.barBottom,
-                                      self.barBottomLeft,
-                                      self.barTopLeft,
-                                      self.barMiddle])
-        self.configureCharacter(character)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Private Methods
-    
-    private func configureCharacter(_ character: DigitalCharacter) {
-        guard character.rawValue < self.valueBarMap.count else { return }
-        
-        let visibleBars = self.valueBarMap[character.rawValue]
-        for (index,item) in self.bars.enumerated() {
-            item.fillColor = visibleBars[index] == 1 ? UIColor.gameBattlefieldText : UIColor.gameBattlefieldTextBackground
-            item.strokeColor = visibleBars[index] == 1 ? UIColor.gameBattlefieldText : UIColor.gameBattlefieldTextBackground
-        }
-    }
     
 }
 
