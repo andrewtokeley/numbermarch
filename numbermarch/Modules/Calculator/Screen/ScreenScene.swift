@@ -71,8 +71,8 @@ class ScreenScene: SKScene {
      */
     init(numberOfCharacters: Int, size: CGSize = CGSize(width: 300, height: 100)) {
         self.numberOfCharacters = numberOfCharacters
-        let screenCharacters = Array(repeating: DisplayCharacter.space, count: self.numberOfCharacters)
-        self.screenCharacterNodes = screenCharacters.map { DigitalCharacterNode(value: $0.rawValue ) }
+        let screenCharacters = Array(repeating: DigitalCharacter.space, count: self.numberOfCharacters)
+        self.screenCharacterNodes = screenCharacters.map { DigitalCharacterNode(character: $0) }
         super.init(size: size)
         
         self.backgroundColor = UIColor.gameBackground
@@ -104,11 +104,11 @@ extension ScreenScene: ScreenProtocol {
     }
     
     func clearScreen() {
-        self.display(Array(repeating: DisplayCharacter.space, count: self.numberOfCharacters), screenPosition: self.numberOfCharacters)
+        self.display(Array(repeating: DigitalCharacter.space, count: self.numberOfCharacters), screenPosition: self.numberOfCharacters)
         self.displayTextMessage(text: "")
     }
     
-    func append(_ character: DisplayCharacter) {
+    func append(_ character: DigitalCharacter) {
         // move all characters to the left, but protecting any characters from freezePosition back.
         for position in (freezePosition + 1)...(self.numberOfCharacters - 1) {
             let copy = self.characterAt(position + 1)
@@ -119,7 +119,7 @@ extension ScreenScene: ScreenProtocol {
         self.display(character, screenPosition: self.numberOfCharacters)
     }
     
-    func append(_ character: DisplayCharacter, delay: TimeInterval, completion: (() -> Void)?) {
+    func append(_ character: DigitalCharacter, delay: TimeInterval, completion: (() -> Void)?) {
         self.append(character)
         let _ = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { (timer) in
             completion?()
@@ -134,11 +134,11 @@ extension ScreenScene: ScreenProtocol {
         self.display(.space, screenPosition: freezePosition + 1)
     }
     
-    func display(_ character: DisplayCharacter, screenPosition: Int) {
-        self.screenCharacterNodes[screenPosition - 1].value = character.rawValue
+    func display(_ character: DigitalCharacter, screenPosition: Int) {
+        self.screenCharacterNodes[screenPosition - 1].character = character
     }
     
-    func display(_ characters: [DisplayCharacter], screenPosition: Int) {
+    func display(_ characters: [DigitalCharacter], screenPosition: Int) {
         var position = self.numberOfCharacters
         var charIndex = characters.count - 1 // start from the end of the array of characters
         while charIndex >= 0 && position >= 1 {
@@ -150,7 +150,7 @@ extension ScreenScene: ScreenProtocol {
         }
     }
     
-    func display(_ characters: [DisplayCharacter], screenPosition: Int, delay: TimeInterval, completion: (() -> Void)?) {
+    func display(_ characters: [DigitalCharacter], screenPosition: Int, delay: TimeInterval, completion: (() -> Void)?) {
         self.display(characters, screenPosition: screenPosition)
         let _ = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { (timer) in
             completion?()
@@ -159,10 +159,10 @@ extension ScreenScene: ScreenProtocol {
     
     func display(_ string: String, screenPosition: Int) {
         // create [DisplayCharater] from string
-        var result = [DisplayCharacter]()
+        var result = [DigitalCharacter]()
         for c in string {
             if let number = Int(String(c)) {
-                result.append(DisplayCharacter(rawValue: number) ?? .space)
+                result.append(DigitalCharacter(rawValue: number) ?? .space)
             } else {
                 if c == "-" {
                     result.append(.onebar)
@@ -181,14 +181,14 @@ extension ScreenScene: ScreenProtocol {
         }
     }
     
-    func characterAt(_ screenPosition: Int) -> DisplayCharacter {
-        return DisplayCharacter(rawValue: self.screenCharacterNodes[screenPosition - 1].value) ?? DisplayCharacter.space
+    func characterAt(_ screenPosition: Int) -> DigitalCharacter {
+        return self.screenCharacterNodes[screenPosition - 1].character
     }
     
-    func findPosition(_ character: DisplayCharacter, fromPosition: Int = 1) -> Int? {
+    func findPosition(_ character: DigitalCharacter, fromPosition: Int = 1) -> Int? {
         for (index, node) in self.screenCharacterNodes.enumerated() {
             if index >= (fromPosition - 1) {
-                if node.value == character.rawValue {
+                if node.character == character {
                     return index + 1
                 }
             }

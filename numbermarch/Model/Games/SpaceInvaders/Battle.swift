@@ -49,6 +49,11 @@ class Battle {
     public var battleSize: Int
     
     /**
+     Rules used in the battle
+    */
+    public var battleRules: BattleRulesProtocol
+    
+    /**
      Indicates whether the battle has been lost
      */
     public var battleLost: Bool = false
@@ -95,7 +100,7 @@ class Battle {
         - battleSize: the number of enemies allowed on a battle before the battle is lost
         - delegate: called to notify of significant battle events
      */
-    init(army: [Enemy], battleSize: Int, delegate: BattleDelegate? = nil) throws {
+    init(army: [Enemy], battleSize: Int, rules: BattleRulesProtocol = DefaultBattleRules(), delegate: BattleDelegate? = nil) throws {
         guard army.count != 0 else { throw BattleError.ArmyHasNoEnemies }
         guard army.count <= 30 else { throw BattleError.TooManyEnemiesInArmy }
         
@@ -104,18 +109,19 @@ class Battle {
         self.battleLost = false
         self.battleSize = battleSize
         self.battlefield = Array(repeating: nil, count: battleSize)
+        self.battleRules = rules
     }
     
     /**
      Specilaised constructor to simplify populating army from enemy values
      */
-    convenience init(armyValues: [Int], delegate: BattleDelegate? = nil) throws {
+    convenience init(armyValues: [Int], rules: BattleRulesProtocol = DefaultBattleRules(), delegate: BattleDelegate? = nil) throws {
         guard armyValues.count != 0 else { throw BattleError.ArmyHasNoEnemies }
         guard armyValues.count <= 30 else { throw BattleError.TooManyEnemiesInArmy }
-        
         try self.init(
             army: armyValues.map( { return Enemy(value: $0) }),
             battleSize: 6,
+            rules: rules,
             delegate: delegate
         )
     }
@@ -128,7 +134,7 @@ class Battle {
      Whether to add a Mothership is determined by asking the BattlefieldDelegate after each successful kill. Different war rules will determine the criteria. Classic rule is when you kills enemies whose values add up to a multiple of 10.
      */
     private func addMothership() {
-        let mothership = Enemy(value: DisplayCharacter.mothership.rawValue, status: .Ready)
+        let mothership = Enemy(value: DigitalCharacter.mothership.rawValue, status: .Ready)
         
         // add the mothership before the nextEnemy
         if let index = self.nextEnemyIndex {
@@ -236,7 +242,7 @@ class Battle {
         
         // find the first enemy who is still alive and kill them!
         if let armyIndex = self.army.firstIndex(where: { $0.status == .Alive && $0.value == value }),
-           let battlefieldIndex = self.battlefield.firstIndex(where: { $0?.value == value }) {
+           let battlefieldIndex = self.battlefield.firstIndex(where: { $0?.id == self.army[armyIndex].id }) {
             
             // mark the enemy as toast
             self.army[armyIndex].status = .Dead
@@ -247,20 +253,18 @@ class Battle {
             }
             self.battlefield[0] = nil
             
-//            // keep a running total of the values of the enemies killed
-//            self.shotTotal += self.army[armyIndex].value
-//
             // let listeners know a death occurred
             self.delegate?.battle(self, killedEnemy: army[armyIndex], index: battlefieldIndex)
             
             // let listeners know if the battle is over
-            print("remaining \(remainingEnemies)")
+            
             if remainingEnemies == 0 {
                 self.delegate?.battleAllEnemiesKilled(self)
             } else {
                 // if the game isn't over yet and enemies haven't finished
-                if self.delegate?.battle(self, shouldSpawnMotheshipAfterKillOfValue: value) ?? false {
-                    if self.battlefield.last != nil {
+                if self.battleRules.shouldSpawnMothership(lastKillValue: value, level: 1) {
+                
+                    if self.battlefield.last! != nil {
                         self.addMothership()
                         self.spawnMothershipInNextWave = false
                     } else {

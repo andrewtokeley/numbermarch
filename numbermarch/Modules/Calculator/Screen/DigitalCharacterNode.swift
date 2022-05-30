@@ -9,22 +9,55 @@ import Foundation
 
 import SpriteKit
 
-class DigitalCharacterNode: NumberNode {
+/**
+ Represents a character that can be displayed on a screen
+ */
+enum DigitalCharacter: Int {
+    case zero = 0
+    case one = 1
+    case two = 2
+    case three = 3
+    case four = 4
+    case five = 5
+    case six = 6
+    case seven = 7
+    case eight = 8
+    case nine = 9
+    case mothership = 10
+    case threebars = 11
+    case twobars = 12
+    case onebar = 13
+    case space = 14
+}
+
+/**
+ Represents a character on the screen. Rendered to look like the old school digital characters
+ 
+ Characters are rendered by showing/hiding the 8 bars that make up a character.
+ 
+ ````
+  _
+ | |
+  -
+ | |
+  -
+
+ ````
+ */
+class DigitalCharacterNode: SKSpriteNode {
     
     // MARK: - Public Properties
-    var fontSize: CGFloat = 40
     
-    override var value: Int {
+    /**
+     The digital character being presented by the node
+     */
+    var character: DigitalCharacter = .space {
         didSet {
-            self.updateBarVisibility(value: value)
+            self.configureCharacter(character)
         }
     }
-    
+     
     // MARK: - Private Properties
-    
-    private var derivedHeight: CGFloat? {
-        return UIFont(name: "Menlo-Bold", size: self.fontSize)?.capHeight
-    }
     
     /// The thickness of the digit's bars
     private var barThickness: CGFloat {
@@ -45,9 +78,15 @@ class DigitalCharacterNode: NumberNode {
         return sqrt((self.barSpacer * self.barSpacer)/2)
     }
     
+    /// Colour of bar borders
     private var barStroke: UIColor = UIColor.gameBattlefieldText
+    
+    /// Colour of bar fill
     private var barFill: UIColor = UIColor.gameBattlefieldText
     
+    /**
+     Each array in the mapping represents a display character. The flags in each array determine which bars are visible starting from the top bar, working clockwise and finishing with the middle bar.
+    */
     private var valueBarMap:[[Int]] = [
         [1,1,1,1,1,1,0], // 0
         [0,1,1,0,0,0,0], // 1
@@ -66,6 +105,7 @@ class DigitalCharacterNode: NumberNode {
         [0,0,0,0,0,0,0], // space
     ]
     
+    /// Array containing all the bars of the character
     private var bars:[SKShapeNode] = [SKShapeNode]()
     
     /**
@@ -245,8 +285,9 @@ class DigitalCharacterNode: NumberNode {
     
     // MARK: - Initializers
     
-    init(value: Int, size: CGSize = CGSize(width: 15, height: 40)) {
-        super.init(size: size, value: value)
+    init(character: DigitalCharacter, size: CGSize = CGSize(width: 15, height: 40)) {
+        self.character = character
+        super.init(texture: nil, color: .clear, size: size)
         
         self.addChild(self.barTop)
         self.addChild(self.barTopRight)
@@ -263,23 +304,23 @@ class DigitalCharacterNode: NumberNode {
                                       self.barBottomLeft,
                                       self.barTopLeft,
                                       self.barMiddle])
-        updateBarVisibility(value: value)
-    }
-    
-    // MARK: - Private Methods
-    
-    private func updateBarVisibility(value: Int) {
-        guard value < self.valueBarMap.count else { return }
-        
-        let visibleBars = self.valueBarMap[value]
-        for (index,item) in self.bars.enumerated() {
-            item.fillColor = visibleBars[index] == 1 ? UIColor.gameBattlefieldText : UIColor.gameBattlefieldTextBackground
-            item.strokeColor = visibleBars[index] == 1 ? UIColor.gameBattlefieldText : UIColor.gameBattlefieldTextBackground
-        }
+        self.configureCharacter(character)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Private Methods
+    
+    private func configureCharacter(_ character: DigitalCharacter) {
+        guard character.rawValue < self.valueBarMap.count else { return }
+        
+        let visibleBars = self.valueBarMap[character.rawValue]
+        for (index,item) in self.bars.enumerated() {
+            item.fillColor = visibleBars[index] == 1 ? UIColor.gameBattlefieldText : UIColor.gameBattlefieldTextBackground
+            item.strokeColor = visibleBars[index] == 1 ? UIColor.gameBattlefieldText : UIColor.gameBattlefieldTextBackground
+        }
     }
     
 }

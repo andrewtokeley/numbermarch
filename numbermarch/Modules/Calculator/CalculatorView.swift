@@ -82,9 +82,6 @@ final class CalculatorView: UserInterface {
             let scene = ScreenScene(numberOfCharacters: 9, size: GAME_SIZE)
             scene.scaleMode = .aspectFit
             scene.backgroundColor = .gameBattlefield
-            scene.freezeCharacters(screenPosition: 2)
-            self.game = SpaceInvaders(screen: scene)
-            self.keyboardDelegate = self.game as? KeyboardDelegate
             screenView.presentScene(scene)
         }
     }
@@ -129,6 +126,20 @@ final class CalculatorView: UserInterface {
         shootButton.autoSetDimension(.height, toSize: 100)
     }
     
+    // MARK: - Public Methods
+    
+    /**
+    Creates a new instance of SpaceInvaders game and calls it's start method.
+     */
+    private func startGame() {
+        var result: GamesProtocol?
+        if let screen = self.screenScene {
+            result = SpaceInvaders(screen: screen, warRules: SpaceInvadersWarRules(), battleRules: SpaceInvaderBattleRules())
+            self.keyboardDelegate = result as? KeyboardDelegate
+        }
+        result?.start()
+    }
+    
     // MARK: - Key Presses
     
     override var keyCommands: [UIKeyCommand]? {
@@ -156,7 +167,7 @@ final class CalculatorView: UserInterface {
                 self.keyboardDelegate?.keyPressed(key: .plus)
                 return
             case UIKeyCommand.inputUpArrow:
-                self.game?.start()
+                self.startGame()
                 return
             default: return
             }
@@ -167,7 +178,7 @@ final class CalculatorView: UserInterface {
         if let key = CalculatorKey(rawValue: sender.tag) {
             switch key {
             case .game:
-                self.game?.start()
+                self.startGame()
             default:
                 self.keyboardDelegate?.keyPressed(key: key)
             }

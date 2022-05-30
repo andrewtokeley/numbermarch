@@ -8,25 +8,27 @@
 import Foundation
 
 protocol WarServiceInterface {
-    func createWar(rules: WarRulesProtocol, completion: ((War, Error?) -> Void)?)
+    func createWar(warRules: WarRulesProtocol, battleRules: BattleRulesProtocol, completion: ((War, Error?) -> Void)?)
+    func createWar(battles: [Battle], warRules: WarRulesProtocol, battleRules: BattleRulesProtocol, completion: ((War, Error?) -> Void)?)
 }
 
 class WarService {
     
-    private func createBattles(rules: WarRulesProtocol) -> [Battle] {
+    private func createBattles(warRules: WarRulesProtocol, battleRules: BattleRulesProtocol) -> [Battle] {
         var battles:[Battle] = [Battle]()
         let availableArmyValues = [0,1,2,3,4,5,6,7,8,9]
-        for level in 0...rules.numberOfLevels - 1 {
+        for level in 0...warRules.numberOfLevels - 1 {
             var armyValues: [Int] = [Int]()
-            for _ in 0...rules.numberOfEnemiesAtLevel(level: level) - 1 {
+            for _ in 0...warRules.numberOfEnemiesAtLevel(level: level) - 1 {
                 if let enemy = availableArmyValues.randomElement() {
                     armyValues.append(enemy)
                 } else {
                     // error?
                 }
             }
-            if let army = try? Battle(armyValues: armyValues) {
-                battles.append(army)
+            if let battle = try? Battle(armyValues: armyValues, rules: battleRules) {
+                battle.battleRules = battleRules
+                battles.append(battle)
             }
         }
         return battles
@@ -35,10 +37,19 @@ class WarService {
 
 extension WarService: WarServiceInterface {
     
-    func createWar(rules: WarRulesProtocol, completion: ((War, Error?) -> Void)?) {
-        let battles = self.createBattles(rules: rules)
-        let war = War(battles: battles, rules: rules)
+    func createWar(warRules: WarRulesProtocol, battleRules: BattleRulesProtocol, completion: ((War, Error?) -> Void)?) {
+        let battles = self.createBattles(warRules: warRules, battleRules: battleRules)
+        let war = War(battles: battles, rules: warRules)
         completion?(war, nil)
     }
     
+    func createWar(battles: [Battle], warRules: WarRulesProtocol, battleRules: BattleRulesProtocol, completion: ((War, Error?) -> Void)?) {
+        
+        let battles = battles
+        battles.forEach { battle in
+            battle.battleRules = battleRules
+        }
+        let war = War(battles: battles, rules: warRules)
+        completion?(war, nil)
+    }
 }

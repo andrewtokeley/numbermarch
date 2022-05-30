@@ -8,26 +8,7 @@
 import Foundation
 import SpriteKit
 
-/**
- Represents a character that can be displayed on a screen
- */
-enum DisplayCharacter: Int {
-    case zero = 0
-    case one = 1
-    case two = 2
-    case three = 3
-    case four = 4
-    case five = 5
-    case six = 6
-    case seven = 7
-    case eight = 8
-    case nine = 9
-    case mothership = 10
-    case threebars = 11
-    case twobars = 12
-    case onebar = 13
-    case space = 14
-}
+
 
 class NumberNode: SKSpriteNode {
     

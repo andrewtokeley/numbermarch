@@ -14,6 +14,9 @@ final class CalculatorPresenter: Presenter {
 
 // MARK: - CalculatorPresenter API
 extension CalculatorPresenter: CalculatorPresenterApi {
+    func didSelectNewGame() {
+        //
+    }
 }
 
 // MARK: - Calculator Viper Components

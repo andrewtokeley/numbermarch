@@ -34,7 +34,7 @@ protocol ScreenProtocol {
         - character: charater to display
         - screenPosition: 1 based position on the screen
      */
-    func display(_ character: DisplayCharacter, screenPosition: Int)
+    func display(_ character: DigitalCharacter, screenPosition: Int)
     
     /**
      Display the characters in the array to the screen starting at the given position.
@@ -44,8 +44,8 @@ protocol ScreenProtocol {
      - Parameters:
         - screenPosition: the screen position to display the character. The value is 1 based. Where position 1 is the first visible location on the screen.
      */
-    func display(_ characters: [DisplayCharacter], screenPosition: Int)
-    func display(_ characters: [DisplayCharacter], screenPosition: Int, delay: TimeInterval, completion: (() -> Void)?)
+    func display(_ characters: [DigitalCharacter], screenPosition: Int)
+    func display(_ characters: [DigitalCharacter], screenPosition: Int, delay: TimeInterval, completion: (() -> Void)?)
     
     /**
      Display the string to the screen starting at the given position.
@@ -61,8 +61,8 @@ protocol ScreenProtocol {
     /**
      Appends a new character to the far right of the screen and shifts any characters that are not fixed to the left.
      */
-    func append(_ character: DisplayCharacter)
-    func append(_ character: DisplayCharacter, delay: TimeInterval, completion: (() -> Void)?)
+    func append(_ character: DigitalCharacter)
+    func append(_ character: DigitalCharacter, delay: TimeInterval, completion: (() -> Void)?)
     
     /**
      Removes the character at the given screen postion
@@ -77,10 +77,10 @@ protocol ScreenProtocol {
     /**
     Returns the character displayed at the given screen position.
      */
-    func characterAt(_ screenPosition: Int) -> DisplayCharacter
+    func characterAt(_ screenPosition: Int) -> DigitalCharacter
     
     /**
      Finds the position of the first occurance of the character on the screen, searching from left to right
      */
-    func findPosition(_ character: DisplayCharacter, fromPosition: Int) -> Int?
+    func findPosition(_ character: DigitalCharacter, fromPosition: Int) -> Int?
 }

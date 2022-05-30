@@ -7,6 +7,9 @@
 
 import Foundation
 
+/**
+ Protocol all games must implement. The CalculatorView will only interact with games through this interface
+ */
 protocol GamesProtocol {
     func start()
     func stop()

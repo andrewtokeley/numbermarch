@@ -24,8 +24,10 @@ class WarTests: XCTestCase {
         let expectation = self.expectation(description: "testWarCreatesCorrectNumberOfBattles")
         var newWar: War?
         
-        let rules = TestWarRule()
-        warService.createWar(rules: rules) { war, error in
+        let warRules = TestWarRule()
+        let battleRules = SpaceInvaderBattleRules()
+        
+        warService.createWar(warRules: warRules, battleRules: battleRules) { war, error in
             newWar = war
             expectation.fulfill()
         }
@@ -41,30 +43,59 @@ class WarTests: XCTestCase {
     }
     
     func testMothership10() {
-        let expectation = self.expectation(description: "testMothership10")
-        var newWar: War?
         
-        let rules = Mod10WarRules()
-        warService.createWar(rules: rules) { war, error in
-            newWar = war
-            expectation.fulfill()
-        }
-        waitForExpectations(timeout: 5, handler: nil)
-       
-        let battle = newWar?.moveToNextBattle() // first battle
-        let _ = battle?.advanceEnemies()
+        let battleRules = SpaceInvaderBattleRules()
         
+        // create single battle for war
+        let battle = try! Battle(armyValues: [1,7,3,5], rules: battleRules)
+        battle.battleSize = 6
         
+        // bring first 3 enemies on to screen
+        let _ = battle.advanceEnemies() //1
+        let _ = battle.advanceEnemies() //7
+        let _ = battle.advanceEnemies() //3
+        
+        // these shots should spawn a mothership on next advance
+        battle.shoot(value: 7)
+        battle.shoot(value: 3)
+        
+        // advance once more to bring the mothership on
+        let _ = battle.advanceEnemies() //n
+        
+        XCTAssertTrue(battle.battlefield.last??.value == DigitalCharacter.mothership.rawValue)
         
     }
-
-//    func testPerformanceExample() throws {
-//        // This is an example of a performance test case.
-//        self.measure {
-//            // Put the code you want to measure the time of here.
-//        }
-//    }
-
+    
+    func testMothershipInSecondWave() {
+        
+        let battleRules = SpaceInvaderBattleRules()
+        
+        // create single battle for war
+        let battle = try! Battle(armyValues: [1,7,3], rules: battleRules)
+        battle.battleSize = 6
+        
+        // bring first 3 enemies on to screen
+        let _ = battle.advanceEnemies() //1
+        let _ = battle.advanceEnemies() //7
+        let _ = battle.advanceEnemies() //3
+        
+        // advance one more time (no more enemies so the last spot will be a space)
+        let _ = battle.advanceEnemies()
+        XCTAssertNil(battle.battlefield.last!)
+        
+        // these shots should NOT spawn a mothership on next advance in this wave
+        battle.shoot(value: 7)
+        battle.shoot(value: 3)
+        
+        // advance once and check still nil
+        let _ = battle.advanceEnemies()
+        XCTAssertNil(battle.battlefield.last!)
+        
+        // restart the same battle - should remember to spawn a mothership
+        battle.takeEnemiesOffBattlefield()
+        let _ = battle.advanceEnemies()
+        XCTAssertTrue(battle.battlefield.last??.value == DigitalCharacter.mothership.rawValue)
+    }
 }
 
 

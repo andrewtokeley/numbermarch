@@ -14,11 +14,11 @@ protocol CalculatorRouterApi: RouterProtocol {
 
 //MARK: - CalculatorView API
 protocol CalculatorViewApi: UserInterfaceProtocol {
-    
 }
 
 //MARK: - CalculatorPresenter API
 protocol CalculatorPresenterApi: PresenterProtocol {
+    
 }
 
 //MARK: - CalculatorInteractor API

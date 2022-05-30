@@ -15,7 +15,7 @@ protocol KeyboardDelegate {
 }
 
 /**
- Recognised calculator keys
+ Recognised keys that can be pressed on the calculator
  */
 enum CalculatorKey: Int {
     case zero = 0
