@@ -10,11 +10,11 @@ import Foundation
 extension CGRect {
     
     /**
-     Returns a rectangle with a size and optionally an origin that is offset from that of the source rectangle.
+     Returns a rectangle with a size and origin that is offset from that of the source rectangle.
      */
-    func offSet(dw: CGFloat, dh: CGFloat, dx: CGFloat, dy: CGFloat) -> CGRect {
-        let newOrigin = CGPoint(x: self.origin.x + dx, y: self.origin.y + dy)
-        let newSize = CGSize(width: self.width + dw, height: self.height + dh)
+    func offSetBy(dx: CGFloat, dy: CGFloat, dw: CGFloat, dh: CGFloat) -> CGRect {
+        let newOrigin = self.origin.offsetBy(dx: dx, dy: dy)
+        let newSize = self.size.offSetBy(dw: dw, dh: dh)
         let rect = CGRect(origin: newOrigin, size: newSize)
         return rect
     }

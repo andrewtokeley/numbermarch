@@ -100,6 +100,14 @@ class WarTests: XCTestCase {
 
 
 class TestWarRule: WarRulesProtocol {
+    func numberOfSpacesForEnemies(level: Int) -> Int {
+        return 6
+    }
+    
+    func shouldGetExtraLife(level: Int) -> Bool {
+        return false
+    }
+    
     var warDescription: String {
         return ""
     }

@@ -32,6 +32,14 @@ extension UIColor {
         return .calculatorScreen
     }
     
+    public class var calculatorBackground: UIColor {
+        return UIColor(red: 243/255, green: 248/255, blue: 252/255, alpha: 1)
+    }
+    
+    public class var calculatorScreenOuterBorder: UIColor {
+        return UIColor(red: 211/255, green: 205/255, blue: 193/255, alpha: 1)
+    }
+    
     public class var calculatorScreen: UIColor {
         //return UIColor(red: 186/255, green: 191/255, blue: 178/255, alpha: 1)
         return UIColor(red: 163/255, green: 160/255, blue: 146/255, alpha: 1)

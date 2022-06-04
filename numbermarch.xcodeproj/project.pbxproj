@@ -14,11 +14,15 @@
 		D824E4152841D02B00C144F1 /* CalculatorModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D824E40F2841D02B00C144F1 /* CalculatorModuleApi.swift */; };
 		D824E4162841D02B00C144F1 /* CalculatorInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D824E4102841D02B00C144F1 /* CalculatorInteractor.swift */; };
 		D824E4172841D02B00C144F1 /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D824E4112841D02B00C144F1 /* CalculatorView.swift */; };
-		D82F3E2A2830783500436EDF /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82F3E292830783500436EDF /* UIColorExtension.swift */; };
+		D82F3E2A2830783500436EDF /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82F3E292830783500436EDF /* UIColor.swift */; };
 		D82F3E2C28307AED00436EDF /* WarFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82F3E2B28307AED00436EDF /* WarFactory.swift */; };
 		D82F3E2E28307B7E00436EDF /* WarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82F3E2D28307B7E00436EDF /* WarService.swift */; };
-		D82F3E3628317E0B00436EDF /* SKNodeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82F3E3528317E0B00436EDF /* SKNodeExtension.swift */; };
-		D82F3E3A2832343B00436EDF /* CGPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82F3E392832343B00436EDF /* CGPointExtension.swift */; };
+		D82F3E3628317E0B00436EDF /* SKNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82F3E3528317E0B00436EDF /* SKNode.swift */; };
+		D82F3E3A2832343B00436EDF /* CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82F3E392832343B00436EDF /* CGPoint.swift */; };
+		D8338DF32844C9E7000007C6 /* CalculatorScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8338DF22844C9E7000007C6 /* CalculatorScene.swift */; };
+		D8338DF72846AF9B000007C6 /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8338DF62846AF9B000007C6 /* CGRect.swift */; };
+		D8338DF92846B34E000007C6 /* CGSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8338DF82846B34E000007C6 /* CGSize.swift */; };
+		D8338DFD2849D563000007C6 /* SKNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8338DFC2849D563000007C6 /* SKNodeTests.swift */; };
 		D84F148A2841FE7E00886521 /* SpaceInvaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84F14892841FE7E00886521 /* SpaceInvaders.swift */; };
 		D84F148C2841FE8900886521 /* GamesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84F148B2841FE8900886521 /* GamesProtocol.swift */; };
 		D84F148E28420D1300886521 /* CalculatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84F148D28420D1300886521 /* CalculatorProtocol.swift */; };
@@ -54,7 +58,7 @@
 		D86D00B328306ECC00113F26 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D86D00B228306ECC00113F26 /* LaunchScreen.storyboard */; };
 		D878A8912841D5D1001CD2F9 /* ScreenProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878A8902841D5D1001CD2F9 /* ScreenProtocol.swift */; };
 		D878A8932841D83F001CD2F9 /* KeyboardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878A8922841D83F001CD2F9 /* KeyboardDelegate.swift */; };
-		D878A8962841DA6C001CD2F9 /* ScreenScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878A8952841DA6C001CD2F9 /* ScreenScene.swift */; };
+		D878A8962841DA6C001CD2F9 /* ScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878A8952841DA6C001CD2F9 /* ScreenNode.swift */; };
 		D878A89928446809001CD2F9 /* KeyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878A89828446809001CD2F9 /* KeyNode.swift */; };
 		D878A89B28446934001CD2F9 /* CalculatorKeyEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878A89A28446934001CD2F9 /* CalculatorKeyEnum.swift */; };
 		D87ED4CD2832D8DE00BA6DF4 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87ED4CC2832D8DE00BA6DF4 /* String.swift */; };
@@ -82,11 +86,15 @@
 		D824E40F2841D02B00C144F1 /* CalculatorModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorModuleApi.swift; sourceTree = "<group>"; };
 		D824E4102841D02B00C144F1 /* CalculatorInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorInteractor.swift; sourceTree = "<group>"; };
 		D824E4112841D02B00C144F1 /* CalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
-		D82F3E292830783500436EDF /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		D82F3E292830783500436EDF /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		D82F3E2B28307AED00436EDF /* WarFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarFactory.swift; sourceTree = "<group>"; };
 		D82F3E2D28307B7E00436EDF /* WarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarService.swift; sourceTree = "<group>"; };
-		D82F3E3528317E0B00436EDF /* SKNodeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKNodeExtension.swift; sourceTree = "<group>"; };
-		D82F3E392832343B00436EDF /* CGPointExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPointExtension.swift; sourceTree = "<group>"; };
+		D82F3E3528317E0B00436EDF /* SKNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKNode.swift; sourceTree = "<group>"; };
+		D82F3E392832343B00436EDF /* CGPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPoint.swift; sourceTree = "<group>"; };
+		D8338DF22844C9E7000007C6 /* CalculatorScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorScene.swift; sourceTree = "<group>"; };
+		D8338DF62846AF9B000007C6 /* CGRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
+		D8338DF82846B34E000007C6 /* CGSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSize.swift; sourceTree = "<group>"; };
+		D8338DFC2849D563000007C6 /* SKNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKNodeTests.swift; sourceTree = "<group>"; };
 		D84F14892841FE7E00886521 /* SpaceInvaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceInvaders.swift; sourceTree = "<group>"; };
 		D84F148B2841FE8900886521 /* GamesProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesProtocol.swift; sourceTree = "<group>"; };
 		D84F148D28420D1300886521 /* CalculatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorProtocol.swift; sourceTree = "<group>"; };
@@ -132,7 +140,7 @@
 		D86D00B228306ECC00113F26 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D878A8902841D5D1001CD2F9 /* ScreenProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenProtocol.swift; sourceTree = "<group>"; };
 		D878A8922841D83F001CD2F9 /* KeyboardDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDelegate.swift; sourceTree = "<group>"; };
-		D878A8952841DA6C001CD2F9 /* ScreenScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenScene.swift; sourceTree = "<group>"; };
+		D878A8952841DA6C001CD2F9 /* ScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenNode.swift; sourceTree = "<group>"; };
 		D878A89828446809001CD2F9 /* KeyNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyNode.swift; sourceTree = "<group>"; };
 		D878A89A28446934001CD2F9 /* CalculatorKeyEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorKeyEnum.swift; sourceTree = "<group>"; };
 		D87ED4CC2832D8DE00BA6DF4 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -163,6 +171,7 @@
 		D824E4182841D03700C144F1 /* Calculator */ = {
 			isa = PBXGroup;
 			children = (
+				D8338DF22844C9E7000007C6 /* CalculatorScene.swift */,
 				D878A897284467F1001CD2F9 /* Keys */,
 				D878A8942841DA56001CD2F9 /* Screen */,
 				D824E40C2841D02B00C144F1 /* CalculatorDisplayData.swift */,
@@ -179,10 +188,12 @@
 		D82F3E282830782300436EDF /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				D82F3E292830783500436EDF /* UIColorExtension.swift */,
-				D82F3E3528317E0B00436EDF /* SKNodeExtension.swift */,
-				D82F3E392832343B00436EDF /* CGPointExtension.swift */,
+				D82F3E292830783500436EDF /* UIColor.swift */,
+				D82F3E3528317E0B00436EDF /* SKNode.swift */,
+				D82F3E392832343B00436EDF /* CGPoint.swift */,
 				D87ED4CC2832D8DE00BA6DF4 /* String.swift */,
+				D8338DF62846AF9B000007C6 /* CGRect.swift */,
+				D8338DF82846B34E000007C6 /* CGSize.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -281,6 +292,7 @@
 				D8603851282F403600781EA5 /* numbermarchTests.swift */,
 				D87ED4D428337AF500BA6DF4 /* WarTests.swift */,
 				D84F148F2842209500886521 /* ScreenTests.swift */,
+				D8338DFC2849D563000007C6 /* SKNodeTests.swift */,
 			);
 			path = numbermarchTests;
 			sourceTree = "<group>";
@@ -384,7 +396,7 @@
 			isa = PBXGroup;
 			children = (
 				D86A48C7283840AD00C3BE8D /* DigitalCharacterNode.swift */,
-				D878A8952841DA6C001CD2F9 /* ScreenScene.swift */,
+				D878A8952841DA6C001CD2F9 /* ScreenNode.swift */,
 				D878A8902841D5D1001CD2F9 /* ScreenProtocol.swift */,
 			);
 			path = Screen;
@@ -504,11 +516,12 @@
 				D878A8912841D5D1001CD2F9 /* ScreenProtocol.swift in Sources */,
 				D87ED4CD2832D8DE00BA6DF4 /* String.swift in Sources */,
 				D86D00932830393F00113F26 /* Presenter.swift in Sources */,
+				D8338DF32844C9E7000007C6 /* CalculatorScene.swift in Sources */,
 				D86D009E2830398000113F26 /* UserInterface+SwiftUI.swift in Sources */,
 				D8603876282F4C4900781EA5 /* BattleDelegate.swift in Sources */,
 				D86D00AF28303D1100113F26 /* NSArray+PureLayout.m in Sources */,
 				D878A89928446809001CD2F9 /* KeyNode.swift in Sources */,
-				D878A8962841DA6C001CD2F9 /* ScreenScene.swift in Sources */,
+				D878A8962841DA6C001CD2F9 /* ScreenNode.swift in Sources */,
 				D8603874282F4B4F00781EA5 /* Enemy.swift in Sources */,
 				D84F148E28420D1300886521 /* CalculatorProtocol.swift in Sources */,
 				D87ED4CF2832DCE800BA6DF4 /* WarRulesProtocol.swift in Sources */,
@@ -526,10 +539,10 @@
 				D86A48C8283840AD00C3BE8D /* DigitalCharacterNode.swift in Sources */,
 				D86D00B128303E3D00113F26 /* AppModules.swift in Sources */,
 				D84F14922843176C00886521 /* BattleRulesProtocol.swift in Sources */,
-				D82F3E3A2832343B00436EDF /* CGPointExtension.swift in Sources */,
-				D82F3E2A2830783500436EDF /* UIColorExtension.swift in Sources */,
+				D82F3E3A2832343B00436EDF /* CGPoint.swift in Sources */,
+				D82F3E2A2830783500436EDF /* UIColor.swift in Sources */,
 				D87ED4D828349FED00BA6DF4 /* SpaceInvadersWarRules.swift in Sources */,
-				D82F3E3628317E0B00436EDF /* SKNodeExtension.swift in Sources */,
+				D82F3E3628317E0B00436EDF /* SKNode.swift in Sources */,
 				D824E4152841D02B00C144F1 /* CalculatorModuleApi.swift in Sources */,
 				D86D00952830393F00113F26 /* Module.swift in Sources */,
 				D86D00942830393F00113F26 /* ViperComponent.swift in Sources */,
@@ -542,7 +555,9 @@
 				D86D00912830393F00113F26 /* UserInterface.swift in Sources */,
 				D878A89B28446934001CD2F9 /* CalculatorKeyEnum.swift in Sources */,
 				D824E4172841D02B00C144F1 /* CalculatorView.swift in Sources */,
+				D8338DF92846B34E000007C6 /* CGSize.swift in Sources */,
 				D82F3E2E28307B7E00436EDF /* WarService.swift in Sources */,
+				D8338DF72846AF9B000007C6 /* CGRect.swift in Sources */,
 				D8603872282F4B3A00781EA5 /* Battle.swift in Sources */,
 				D824E4142841D02B00C144F1 /* CalculatorRouter.swift in Sources */,
 				D824E4162841D02B00C144F1 /* CalculatorInteractor.swift in Sources */,
@@ -559,6 +574,7 @@
 				D87ED4D528337AF500BA6DF4 /* WarTests.swift in Sources */,
 				D84F14902842209500886521 /* ScreenTests.swift in Sources */,
 				D8603852282F403600781EA5 /* numbermarchTests.swift in Sources */,
+				D8338DFD2849D563000007C6 /* SKNodeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

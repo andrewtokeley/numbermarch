@@ -24,4 +24,15 @@ enum CalculatorKey: Int {
     case point = 10 // aim
     case plus = 11 // fire
     case game = 12 // game
+    
+    func asText() -> String {
+        switch self {
+        case .plus:
+            return "+"
+        case .point:
+            return "."
+        default:
+            return String(self.rawValue)
+        }
+    }
 }

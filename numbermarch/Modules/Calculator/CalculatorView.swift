@@ -22,8 +22,8 @@ final class CalculatorView: UserInterface {
     
     private var game: GamesProtocol?
     
-    private var screenScene: ScreenScene? {
-        return screenView.scene as? ScreenScene
+    private var calculatorScene: CalculatorScene? {
+        return calculatorView.scene as? CalculatorScene
     }
     
     // MARK: - UI Elements
@@ -34,7 +34,7 @@ final class CalculatorView: UserInterface {
         return imageView
     }()
     
-    private lazy var screenView: SKView = {
+    private lazy var calculatorView: SKView = {
         let view = SKView()
         view.allowsTransparency = true
         view.ignoresSiblingOrder = true
@@ -74,56 +74,65 @@ final class CalculatorView: UserInterface {
     
     // MARK: - Overrides
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        // at this point the gridView will have been auto sized and the presented scene will have access to its bounds.
-        if screenView.scene == nil {
-            let scene = ScreenScene(numberOfCharacters: 9, size: GAME_SIZE)
-            scene.scaleMode = .aspectFit
-            scene.backgroundColor = .gameBattlefield
-            screenView.presentScene(scene)
-        }
-    }
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//
+//        // at this point the gridView will have been auto sized and the presented scene will have access to its bounds.
+////        if calculatorView.scene == nil {
+////            let scene = CalculatorScene()
+////            scene.scaleMode = .fill
+////            scene.backgroundColor = .cyan //.gameBattlefield
+////            calculatorView.presentScene(scene)
+////        }
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let scene = CalculatorScene(size: view.bounds.size)
+        
+        calculatorView.showsFPS = true
+        calculatorView.showsNodeCount = true
+        calculatorView.ignoresSiblingOrder = false
+        scene.scaleMode = .resizeFill
+        calculatorView.presentScene(scene)
     }
     
     override func loadView() {
         super.loadView()
         self.view.backgroundColor = .gameBackground
-        self.view.addSubview(backgroundImage)
-        self.view.addSubview(aimButton)
-        self.view.addSubview(shootButton)
-        self.view.addSubview(screenView)
-        self.view.addSubview(gameButton)
+        //self.view.addSubview(backgroundImage)
+        self.view.addSubview(calculatorView)
+//        self.view.addSubview(gameButton)
+//        self.view.addSubview(aimButton)
+//        self.view.addSubview(shootButton)
+        
         self.setConstraints()
     }
     
     private func setConstraints() {
         
-        backgroundImage.autoPinEdgesToSuperviewEdges()
+        //backgroundImage.autoPinEdgesToSuperviewEdges()
         
-        screenView.autoPinEdge(toSuperviewEdge: .top, withInset: 300)
-        screenView.autoAlignAxis(toSuperviewAxis: .vertical)
-        screenView.autoSetDimension(.height, toSize: GAME_SIZE.height)
-        screenView.autoSetDimension(.width, toSize: GAME_SIZE.width)
-        
-        aimButton.autoPinEdge(.left, to: .left, of: screenView)
-        aimButton.autoPinEdge(toSuperviewEdge: .bottom, withInset: 100)
-        aimButton.autoSetDimension(.width, toSize: 100)
-        aimButton.autoSetDimension(.height, toSize: 100)
-        
-        gameButton.autoPinEdge(.left, to: .right, of: aimButton, withOffset: 10)
-        gameButton.autoPinEdge(toSuperviewEdge: .bottom, withInset: 100)
-        gameButton.autoSetDimension(.width, toSize: 100)
-        gameButton.autoSetDimension(.height, toSize: 100)
-        
-        shootButton.autoPinEdge(.right, to: .right, of: screenView)
-        shootButton.autoPinEdge(toSuperviewEdge: .bottom, withInset: 100)
-        shootButton.autoSetDimension(.width, toSize: 100)
-        shootButton.autoSetDimension(.height, toSize: 100)
+        //calculatorView.autoPinEdgesToSuperviewEdges()
+        calculatorView.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
+        calculatorView.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
+        calculatorView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
+        calculatorView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
+//        aimButton.autoPinEdge(.left, to: .left, of: screenView)
+//        aimButton.autoPinEdge(toSuperviewEdge: .bottom, withInset: 100)
+//        aimButton.autoSetDimension(.width, toSize: 100)
+//        aimButton.autoSetDimension(.height, toSize: 100)
+//
+//        gameButton.autoPinEdge(.left, to: .right, of: aimButton, withOffset: 10)
+//        gameButton.autoPinEdge(toSuperviewEdge: .bottom, withInset: 100)
+//        gameButton.autoSetDimension(.width, toSize: 100)
+//        gameButton.autoSetDimension(.height, toSize: 100)
+//
+//        shootButton.autoPinEdge(.right, to: .right, of: calculatorView)
+//        shootButton.autoPinEdge(toSuperviewEdge: .bottom, withInset: 100)
+//        shootButton.autoSetDimension(.width, toSize: 100)
+//        shootButton.autoSetDimension(.height, toSize: 100)
     }
     
     // MARK: - Public Methods
@@ -133,7 +142,7 @@ final class CalculatorView: UserInterface {
      */
     private func startGame() {
         var result: GamesProtocol?
-        if let screen = self.screenScene {
+        if let screen = self.calculatorScene?.screen {
             result = SpaceInvaders(screen: screen, warRules: SpaceInvadersWarRules(), battleRules: SpaceInvaderBattleRules())
             self.keyboardDelegate = result as? KeyboardDelegate
         }
