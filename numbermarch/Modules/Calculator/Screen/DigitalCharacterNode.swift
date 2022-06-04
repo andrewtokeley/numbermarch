@@ -141,8 +141,8 @@ class DigitalCharacterNode: SKSpriteNode {
         
         let visibleBars = self.valueBarMap[character.rawValue]
         for (index,item) in self.bars.enumerated() {
-            item.fillColor = visibleBars[index] == 1 ? UIColor.gameBattlefieldText : UIColor.gameBattlefieldTextBackground
-            item.strokeColor = visibleBars[index] == 1 ? UIColor.gameBattlefieldText : UIColor.gameBattlefieldTextBackground
+            item.fillColor = visibleBars[index] == 1 ? UIColor.gameBattlefieldText : .clear //UIColor.gameBattlefieldTextBackground
+            item.strokeColor = visibleBars[index] == 1 ? UIColor.gameBattlefieldText : .clear //UIColor.gameBattlefieldTextBackground
         }
     }
     

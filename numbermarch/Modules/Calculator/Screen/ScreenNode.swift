@@ -39,9 +39,14 @@ class ScreenNode: SKSpriteNode {
      */
     private var characterSize: CGSize {
         // define a width that allows for a GAP space on the left and right of the display and a GAP between digits
-        let totalGap = 2*GAP + CGFloat(self.numberOfCharacters - 1)*GAP
-        let width = (self.display.frame.width - totalGap) / CGFloat(self.numberOfCharacters)
+        let totalGaps = CGFloat(self.numberOfCharacters + 1) * spaceBetweenCharacters
+        let width = (self.frame.width - totalGaps) / CGFloat(self.numberOfCharacters)
         return CGSize(width: width, height: 2*width)
+    }
+    
+    private var spaceBetweenCharacters: CGFloat {
+        // define a width that allows for a GAP space on the left and right of the display and a GAP between digits
+        return 2 * GAP
     }
     
     /**
@@ -61,14 +66,18 @@ class ScreenNode: SKSpriteNode {
         
         
         // Add the highest level node, it contains all the children for the screen
-        self.border.position = CGPoint(x: -self.frame.width/2, y: -self.frame.height/2)
-        self.addChild(self.border)
-        self.border.addChild(innerBorder, verticalAlign: .centre, horizontalAlign: .centre)
-        self.innerBorder.addChild(display, verticalAlign: .top, horizontalAlign: .centre, offSet: CGVector(dx: 0, dy: -0.2 * self.display.frame.height))
-        self.display.addChild(self.textLabel, verticalAlign: .top, horizontalAlign: .left, offSet: CGVector(dx: 2 * GAP, dy: -0.5 * GAP))
+//        self.border.position = CGPoint(x: -self.frame.width/2, y: -self.frame.height/2)
+//        self.addChild(self.border)
+//        self.border.addChild(innerBorder, verticalAlign: .centre, horizontalAlign: .centre)
+//        self.innerBorder.addChild(display, verticalAlign: .top, horizontalAlign: .centre, offSet: CGVector(dx: 0, dy: -0.2 * self.display.frame.height))
+//
+        //self.addChild(display, verticalAlign: .centre, horizontalAlign: .centre)
+        self.textLabel.position = CGPoint(x: -self.frame.width/2 + self.spaceBetweenCharacters + self.characterSize.width, y: self.frame.height/2 - GAP)
+        self.addChild(self.textLabel)
+        //self.addChild(self.textLabel, verticalAlign: .top, horizontalAlign: .centre)
         self.textLabel.text = "GAME OVER"
         
-        self.addSpaceCharacterNodes(display: self.display)
+        self.addSpaceCharacterNodes()
 //
     }
     
@@ -82,63 +91,61 @@ class ScreenNode: SKSpriteNode {
     // MARK: - Private Functions
      
     /**
-        Returns the screen position for a given position, where position 1 is the first position on the screen. The positions assume the digits are placed relative to an anchor in their centre (0.5, 0.5).
+     Returns the screen position for a given position, where position 1 is the first position on the screen.
+     
+     Digits are positioned at their centre. Digits are added to a SpriteNode which has an origin (0.0) at its centre.
      */
     private func cgPointAtScreenPosition(_ screenPosition: Int) -> CGPoint {
+        guard screenPosition >= 1 && screenPosition <= self.numberOfCharacters else { return CGPoint.zero }
         
-        var x = self.characterSize.width * CGFloat(screenPosition) - 0.5 * self.characterSize.width
+        // 1 [GAP + 0.5 characterSize]
+        // 2 [GAP + 0.5 characterSize] + [0.5 characterSize + GAP + 0.5 characterSize]
+        // 3 [GAP + 0.5 characterSize] + [0.5 characterSize + GAP + 0.5 characterSize] + [0.5 characterSize + GAP + 0.5 characterSize]
+        // ...
+        let x = (self.spaceBetweenCharacters + 0.5 * self.characterSize.width) + (self.characterSize.width + self.spaceBetweenCharacters) * (CGFloat(screenPosition) - 1)
         
-        // add a gap between digits
-        x += GAP * CGFloat(screenPosition - 1)
-        
-        // centre vertically on display - DigitalCharacterNodes are SKSpriteNodes so (0.5, 0.5 anchored)
-        let height = self.characterSize.height/2 + GAP
-        
-        return CGPoint(x: x + GAP , y: height)
+        return CGPoint(x: x - self.size.width/2, y: -GAP)
     }
     
     // MARK: - Children
     
-    private lazy var border: SKShapeNode = {
-        let node = SKShapeNode(rect: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height), cornerRadius: 0.05 * self.frame.height)
-        node.strokeColor = .clear
-        node.fillColor = UIColor.black
-        return node
-    }()
+//    private lazy var border: SKShapeNode = {
+//        let node = SKShapeNode(rect: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height), cornerRadius: 0.05 * self.frame.height)
+//        node.strokeColor = .clear
+//        node.fillColor = UIColor.black
+//        return node
+//    }()
+//
+//    private lazy var innerBorder: SKShapeNode = {
+//        let rect = CGRect(x: 0, y: 0, width: self.frame.width-2*GAP, height: self.frame.height-2*GAP)
+//        let node = SKShapeNode(rect: rect, cornerRadius: 0.05 * self.frame.height)
+//        node.strokeColor = .clear
+//        node.fillColor = UIColor.calculatorScreenBorder
+//        return node
+//    }()
     
-    private lazy var innerBorder: SKShapeNode = {
-        let rect = CGRect(x: 0, y: 0, width: self.frame.width-2*GAP, height: self.frame.height-2*GAP)
-        let node = SKShapeNode(rect: rect, cornerRadius: 0.05 * self.frame.height)
-        node.strokeColor = .clear
-        node.fillColor = UIColor.calculatorScreenBorder
-        return node
-    }()
-    
-    private lazy var display: SKShapeNode = {
-        let rect = CGRect(x: 0, y: 0, width: self.frame.width-4*GAP, height: self.frame.height - 5 * GAP)
-        let node = SKShapeNode(rect: rect, cornerRadius: 0.05 * self.frame.height)
-        node.strokeColor = .clear
-        node.fillColor = .calculatorScreen
-        return node
-    }()
+//    private lazy var display: SKShapeNode = {
+//        let rect = CGRect(x: 0, y: 0, width: self.frame.width-4*GAP, height: self.frame.height - 5 * GAP)
+//        let node = SKShapeNode(rect: rect, cornerRadius: 0.05 * self.frame.height)
+//        node.strokeColor = .clear
+//        node.fillColor = .calculatorScreen
+//        return node
+//    }()
     
     private lazy var textLabel: SKLabelNode = {
         let label = SKLabelNode()
         label.fontName = "Arial"
-        label.fontSize = GAP
+        label.fontSize = self.characterSize.height / 2
         label.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         label.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
         label.fontColor = .black //UIColor.gameBattlefieldText
-//        if let characterHeight = self.screenCharacterNodes.first?.size.height {
-//            label.position = self.cgPointAtScreenPosition(1).offsetBy(dx: label.frame.size.width/2 * 1.1, dy: characterHeight/2 * 1.5)
-//        }
         return label
     }()
     
     /**
      Fills the screen with character nodes, all set to be a space
      */
-    private func addSpaceCharacterNodes(display: SKShapeNode) {
+    private func addSpaceCharacterNodes() {
         
         // default to empty spaces
         let screenCharacters = Array(repeating: DigitalCharacter.space, count: self.numberOfCharacters)
@@ -148,7 +155,7 @@ class ScreenNode: SKSpriteNode {
         for position in 1...self.numberOfCharacters {
             let node = self.screenCharacterNodes[position - 1]
             node.position = self.cgPointAtScreenPosition(position)
-            display.addChild(node)
+            self.addChild(node)
             
         }
     }

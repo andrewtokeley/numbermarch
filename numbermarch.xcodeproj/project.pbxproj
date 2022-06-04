@@ -61,6 +61,7 @@
 		D878A8962841DA6C001CD2F9 /* ScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878A8952841DA6C001CD2F9 /* ScreenNode.swift */; };
 		D878A89928446809001CD2F9 /* KeyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878A89828446809001CD2F9 /* KeyNode.swift */; };
 		D878A89B28446934001CD2F9 /* CalculatorKeyEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878A89A28446934001CD2F9 /* CalculatorKeyEnum.swift */; };
+		D878A89D284AE6B9001CD2F9 /* CalculatorDimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878A89C284AE6B9001CD2F9 /* CalculatorDimensions.swift */; };
 		D87ED4CD2832D8DE00BA6DF4 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87ED4CC2832D8DE00BA6DF4 /* String.swift */; };
 		D87ED4CF2832DCE800BA6DF4 /* WarRulesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87ED4CE2832DCE800BA6DF4 /* WarRulesProtocol.swift */; };
 		D87ED4D32832E37E00BA6DF4 /* War.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87ED4D22832E37E00BA6DF4 /* War.swift */; };
@@ -143,6 +144,7 @@
 		D878A8952841DA6C001CD2F9 /* ScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenNode.swift; sourceTree = "<group>"; };
 		D878A89828446809001CD2F9 /* KeyNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyNode.swift; sourceTree = "<group>"; };
 		D878A89A28446934001CD2F9 /* CalculatorKeyEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorKeyEnum.swift; sourceTree = "<group>"; };
+		D878A89C284AE6B9001CD2F9 /* CalculatorDimensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorDimensions.swift; sourceTree = "<group>"; };
 		D87ED4CC2832D8DE00BA6DF4 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		D87ED4CE2832DCE800BA6DF4 /* WarRulesProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarRulesProtocol.swift; sourceTree = "<group>"; };
 		D87ED4D22832E37E00BA6DF4 /* War.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = War.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				D8338DF22844C9E7000007C6 /* CalculatorScene.swift */,
+				D878A89C284AE6B9001CD2F9 /* CalculatorDimensions.swift */,
 				D878A897284467F1001CD2F9 /* Keys */,
 				D878A8942841DA56001CD2F9 /* Screen */,
 				D824E40C2841D02B00C144F1 /* CalculatorDisplayData.swift */,
@@ -518,6 +521,7 @@
 				D86D00932830393F00113F26 /* Presenter.swift in Sources */,
 				D8338DF32844C9E7000007C6 /* CalculatorScene.swift in Sources */,
 				D86D009E2830398000113F26 /* UserInterface+SwiftUI.swift in Sources */,
+				D878A89D284AE6B9001CD2F9 /* CalculatorDimensions.swift in Sources */,
 				D8603876282F4C4900781EA5 /* BattleDelegate.swift in Sources */,
 				D86D00AF28303D1100113F26 /* NSArray+PureLayout.m in Sources */,
 				D878A89928446809001CD2F9 /* KeyNode.swift in Sources */,

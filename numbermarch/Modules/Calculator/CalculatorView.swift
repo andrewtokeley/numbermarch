@@ -28,11 +28,11 @@ final class CalculatorView: UserInterface {
     
     // MARK: - UI Elements
     
-    lazy var backgroundImage: UIImageView = {
-        let image = UIImage(named: "Background")
-        let imageView = UIImageView(image: image)
-        return imageView
-    }()
+//    lazy var backgroundImage: UIImageView = {
+//        let image = UIImage(named: "Background")
+//        let imageView = UIImageView(image: image)
+//        return imageView
+//    }()
     
     private lazy var calculatorView: SKView = {
         let view = SKView()
@@ -42,49 +42,37 @@ final class CalculatorView: UserInterface {
         return view
     }()
 
-    private lazy var gameButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Game", for: .normal)
-        button.setTitleColor(.gameBattlefieldText, for: .normal)
-        button.backgroundColor = .gameBattlefield
-        button.tag = CalculatorKey.game.rawValue
-        button.addTarget(self, action: #selector(keyboardButtonClick), for: .touchUpInside)
-        return button
-    }()
-    
-    private lazy var aimButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Aim", for: .normal)
-        button.setTitleColor(.gameBattlefieldText, for: .normal)
-        button.backgroundColor = .gameBattlefield
-        button.tag = CalculatorKey.point.rawValue
-        button.addTarget(self, action: #selector(keyboardButtonClick), for: .touchUpInside)
-        return button
-    }()
-    
-    private lazy var shootButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Shoot", for: .normal)
-        button.setTitleColor(.gameBattlefieldText, for: .normal)
-        button.backgroundColor = .gameBattlefield
-        button.tag = CalculatorKey.plus.rawValue
-        button.addTarget(self, action: #selector(keyboardButtonClick), for: .touchUpInside)
-        return button
-    }()
+//    private lazy var gameButton: UIButton = {
+//        let button = UIButton()
+//        button.setTitle("Game", for: .normal)
+//        button.setTitleColor(.gameBattlefieldText, for: .normal)
+//        button.backgroundColor = .gameBattlefield
+//        button.tag = CalculatorKey.game.rawValue
+//        button.addTarget(self, action: #selector(keyboardButtonClick), for: .touchUpInside)
+//        return button
+//    }()
+//
+//    private lazy var aimButton: UIButton = {
+//        let button = UIButton()
+//        button.setTitle("Aim", for: .normal)
+//        button.setTitleColor(.gameBattlefieldText, for: .normal)
+//        button.backgroundColor = .gameBattlefield
+//        button.tag = CalculatorKey.point.rawValue
+//        button.addTarget(self, action: #selector(keyboardButtonClick), for: .touchUpInside)
+//        return button
+//    }()
+//
+//    private lazy var shootButton: UIButton = {
+//        let button = UIButton()
+//        button.setTitle("Shoot", for: .normal)
+//        button.setTitleColor(.gameBattlefieldText, for: .normal)
+//        button.backgroundColor = .gameBattlefield
+//        button.tag = CalculatorKey.plus.rawValue
+//        button.addTarget(self, action: #selector(keyboardButtonClick), for: .touchUpInside)
+//        return button
+//    }()
     
     // MARK: - Overrides
-    
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//
-//        // at this point the gridView will have been auto sized and the presented scene will have access to its bounds.
-////        if calculatorView.scene == nil {
-////            let scene = CalculatorScene()
-////            scene.scaleMode = .fill
-////            scene.backgroundColor = .cyan //.gameBattlefield
-////            calculatorView.presentScene(scene)
-////        }
-//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,38 +89,15 @@ final class CalculatorView: UserInterface {
     override func loadView() {
         super.loadView()
         self.view.backgroundColor = .gameBackground
-        //self.view.addSubview(backgroundImage)
         self.view.addSubview(calculatorView)
-//        self.view.addSubview(gameButton)
-//        self.view.addSubview(aimButton)
-//        self.view.addSubview(shootButton)
-        
         self.setConstraints()
     }
     
     private func setConstraints() {
-        
-        //backgroundImage.autoPinEdgesToSuperviewEdges()
-        
-        //calculatorView.autoPinEdgesToSuperviewEdges()
         calculatorView.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
         calculatorView.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
         calculatorView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
         calculatorView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
-//        aimButton.autoPinEdge(.left, to: .left, of: screenView)
-//        aimButton.autoPinEdge(toSuperviewEdge: .bottom, withInset: 100)
-//        aimButton.autoSetDimension(.width, toSize: 100)
-//        aimButton.autoSetDimension(.height, toSize: 100)
-//
-//        gameButton.autoPinEdge(.left, to: .right, of: aimButton, withOffset: 10)
-//        gameButton.autoPinEdge(toSuperviewEdge: .bottom, withInset: 100)
-//        gameButton.autoSetDimension(.width, toSize: 100)
-//        gameButton.autoSetDimension(.height, toSize: 100)
-//
-//        shootButton.autoPinEdge(.right, to: .right, of: calculatorView)
-//        shootButton.autoPinEdge(toSuperviewEdge: .bottom, withInset: 100)
-//        shootButton.autoSetDimension(.width, toSize: 100)
-//        shootButton.autoSetDimension(.height, toSize: 100)
     }
     
     // MARK: - Public Methods
@@ -140,14 +105,16 @@ final class CalculatorView: UserInterface {
     /**
     Creates a new instance of SpaceInvaders game and calls it's start method.
      */
-    private func startGame() {
-        var result: GamesProtocol?
-        if let screen = self.calculatorScene?.screen {
-            result = SpaceInvaders(screen: screen, warRules: SpaceInvadersWarRules(), battleRules: SpaceInvaderBattleRules())
-            self.keyboardDelegate = result as? KeyboardDelegate
-        }
-        result?.start()
-    }
+//    private func startGame() {
+//        var game: GamesProtocol?
+//        if let screen = self.calculatorScene?.screen {
+//            game = SpaceInvaders(screen: screen, warRules: SpaceInvadersWarRules(), battleRules: SpaceInvaderBattleRules())
+//
+//            // if the game can be a keyboard delegate (which it needs to in order to react to keypresses), then assign it to the delegate
+//            self.calculatorScene?.keyboardDelegate = game as? KeyboardDelegate
+//        }
+//        game?.start()
+//    }
     
     // MARK: - Key Presses
     
@@ -170,29 +137,29 @@ final class CalculatorView: UserInterface {
         if let input = sender.input {
             switch input {
             case UIKeyCommand.inputLeftArrow:
-                self.keyboardDelegate?.keyPressed(key: .point)
+                self.calculatorScene?.keyPressed(key: .point)
                 return
             case UIKeyCommand.inputRightArrow:
-                self.keyboardDelegate?.keyPressed(key: .plus)
+                self.calculatorScene?.keyPressed(key: .plus)
                 return
             case UIKeyCommand.inputUpArrow:
-                self.startGame()
+                self.calculatorScene?.keyPressed(key: .game)
                 return
             default: return
             }
         }
     }
-    
-    @objc private func keyboardButtonClick(sender: UIButton) {
-        if let key = CalculatorKey(rawValue: sender.tag) {
-            switch key {
-            case .game:
-                self.startGame()
-            default:
-                self.keyboardDelegate?.keyPressed(key: key)
-            }
-        }
-    }
+//    
+//    @objc private func keyboardButtonClick(sender: UIButton) {
+//        if let key = CalculatorKey(rawValue: sender.tag) {
+//            switch key {
+//            case .game:
+//                self.startGame()
+//            default:
+//                self.keyboardDelegate?.keyPressed(key: key)
+//            }
+//        }
+//    }
 }
 
 //MARK: - CalculatorView API
