@@ -8,7 +8,8 @@
 import Foundation
 import SpriteKit
 
-class ScreenScene: SKScene {
+//class ScreenScene: SKScene {
+class ScreenNode: SKSpriteNode {
     
     /**
      The number of characters that can fit on the screen.
@@ -73,9 +74,9 @@ class ScreenScene: SKScene {
         self.numberOfCharacters = numberOfCharacters
         let screenCharacters = Array(repeating: DigitalCharacter.space, count: self.numberOfCharacters)
         self.screenCharacterNodes = screenCharacters.map { DigitalCharacterNode(character: $0) }
-        super.init(size: size)
+        super.init(texture: nil, color: .clear, size: size)
         
-        self.backgroundColor = UIColor.gameBackground
+        self.color = UIColor.gameBackground
         self.addSpaceCharacterNodes()
         self.addChild(textLabel)
     }
@@ -93,7 +94,7 @@ class ScreenScene: SKScene {
 /**
  All screens must be able to do these things!
  */
-extension ScreenScene: ScreenProtocol {
+extension ScreenNode: ScreenProtocol {
     
     func displayTextMessage(text: String) {
         self.textLabel.text = text.uppercased()
