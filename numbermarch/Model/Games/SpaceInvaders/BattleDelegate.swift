@@ -18,7 +18,7 @@ protocol BattleDelegate {
      - Parameters:
         - battle: battle instance in which the enemy was killed
         - enemy: Enemy instance killed
-        - index: index of the enemy killed
+        - index: index of the enemy killed, where 0 is the closest position to the opponent's base
      */
     func battle(_ battle: Battle, killedEnemy: Enemy, index: Int)
     
@@ -53,7 +53,7 @@ protocol BattleDelegate {
     func battle(_ battle: Battle, shouldSpawnMotheshipAfterKillOfValue value: Int) -> Bool
     
     /**
-     Called when the battle is lost
+     Called when the enemies have reached your base and the battle is lost. If you have lives left the enemies will be respawned again.
      */
     func battleLost()
 }

@@ -50,9 +50,11 @@ extension SKNode
             result = scene.anchorPoint == CGPoint(x: 0, y: 0)
         } else if let spriteNode = self as? SKSpriteNode {
             result = spriteNode.anchorPoint == CGPoint(x: 0, y: 0)
+        } else if let _ = self as? SKShapeNode {
+            result = true
         } else {
-            // Unless you're a SKShapeNode your anchor is at (0.5, 0.5)
-            result = !(self is SKShapeNode)
+            // not sure if this is actually true, but fine for me
+            result = false
         }
         
         return result

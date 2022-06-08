@@ -25,6 +25,7 @@ enum CalculatorKey: Int {
     case plus = 11 // fire
     case game = 12 // game
     case unknown = 13
+    case onoffSwitch = 14
     func asText() -> String {
         switch self {
         case .plus:

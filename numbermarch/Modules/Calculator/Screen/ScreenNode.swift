@@ -30,6 +30,11 @@ class ScreenNode: SKSpriteNode {
     fileprivate(set) var numberOfCharacters: Int
     
     /**
+     When characters are displayed on the screen, delays can be scheduled to trigger callbacks. To avoid conflicts all display methods use the same Timer instance which is cancelled and redefined whenever a new display method is called.
+     */
+    private var delayTimer: Timer?
+    
+    /**
      Reference to the digital characters displayed across all screen positions (including spaces)
      */
     private var screenCharacterNodes: [DigitalCharacterNode] =  [DigitalCharacterNode]()
@@ -64,21 +69,11 @@ class ScreenNode: SKSpriteNode {
         super.init(texture: nil, color: .clear, size: size)
         self.color = .clear
         
-        
-        // Add the highest level node, it contains all the children for the screen
-//        self.border.position = CGPoint(x: -self.frame.width/2, y: -self.frame.height/2)
-//        self.addChild(self.border)
-//        self.border.addChild(innerBorder, verticalAlign: .centre, horizontalAlign: .centre)
-//        self.innerBorder.addChild(display, verticalAlign: .top, horizontalAlign: .centre, offSet: CGVector(dx: 0, dy: -0.2 * self.display.frame.height))
-//
-        //self.addChild(display, verticalAlign: .centre, horizontalAlign: .centre)
         self.textLabel.position = CGPoint(x: -self.frame.width/2 + self.spaceBetweenCharacters + self.characterSize.width, y: self.frame.height/2 - GAP)
         self.addChild(self.textLabel)
-        //self.addChild(self.textLabel, verticalAlign: .top, horizontalAlign: .centre)
-        self.textLabel.text = "GAME OVER"
         
         self.addSpaceCharacterNodes()
-//
+
     }
     
     /**
@@ -108,29 +103,6 @@ class ScreenNode: SKSpriteNode {
     }
     
     // MARK: - Children
-    
-//    private lazy var border: SKShapeNode = {
-//        let node = SKShapeNode(rect: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height), cornerRadius: 0.05 * self.frame.height)
-//        node.strokeColor = .clear
-//        node.fillColor = UIColor.black
-//        return node
-//    }()
-//
-//    private lazy var innerBorder: SKShapeNode = {
-//        let rect = CGRect(x: 0, y: 0, width: self.frame.width-2*GAP, height: self.frame.height-2*GAP)
-//        let node = SKShapeNode(rect: rect, cornerRadius: 0.05 * self.frame.height)
-//        node.strokeColor = .clear
-//        node.fillColor = UIColor.calculatorScreenBorder
-//        return node
-//    }()
-    
-//    private lazy var display: SKShapeNode = {
-//        let rect = CGRect(x: 0, y: 0, width: self.frame.width-4*GAP, height: self.frame.height - 5 * GAP)
-//        let node = SKShapeNode(rect: rect, cornerRadius: 0.05 * self.frame.height)
-//        node.strokeColor = .clear
-//        node.fillColor = .calculatorScreen
-//        return node
-//    }()
     
     private lazy var textLabel: SKLabelNode = {
         let label = SKLabelNode()
@@ -179,8 +151,14 @@ extension ScreenNode: ScreenProtocol {
     }
     
     func clearScreen() {
+        self.clearScreen(includingMessageText: true)
+    }
+    
+    func clearScreen(includingMessageText: Bool) {
         self.display(Array(repeating: DigitalCharacter.space, count: self.numberOfCharacters), screenPosition: self.numberOfCharacters)
-        self.displayTextMessage(text: "")
+        if includingMessageText {
+            self.displayTextMessage(text: "")
+        }
     }
     
     func append(_ character: DigitalCharacter) {
@@ -195,8 +173,10 @@ extension ScreenNode: ScreenProtocol {
     }
     
     func append(_ character: DigitalCharacter, delay: TimeInterval, completion: (() -> Void)?) {
+        self.delayTimer?.invalidate()
+        
         self.append(character)
-        let _ = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { (timer) in
+        self.delayTimer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { (timer) in
             completion?()
         }
     }
@@ -226,13 +206,16 @@ extension ScreenNode: ScreenProtocol {
     }
     
     func display(_ characters: [DigitalCharacter], screenPosition: Int, delay: TimeInterval, completion: (() -> Void)?) {
+        self.delayTimer?.invalidate()
         self.display(characters, screenPosition: screenPosition)
-        let _ = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { (timer) in
+        self.delayTimer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { (timer) in
             completion?()
         }
     }
     
-    func display(_ string: String, screenPosition: Int) {
+    func display(_ string: String, screenPosition: Int? = nil, delay: TimeInterval = 0, completion: (() -> Void)? = nil) {
+        let position = screenPosition == nil ? self.numberOfCharacters : screenPosition!
+
         // create [DisplayCharater] from string
         var result = [DigitalCharacter]()
         for c in string {
@@ -246,13 +229,12 @@ extension ScreenNode: ScreenProtocol {
                 }
             }
         }
-        self.display(result, screenPosition: screenPosition)
-    }
-    
-    func display(_ string: String, screenPosition: Int, delay: TimeInterval, completion: (() -> Void)?) {
-        self.display(string, screenPosition: screenPosition)
-        let _ = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { (timer) in
-            completion?()
+        self.display(result, screenPosition: position)
+        if completion != nil {
+            self.delayTimer?.invalidate()
+            self.delayTimer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { (timer) in
+                completion?()
+            }
         }
     }
     

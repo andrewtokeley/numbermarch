@@ -23,9 +23,13 @@ protocol ScreenProtocol {
     func freezeCharacters(screenPosition: Int)
     
     /**
-     Clears the screen
+     Clears the screen, including any messages being displayed
+     
+     - Parameters:
+        - includingMessageText: if true the message text will also be cleared. Default is true.
      */
-    func clearScreen() 
+    func clearScreen(includingMessageText: Bool)
+    func clearScreen()
     
     /**
      Display a single character to the screen at the given position.
@@ -48,16 +52,18 @@ protocol ScreenProtocol {
     func display(_ characters: [DigitalCharacter], screenPosition: Int, delay: TimeInterval, completion: (() -> Void)?)
     
     /**
-     Display the string to the screen starting at the given position.
+     Display the string, right aligned, to the screen starting at the given position.
      
-     Note that only characters able to be represented on the screen will be displayed.
+     Note that only characters able to be represented on the screen will be displayed. Unrecognised characters will display as a space.
      
      - Parameters:
         - string: the text to display
-        - screenPosition: the screen position to display the character. The value is 1 based. Where position 1 is the first visible location on the screen.
+        - screenPosition: the screen position to display the character. The value is 1 based. Where position 1 is the first visible location on the screen.  If omitted or set to nil, text will be right aligned.
+        - delay: the number of seconds to wait before calling the completion handler. If no completion handler has been set, this argument is ignored.
+        - completion: optional completion handler
      */
-    func display(_ string: String, screenPosition: Int)
-    func display(_ string: String, screenPosition: Int, delay: TimeInterval, completion: (() -> Void)?)
+    func display(_ string: String, screenPosition: Int?, delay: TimeInterval, completion: (() -> Void)?)
+    
     /**
      Appends a new character to the far right of the screen and shifts any characters that are not fixed to the left.
      */

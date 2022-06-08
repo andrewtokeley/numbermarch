@@ -11,6 +11,21 @@ import SpriteKit
 
 class SKNodeTests: XCTestCase {
 
+    func testIsAnchor0x0() throws {
+        
+        let scene = SKScene()
+        XCTAssertTrue(scene.isAnchor0x0 == true)
+        scene.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        XCTAssertTrue(scene.isAnchor0x0 == false)
+        
+        let spriteNode = SKSpriteNode()
+        XCTAssertTrue(spriteNode.isAnchor0x0 == false)
+        spriteNode.anchorPoint = CGPoint(x: 0, y: 0)
+        XCTAssertTrue(spriteNode.isAnchor0x0 == true)
+        
+        let shapeNode = SKShapeNode()
+        XCTAssertTrue(shapeNode.isAnchor0x0 == true)
+    }
     
     /**
      Tests that nested SKShapeNodes align properly.

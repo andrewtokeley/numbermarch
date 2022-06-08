@@ -28,12 +28,6 @@ final class CalculatorView: UserInterface {
     
     // MARK: - UI Elements
     
-//    lazy var backgroundImage: UIImageView = {
-//        let image = UIImage(named: "Background")
-//        let imageView = UIImageView(image: image)
-//        return imageView
-//    }()
-    
     private lazy var calculatorView: SKView = {
         let view = SKView()
         view.allowsTransparency = true
@@ -41,36 +35,6 @@ final class CalculatorView: UserInterface {
         view.backgroundColor = .blue
         return view
     }()
-
-//    private lazy var gameButton: UIButton = {
-//        let button = UIButton()
-//        button.setTitle("Game", for: .normal)
-//        button.setTitleColor(.gameBattlefieldText, for: .normal)
-//        button.backgroundColor = .gameBattlefield
-//        button.tag = CalculatorKey.game.rawValue
-//        button.addTarget(self, action: #selector(keyboardButtonClick), for: .touchUpInside)
-//        return button
-//    }()
-//
-//    private lazy var aimButton: UIButton = {
-//        let button = UIButton()
-//        button.setTitle("Aim", for: .normal)
-//        button.setTitleColor(.gameBattlefieldText, for: .normal)
-//        button.backgroundColor = .gameBattlefield
-//        button.tag = CalculatorKey.point.rawValue
-//        button.addTarget(self, action: #selector(keyboardButtonClick), for: .touchUpInside)
-//        return button
-//    }()
-//
-//    private lazy var shootButton: UIButton = {
-//        let button = UIButton()
-//        button.setTitle("Shoot", for: .normal)
-//        button.setTitleColor(.gameBattlefieldText, for: .normal)
-//        button.backgroundColor = .gameBattlefield
-//        button.tag = CalculatorKey.plus.rawValue
-//        button.addTarget(self, action: #selector(keyboardButtonClick), for: .touchUpInside)
-//        return button
-//    }()
     
     // MARK: - Overrides
     
@@ -99,22 +63,6 @@ final class CalculatorView: UserInterface {
         calculatorView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
         calculatorView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
     }
-    
-    // MARK: - Public Methods
-    
-    /**
-    Creates a new instance of SpaceInvaders game and calls it's start method.
-     */
-//    private func startGame() {
-//        var game: GamesProtocol?
-//        if let screen = self.calculatorScene?.screen {
-//            game = SpaceInvaders(screen: screen, warRules: SpaceInvadersWarRules(), battleRules: SpaceInvaderBattleRules())
-//
-//            // if the game can be a keyboard delegate (which it needs to in order to react to keypresses), then assign it to the delegate
-//            self.calculatorScene?.keyboardDelegate = game as? KeyboardDelegate
-//        }
-//        game?.start()
-//    }
     
     // MARK: - Key Presses
     
@@ -149,17 +97,6 @@ final class CalculatorView: UserInterface {
             }
         }
     }
-//    
-//    @objc private func keyboardButtonClick(sender: UIButton) {
-//        if let key = CalculatorKey(rawValue: sender.tag) {
-//            switch key {
-//            case .game:
-//                self.startGame()
-//            default:
-//                self.keyboardDelegate?.keyPressed(key: key)
-//            }
-//        }
-//    }
 }
 
 //MARK: - CalculatorView API

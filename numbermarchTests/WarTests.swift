@@ -10,137 +10,256 @@ import XCTest
 
 class WarTests: XCTestCase {
     
-    var warService: WarServiceInterface!
+    var warService: WarServiceInterface = WarFactory.sharedInstance.warService
     
-    override func setUpWithError() throws {
-        self.warService = WarFactory.sharedInstance.warService
-    }
-
-    override func tearDownWithError() throws {
+    func testBattleSize() throws {
+        let rules = SpaceInvadersWarRules()
         
+        warService.createWar(rules: rules) { war, error in
+            XCTAssertNil(error)
+            
+            // SpaceInvader rules have battle size at 6 until the 10th battle when it changes to 5
+            let _ = war.moveToNextBattle() // 1st battle
+            XCTAssertTrue(war.battle?.battleSize == 6)
+            XCTAssertTrue(war.battle?.level == 1)
+            let _ = war.moveToNextBattle() // 2
+            let _ = war.moveToNextBattle() // 3
+            let _ = war.moveToNextBattle() // 4
+            let _ = war.moveToNextBattle() // 5
+            XCTAssertTrue(war.battle?.battleSize == 6)
+            XCTAssertTrue(war.battle?.level == 5)
+            let _ = war.moveToNextBattle() // 6
+            let _ = war.moveToNextBattle() // 7
+            let _ = war.moveToNextBattle() // 8
+            let _ = war.moveToNextBattle() // 9
+            XCTAssertTrue(war.battle?.battleSize == 6)
+            
+            let _ = war.moveToNextBattle() // first level in the second wave, battlefield now 5
+            XCTAssertTrue(war.battle?.battleSize == 5) // 10
+        }
     }
+    
+    func testScoreLevel() throws {
+        let rules = SpaceInvadersWarRules()
+        
+        let enemy = Enemy(value: 3)
+        
+        // max points for levels up to 9, note that index is 0 based
+        XCTAssertTrue(rules.pointsForKillingEnemy(enemy: enemy, level: 1, position: 6) == 60)
+        XCTAssertTrue(rules.pointsForKillingEnemy(enemy: enemy, level: 2, position: 6) == 60)
+        XCTAssertTrue(rules.pointsForKillingEnemy(enemy: enemy, level: 3, position: 6) == 60)
+        XCTAssertTrue(rules.pointsForKillingEnemy(enemy: enemy, level: 9, position: 6) == 60)
 
+        // when we get to level 10 - 18 the max is 100, but enemies start at position 5, so
+        XCTAssertTrue(rules.pointsForKillingEnemy(enemy: enemy, level: 10, position: 6) == 0)
+        XCTAssertTrue(rules.pointsForKillingEnemy(enemy: enemy, level: 10, position: 5) == 100)
+        XCTAssertTrue(rules.pointsForKillingEnemy(enemy: enemy, level: 12, position: 5) == 100)
+        XCTAssertTrue(rules.pointsForKillingEnemy(enemy: enemy, level: 17, position: 5) == 100)
+
+        // test a few more
+        XCTAssertTrue(rules.pointsForKillingEnemy(enemy: enemy, level: 1, position: 3) == 30)
+        XCTAssertTrue(rules.pointsForKillingEnemy(enemy: enemy, level: 9, position: 4) == 40)
+        XCTAssertTrue(rules.pointsForKillingEnemy(enemy: enemy, level: 10, position: 2) == 40)
+        XCTAssertTrue(rules.pointsForKillingEnemy(enemy: enemy, level: 17, position: 1) == 20)
+    }
+    
     func testWarCreatesCorrectNumberOfBattles() throws {
         let expectation = self.expectation(description: "testWarCreatesCorrectNumberOfBattles")
         var newWar: War?
         
-        let warRules = TestWarRule()
-        let battleRules = SpaceInvaderBattleRules()
+        let rules = SpaceInvadersWarRules()
         
-        warService.createWar(warRules: warRules, battleRules: battleRules) { war, error in
+        warService.createWar(rules: rules) { war, error in
             newWar = war
             expectation.fulfill()
         }
         waitForExpectations(timeout: 5, handler: nil)
         
-        XCTAssertNil(newWar?.battle)
-        let _ = newWar?.moveToNextBattle() // first battle
-        let _ = newWar?.moveToNextBattle() // second
-        let _ = newWar?.moveToNextBattle() // third
-        let noBattle = newWar?.moveToNextBattle() // should return nil
-        XCTAssertNil(noBattle)
-        
+        XCTAssertEqual(newWar?.numberOfBattles, rules.numberOfLevels)
     }
     
-    func testMothership10() {
+    func testWarScore() throws {
+        let expectation = self.expectation(description: "testWarCreatesCorrectNumberOfBattles")
+        var newWar: War?
         
-        let battleRules = SpaceInvaderBattleRules()
+        let rules = SpaceInvadersWarRules()
         
-        // create single battle for war
-        let battle = try! Battle(armyValues: [1,7,3,5], rules: battleRules)
-        battle.battleSize = 6
+        let battle1 = try! Battle(armyValues: [1,2,3], rules: rules, delegate: nil)
+        battle1.score = 11
+        let battle2 = try! Battle(armyValues: [1,2,3], rules: rules, delegate: nil)
+        battle2.score = 21
+        let battle3 = try! Battle(armyValues: [1,2,3], rules: rules, delegate: nil)
+        battle3.score = 31
         
-        // bring first 3 enemies on to screen
-        let _ = battle.advanceEnemies() //1
-        let _ = battle.advanceEnemies() //7
-        let _ = battle.advanceEnemies() //3
+        warService.createWar(battles: [battle1, battle2, battle3], rules: rules) { war, error in
+            newWar = war
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5, handler: nil)
         
-        // these shots should spawn a mothership on next advance
-        battle.shoot(value: 7)
-        battle.shoot(value: 3)
-        
-        // advance once more to bring the mothership on
-        let _ = battle.advanceEnemies() //n
-        
-        XCTAssertTrue(battle.battlefield.last??.value == DigitalCharacter.mothership.rawValue)
-        
+        XCTAssertEqual(newWar?.score, 63)
     }
     
-    func testMothershipInSecondWave() {
+    func testWarWonScoreViaDelegate() {
         
-        let battleRules = SpaceInvaderBattleRules()
+        var newWar: War?
         
-        // create single battle for war
-        let battle = try! Battle(armyValues: [1,7,3], rules: battleRules)
-        battle.battleSize = 6
+        let rules = SpaceInvadersWarRules()
         
-        // bring first 3 enemies on to screen
-        let _ = battle.advanceEnemies() //1
-        let _ = battle.advanceEnemies() //7
-        let _ = battle.advanceEnemies() //3
+        let battle1 = try! Battle(armyValues: [1,2,3], rules: rules, delegate: nil)
+        battle1.score = 11
+        let battle2 = try! Battle(armyValues: [1,2,3], rules: rules, delegate: nil)
+        battle2.score = 21
+        let battle3 = try! Battle(armyValues: [1,2,3], rules: rules, delegate: nil)
+        battle3.score = 31
         
-        // advance one more time (no more enemies so the last spot will be a space)
-        let _ = battle.advanceEnemies()
-        XCTAssertNil(battle.battlefield.last!)
+        let delegate = MockWarDelegate(self)
+        let expectation = self.expectation(description: "createWarExpectation")
+        warService.createWar(battles: [battle1, battle2, battle3], rules: rules) { war, error in
+            newWar = war
+            newWar?.delegate = delegate
+            expectation.fulfill()
+        }
+        // wait for the war to be created
+        self.waitForExpectations(timeout: 5, handler: nil)
         
-        // these shots should NOT spawn a mothership on next advance in this wave
-        battle.shoot(value: 7)
-        battle.shoot(value: 3)
+        // war has been created now let's test whether the delegate is called when we've moved through all the battles
         
-        // advance once and check still nil
-        let _ = battle.advanceEnemies()
-        XCTAssertNil(battle.battlefield.last!)
+        delegate.createExpectation()
+        XCTAssertEqual(delegate.warWonWithScore, 0)
         
-        // restart the same battle - should remember to spawn a mothership
-        battle.takeEnemiesOffBattlefield()
-        let _ = battle.advanceEnemies()
-        XCTAssertTrue(battle.battlefield.last??.value == DigitalCharacter.mothership.rawValue)
+        let _ = newWar?.moveToNextBattle() // ok
+        let _ = newWar?.moveToNextBattle() // ok
+        let _ = newWar?.moveToNextBattle() // ok
+        let _ = newWar?.moveToNextBattle() // this should trigger the delegate
+        
+        // wait until the delegate fires
+        self.waitForExpectations(timeout: 5, handler: nil)
+        
+        // if the warWonWithScore property is set we know the delegate was called successfully
+        XCTAssertEqual(delegate.warWonWithScore, 63)
+    }
+    
+    func testLevelAfterNewBattle() {
+        var newWar: War?
+        
+        let rules = SpaceInvadersWarRules()
+        
+        let battle1 = try! Battle(armyValues: [1,2,3], rules: rules, delegate: nil)
+        battle1.score = 11
+        let battle2 = try! Battle(armyValues: [1,2,3], rules: rules, delegate: nil)
+        battle2.score = 21
+        let battle3 = try! Battle(armyValues: [1,2,3], rules: rules, delegate: nil)
+        battle3.score = 31
+        
+        let delegate = MockWarDelegate(self)
+        let expectation = self.expectation(description: "createWarExpectation")
+        warService.createWar(battles: [battle1, battle2, battle3], rules: rules) { war, error in
+            newWar = war
+            newWar?.delegate = delegate
+            expectation.fulfill()
+        }
+        // wait for the war to be created
+        self.waitForExpectations(timeout: 5, handler: nil)
+        
+        delegate.createExpectation()
+        try! newWar?.startWar()
+        self.waitForExpectations(timeout: 5, handler: nil)
+        
+        // startWar should trigger the first battle at level 1
+        XCTAssertEqual(delegate.newBattle?.level, 1)
+        
+        delegate.createExpectation()
+        let _ = newWar?.moveToNextBattle()
+        self.waitForExpectations(timeout: 5, handler: nil)
+        
+        XCTAssertEqual(delegate.newBattle?.level, 2)
     }
 }
 
-
-class TestWarRule: WarRulesProtocol {
-    func numberOfSpacesForEnemies(level: Int) -> Int {
-        return 6
+class MockWarDelegate: WarDelegate {
+    
+    var testCase: XCTestCase
+    var expectation: XCTestExpectation?
+    
+    var warWonWithScore: Int = 0
+    var newBattle: Battle? = nil
+    
+    init(_ testCase: XCTestCase) {
+        self.testCase = testCase
     }
     
-    func shouldGetExtraLife(level: Int) -> Bool {
-        return false
+    public func createExpectation() {
+        self.expectation = testCase.expectation(description: "warWonExpectation")
     }
     
-    var warDescription: String {
-        return ""
+    private func fulfillExpectation() {
+        self.expectation?.fulfill()
+        self.expectation = nil
     }
     
-    func levelDescription(level: Int) -> String {
-        return ""
+    func war(_ war: War, newBattle battle: Battle) {
+        newBattle = battle
+        self.fulfillExpectation()
     }
     
-    func stepTimeInterval(level: Int) -> TimeInterval {
-        return TimeInterval(1)
-    }
-    
-    func shouldSpawnMothership(lastKillValue: Int, level: Int) -> Bool {
-        return false
-    }
-    
-    func clearState() {
-        //
-    }
-    
-    func numberOfEnemiesAtLevel(level: Int) -> Int {
-        return 10
-    }
-    
-    func pointsForKillingEnemy(enemy: Enemy, level: Int) -> Int {
-        return 0
-    }
-    
-    var numberOfLevels: Int {
-        return 3
-    }
-    
-    var numberOfLives: Int {
-        return 0
+    func war(_ war: War, warWonWithScore score: Int) {
+        warWonWithScore = score
+        self.fulfillExpectation()
     }
 }
+
+//class TestWarRule: WarRulesProtocol {
+//    func pointsForKillingEnemy(enemy: Enemy, level: Int, position: Int) -> Int {
+//        if enemy.type == .Mothership { return 300 }
+//        return 10
+//    }
+//
+//    func numberOfShotsAtLevel(level: Int) -> Int {
+//        return 30
+//    }
+//
+//    func numberOfSpacesForEnemies(level: Int) -> Int {
+//        return 6
+//    }
+//
+//    func shouldGetExtraLife(level: Int) -> Bool {
+//        return false
+//    }
+//
+//    var warDescription: String {
+//        return ""
+//    }
+//
+//    func levelDescription(level: Int) -> String {
+//        return ""
+//    }
+//
+//    func stepTimeInterval(level: Int) -> TimeInterval {
+//        return TimeInterval(1)
+//    }
+//
+//    func shouldSpawnMothership(lastKillValue: Int, level: Int) -> Bool {
+//        return false
+//    }
+//
+//    func clearState() {
+//        //
+//    }
+//
+//    func numberOfEnemiesAtLevel(level: Int) -> Int {
+//        return 10
+//    }
+//
+//    func pointsForKillingEnemy(enemy: Enemy, level: Int) -> Int {
+//        return 0
+//    }
+//
+//    var numberOfLevels: Int {
+//        return 3
+//    }
+//
+//    var numberOfLives: Int {
+//        return 0
+//    }
+//}

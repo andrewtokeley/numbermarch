@@ -7,39 +7,46 @@
 
 import Foundation
 import SpriteKit
+import SwiftUI
+
+enum CalculatorSwitch: Int {
+    case off = 0
+    case music = 1
+    case calcGame = 2
+    func next() -> CalculatorSwitch {
+        let nextRawValue = self.rawValue == 2 ? 0 : self.rawValue + 1
+        return CalculatorSwitch(rawValue: nextRawValue) ?? self
+    }
+}
 
 class CalculatorScene: SKScene {
+    
+    private var game: GamesProtocol?
+    private var calculatorEngine: CalculatorEngine?
+    private var hapticMedium = UIImpactFeedbackGenerator(style: .medium)
+    private var onOffSwitch = CalculatorSwitch.off
+    private var dimensions: CalculatorDimensions!
     
     private var sizeButton: CGSize {
         return CGSize(width: self.frame.width/7, height: self.frame.height/20)
     }
     
-    private var GAP: CGFloat {
-        return  10 //0.07 * self.frame.height
-    }
-    
-    private var CALC_WIDTH: CGFloat {
-        return self.frame.width*0.9
-    }
-    
-    private var dimensions: CalculatorDimensions!
-    
-    public var keyboardDelegate: KeyboardDelegate?
-    
     /**
-     Ratio between height an width is 10:6
+     The delegate will be advised of any key presses within the calculator
      */
-    private var CALC_HEIGHT: CGFloat {
-        return CALC_WIDTH * 10/6
-    }
+    public var keyboardDelegate: KeyboardDelegate?
     
     override func sceneDidLoad() {
         super.sceneDidLoad()
         self.backgroundColor = .black
-        
+        hapticMedium.prepare()
         self.dimensions = CalculatorDimensions(width: self.size.width)
         self.addChildNodes()
+        
+        self.switchToOff()
     }
+    
+    // MARK: - Child Nodes
     
     private func addChildNodes() {
         self.addChild(self.calculatorBackground, verticalAlign: .top, horizontalAlign: .centre, offSet: CGVector(dx: 0, dy: -100))
@@ -54,8 +61,7 @@ class CalculatorScene: SKScene {
     
     public lazy var screen: ScreenNode = {
         let node = ScreenNode(numberOfCharacters: 9, size: CGSize(width: self.dimensions.screenSize.width, height: self.dimensions.screenSize.height))
-        node.display("08-016430", screenPosition: 1)
-        node.displayTextMessage(text: "GAME OVER")
+        node.display ("0", screenPosition: 1)
         return node
     }()
 
@@ -65,62 +71,96 @@ class CalculatorScene: SKScene {
     Creates a new instance of SpaceInvaders game and calls it's start method.
      */
     private func startGame() {
-        let game = SpaceInvaders(screen: screen, warRules: SpaceInvadersWarRules(), battleRules: SpaceInvaderBattleRules())
-        self.keyboardDelegate = game
-        game.start()
+        self.onOffSwitch = .calcGame
+        self.calculatorEngine = nil
+        //self.musicEngine = nil
+        
+        self.game?.stop()
+        
+        self.game = SpaceInvaders(screen: screen, rules: SpaceInvadersWarRules())
+        self.keyboardDelegate = game as? KeyboardDelegate
+        
+        // game starts automatically
+        game?.start()
     }
     
+    private func switchToOff() {
+        self.onOffSwitch = .off
+        self.screen.clearScreen()
+        self.game?.stop()
+        self.keyboardDelegate = nil
+        self.game = nil
+        self.calculatorEngine = nil
+    }
+    
+    private func switchToCalculator() {
+        self.onOffSwitch = .calcGame
+        self.game?.stop()
+        self.game = nil
+        
+        self.screen.clearScreen()
+        self.screen.displayTextMessage(text: "CALC")
+        self.screen.display("0")
+        
+        self.calculatorEngine = CalculatorEngine(screen: self.screen)
+        self.keyboardDelegate = self.calculatorEngine
+    }
+    
+    private func switchToMusic() {
+        self.onOffSwitch = .music
+        self.game?.stop()
+        self.game = nil
+        
+        self.screen.clearScreen()
+        self.screen.displayTextMessage(text: "MUSIC")
+        self.screen.display("0")
+        
+//        self.musicEngine = MusicEngine(screen: self.screen)
+//        self.keyboardDelegate = self.musicEngine
+    }
+    /**
+     Lets the scene know about any keys that have been pressed on the calculator. Touch events are captured by the CalculatorView and passes through this method to the scene.
+     
+     - Parameters:
+        - key: the key that was pressed
+     */
     public func keyPressed(key: CalculatorKey) {
+        if key == .onoffSwitch {
+            if onOffSwitch == .off {
+                self.switchToOff()
+            } else if onOffSwitch == .calcGame {
+                self.switchToCalculator()
+            } else if onOffSwitch == .music {
+                self.switchToMusic()
+            }
+            return
+        }
+        
+        if self.onOffSwitch == .off {
+            // ignore any key presses if calculator is off
+            return
+        }
+        
         if key == .game {
-            startGame()
+            if let game = game {
+                if game.isGameStarted {
+                    if game.isPaused {
+                        game.resume()
+                    } else {
+                        game.pause()
+                    }
+                } else {
+                    self.startGame()
+                }
+            } else {
+                self.startGame()
+            }
         } else {
-            // pass all other key presses... (or maybe pass everything?)
+            // pass all other key presses on to whoever has implemented the delegate (game or calc)
+            // (or maybe pass everything, or just aim and fire?)
             keyboardDelegate?.keyPressed(key: key)
         }
     }
-//
-//    override var keyCommands: [UIKeyCommand]? {
-//
-//        let left = UIKeyCommand(input: UIKeyCommand.inputLeftArrow, modifierFlags: [], action: #selector(keyPress))
-//
-//        let right = UIKeyCommand(input: UIKeyCommand.inputRightArrow, modifierFlags: [], action: #selector(keyPress))
-//
-//        let up = UIKeyCommand(input: UIKeyCommand.inputUpArrow, modifierFlags: [], action: #selector(keyPress))
-//
-//        return [left, right, up]
-//    }
-//
-    override var canBecomeFirstResponder: Bool {
-        return true
-    }
-//
-//    @objc private func keyPress(sender: UIKeyCommand) {
-//        if let input = sender.input {
-//            switch input {
-//            case UIKeyCommand.inputLeftArrow:
-//                self.keyboardDelegate?.keyPressed(key: .point)
-//                return
-//            case UIKeyCommand.inputRightArrow:
-//                self.keyboardDelegate?.keyPressed(key: .plus)
-//                return
-//            case UIKeyCommand.inputUpArrow:
-//                self.startGame()
-//                return
-//            default: return
-//            }
-//        }
-//    }
-//
-//    @objc private func keyboardButtonClick(sender: UIButton) {
-//        if let key = CalculatorKey(rawValue: sender.tag) {
-//            switch key {
-//            case .game:
-//                self.startGame()
-//            default:
-//                self.keyboardDelegate?.keyPressed(key: key)
-//            }
-//        }
-//    }
     
     // MARK: - Touch Events
     
@@ -130,9 +170,15 @@ class CalculatorScene: SKScene {
             let touchedNode = self.nodes(at: location)
             for node in touchedNode {
                 if node.name == "calculator" {
+                    let localLocation = touch.location(in: node)
                     // button click
-                    if let key = self.dimensions.keyAt(location) {
-                        self.keyboardDelegate?.keyPressed(key: key)
+                    if let key = self.dimensions.keyAt(localLocation) {
+                        if key == .onoffSwitch {
+                            // haptic feedback
+                            self.hapticMedium.impactOccurred()
+                            self.onOffSwitch = self.onOffSwitch.next()
+                        }
+                        keyPressed(key: key)
                     }
                 }
             }

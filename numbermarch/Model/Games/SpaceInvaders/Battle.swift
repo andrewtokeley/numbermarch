@@ -49,9 +49,21 @@ class Battle {
     public var battleSize: Int
     
     /**
+     Score for this battle
+     */
+    public var score: Int = 0
+    
+    /**
+     The level at which this battle is being waged.
+     
+     The level is only every set by a ``War`` instance as it creates the battles to be waged in the war. A battle needs to know the level because this impacts how many points are awarded for a successful kill.
+     */
+    public var level: Int = 0
+    
+    /**
      Rules used in the battle
     */
-    public var battleRules: BattleRulesProtocol
+    public var rules: WarRulesProtocol?
     
     /**
      Indicates whether the battle has been lost
@@ -60,20 +72,18 @@ class Battle {
     
     // MARK: - Private Properties
 
+    
     /**
      Internal representation of all the enemies in the enemy's army, even if they're not on the battle field yet
      */
     private var army: [Enemy]!
     
     /**
-     Internal total of the cummulative total of all enemies shot. This is used to determine whether a mother ship should be added
+     Set this flag to make sure a mothership is added next to the battlefield. This may be within the same battle, or when a new wave (in the same battle) restarts.
+     
+     Whether to add a mothership is determined by asking the BattlefieldDelegate after each successful kill. See ``shoot(value:distance:)``
      */
-    //private var shotTotal: Int = 0
-    
-    /**
-     If the rules say you can spawn a mothership, but the enemies are aleady too advanced, set this flag to true to ensure the mothership will appear in the next wave (i.e. when the battle restarts after enemies have won and the user still has lives)
-     */
-    private var spawnMothershipInNextWave: Bool = false
+    private var addMothershipNext: Bool = false
     
     /**
     Returns the enemy that is lined up to enter the battlefield next.
@@ -100,7 +110,7 @@ class Battle {
         - battleSize: the number of enemies allowed on a battle before the battle is lost
         - delegate: called to notify of significant battle events
      */
-    init(army: [Enemy], battleSize: Int, rules: BattleRulesProtocol = DefaultBattleRules(), delegate: BattleDelegate? = nil) throws {
+    init(army: [Enemy], battleSize: Int, rules: WarRulesProtocol? = nil, delegate: BattleDelegate? = nil) throws {
         guard army.count != 0 else { throw BattleError.ArmyHasNoEnemies }
         guard army.count <= 30 else { throw BattleError.TooManyEnemiesInArmy }
         
@@ -109,15 +119,15 @@ class Battle {
         self.battleLost = false
         self.battleSize = battleSize
         self.battlefield = Array(repeating: nil, count: battleSize)
-        self.battleRules = rules
+        self.rules = rules
     }
     
     /**
      Specilaised constructor to simplify populating army from enemy values
      */
-    convenience init(armyValues: [Int], rules: BattleRulesProtocol = DefaultBattleRules(), delegate: BattleDelegate? = nil) throws {
+    convenience init(armyValues: [Int], rules: WarRulesProtocol? = nil, delegate: BattleDelegate? = nil) throws {
         guard armyValues.count != 0 else { throw BattleError.ArmyHasNoEnemies }
-        guard armyValues.count <= 30 else { throw BattleError.TooManyEnemiesInArmy }
+        guard armyValues.count <= 16 else { throw BattleError.TooManyEnemiesInArmy }
         try self.init(
             army: armyValues.map( { return Enemy(value: $0) }),
             battleSize: 6,
@@ -129,11 +139,9 @@ class Battle {
     // MARK: Private Methods
     
     /**
-     Adds a mothership to the enemies army. It will be inserted before the current  nextEnemy and therefore will become the nextEnemy to enter the battlefield.
-     
-     Whether to add a Mothership is determined by asking the BattlefieldDelegate after each successful kill. Different war rules will determine the criteria. Classic rule is when you kills enemies whose values add up to a multiple of 10.
+     Inserts a mothership to the enemy's army. It isn't added immediately to the battlefeild, but will be inserted before the current nextEnemy and therefore will become the nextEnemy to enter the battlefield.
      */
-    private func addMothership() {
+    private func insertMothership() {
         let mothership = Enemy(value: DigitalCharacter.mothership.rawValue, status: .Ready)
         
         // add the mothership before the nextEnemy
@@ -147,9 +155,6 @@ class Battle {
     
     private func handleBattleLost() {
         self.battleLost = true
-        
-        // you lose any motherships that might have come in the next wave
-        self.spawnMothershipInNextWave = false
         self.delegate?.battleLost()
     }
     
@@ -176,10 +181,22 @@ class Battle {
             self.handleBattleLost()
             return false
         } else {
+            
             // move all enemies up a place
             for i in 0...self.battleSize - 2 {
                 self.battlefield[i] = self.battlefield[i + 1]
             }
+            
+            if self.addMothershipNext {
+                // but only do it if there are more enemies in the wings
+                if (self.nextEnemy != nil) {
+                    self.insertMothership()
+                    
+                    // reset flag
+                    self.addMothershipNext = false
+                }
+            }
+            
             if let index = army.firstIndex(where: { $0.status == .Ready }) {
                 // add the next enemy at the end of the battlefield
                 self.army[index].status = .Alive
@@ -193,42 +210,22 @@ class Battle {
     }
     
     /**
-     Adds the next available enemy to the battlefield.
-     */
-    public func addNextEnemyToBattle() -> Enemy? {
-        
-        if self.enemies.count == self.battleSize {
-            self.delegate?.battleLost()
-        }
-        // get the next member of the army who is ready to fight
-        if let index = army.firstIndex(where: { $0.status == .Ready })
-        {
-            self.army[index].status = .Alive
-            //self.delegate?.battle(self, newEnemy: self.army[index])
-            return self.army[index]
-        }
-        return nil
-    }
-    
-    /**
-     Moves the enemies that are on the battlefield into a ready status. Used when we want to reset the game without starting a new battle. Note that motherships will be lost and no points scored for them!
+     Moves the enemies that are on the battlefield into a ready status. Used when we want to reset the game without starting a new battle. Note that motherships will be lost, unless they were in the wings ready to be added (i.e. addMothershipNext flag set to true)
      */
     public func takeEnemiesOffBattlefield() {
         for i in 0...army.count - 1 {
+            // Motherships on the battlefield will be killed, no points :-(
+            if army[i].type == .Mothership && army[i].status == .Alive {
+                army[i].status = .Dead
+            }
+            
+            // Remaining enemies on the battlefield will be made ready to respawn
             if army[i].status == .Alive {
                 army[i].status = .Ready
-            }
-            if army[i].type == .Mothership {
-                army[i].status = .Dead
             }
         }
         self.battlefield = Array(repeating: nil, count: self.battleSize)
         self.battleLost = false
-        
-        if self.spawnMothershipInNextWave {
-            self.addMothership()
-            self.spawnMothershipInNextWave = false
-        }
     }
     
     /**
@@ -256,20 +253,19 @@ class Battle {
             // let listeners know a death occurred
             self.delegate?.battle(self, killedEnemy: army[armyIndex], index: battlefieldIndex)
             
-            // let listeners know if the battle is over
+            // update the score
+            self.score += self.rules?.pointsForKillingEnemy(enemy: army[armyIndex], level: self.level, position: battlefieldIndex + 1) ?? 0
             
+            // let listeners know if the battle is over
             if remainingEnemies == 0 {
+                // don't want to add mothership in the next level
                 self.delegate?.battleAllEnemiesKilled(self)
             } else {
-                // if the game isn't over yet and enemies haven't finished
-                if self.battleRules.shouldSpawnMothership(lastKillValue: value, level: 1) {
-                
-                    if self.battlefield.last! != nil {
-                        self.addMothership()
-                        self.spawnMothershipInNextWave = false
-                    } else {
-                        self.spawnMothershipInNextWave = true
-                    }
+                // check whether we should add a mothership next
+                if self.rules?.shouldSpawnMothership(lastKillValue: value, level: 1) ?? false {
+                    
+                    self.addMothershipNext = true
+
                 }
             }
             return
