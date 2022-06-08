@@ -41,7 +41,7 @@ class SpaceInvadersWarRules: WarRulesProtocol {
             // should never happen but return the fastest if it does!
             return 0.2
         }
-        let speeds = [1.6, 1.3, 1.1, 1.0, 0.9, 0.8, 0.7, 0.4, 0.3]
+        let speeds = [1.6, 1.3, 1.1, 1.0, 0.9, 0.8, 0.7, 0.5, 0.4]
         let index = level < 10 ? level-1 : 18-level-1
         return TimeInterval(speeds[index])
     }

@@ -23,7 +23,7 @@ class CalculatorScene: SKScene {
     
     private var game: GamesProtocol?
     private var calculatorEngine: CalculatorEngine?
-    private var hapticMedium = UIImpactFeedbackGenerator(style: .medium)
+    private var haptic = UIImpactFeedbackGenerator(style: .light)
     private var onOffSwitch = CalculatorSwitch.off
     private var dimensions: CalculatorDimensions!
     
@@ -39,7 +39,7 @@ class CalculatorScene: SKScene {
     override func sceneDidLoad() {
         super.sceneDidLoad()
         self.backgroundColor = .black
-        hapticMedium.prepare()
+        haptic.prepare()
         self.dimensions = CalculatorDimensions(width: self.size.width)
         self.addChildNodes()
         
@@ -99,7 +99,6 @@ class CalculatorScene: SKScene {
         self.game = nil
         
         self.screen.clearScreen()
-        self.screen.displayTextMessage(text: "CALC")
         self.screen.display("0")
         
         self.calculatorEngine = CalculatorEngine(screen: self.screen)
@@ -112,7 +111,6 @@ class CalculatorScene: SKScene {
         self.game = nil
         
         self.screen.clearScreen()
-        self.screen.displayTextMessage(text: "MUSIC")
         self.screen.display("0")
         
 //        self.musicEngine = MusicEngine(screen: self.screen)
@@ -173,10 +171,14 @@ class CalculatorScene: SKScene {
                     let localLocation = touch.location(in: node)
                     // button click
                     if let key = self.dimensions.keyAt(localLocation) {
+                        
                         if key == .onoffSwitch {
-                            // haptic feedback
-                            self.hapticMedium.impactOccurred()
+                            self.haptic.impactOccurred()
                             self.onOffSwitch = self.onOffSwitch.next()
+                        } else {
+                            if self.onOffSwitch != .off {
+                                self.haptic.impactOccurred()
+                            }
                         }
                         keyPressed(key: key)
                     }

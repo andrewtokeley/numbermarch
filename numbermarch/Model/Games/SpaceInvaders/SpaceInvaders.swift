@@ -114,11 +114,9 @@ class SpaceInvaders {
             scoreService.getHighscore(gameName: self.name) { highscore, error in
                 self.displayHighScore(highscore) {
                     self.displayStartMessage {
-                        self.displayScore() {
-                            self.gameActive = true
-                            // ready the war for the first battle
-                            try! self.war?.startWar()
-                        }
+                        self.gameActive = true
+                        // ready the war for the first battle
+                        try! self.war?.startWar()
                     }
                 }
             }
@@ -326,6 +324,22 @@ class SpaceInvaders {
             completion?()
         }
     }
+    
+    private func startBattle(_ battle: Battle) {
+        // redefine the delegate on the new battle to hear of significant events
+        self.battle = battle
+        self.battle?.delegate = self
+        
+        // check if you deserve an extra life
+        if self.rules.shouldGetExtraLife(level: self.war.level) && self.lives < self.rules.numberOfLives {
+            self.lives += 1
+        }
+        
+        // clear the battle rules in case there's any state from the previous battle (like cummulative scores)
+        self.battle?.rules?.clearState()
+        
+        self.play()
+    }
 }
 
 // MARK: - KeyboardDelegate
@@ -429,23 +443,14 @@ extension SpaceInvaders: WarDelegate {
     
     func war(_ war: War, newBattle battle: Battle) {
         
-        // display the score before starting the new battle
-        self.displayScore() {
-            
-            // redefine the delegate on the new battle to hear of significant events
-            self.battle = battle
-            self.battle?.delegate = self
-            
-            // check if you deserve an extra life
-            if self.rules.shouldGetExtraLife(level: self.war.level) && self.lives < self.rules.numberOfLives {
-                self.lives += 1
+        if battle.level != 1 {
+            self.displayScore() {
+                self.startBattle(battle)
             }
-            
-            // clear the battle rules in case there's any state from the previous battle (like cummulative scores)
-            self.battle?.rules?.clearState()
-            
-            self.play()
+        } else {
+            self.startBattle(battle)
         }
+        
     }
     
     func war(_ war: War, warWonWithScore score: Int) {
