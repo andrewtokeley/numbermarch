@@ -63,7 +63,7 @@ class Battle {
     /**
      Rules used in the battle
     */
-    public var rules: WarRulesProtocol?
+    public var rules: DigitalInvadersRulesProtocol?
     
     /**
      Indicates whether the battle has been lost
@@ -110,14 +110,15 @@ class Battle {
         - battleSize: the number of enemies allowed on a battle before the battle is lost
         - delegate: called to notify of significant battle events
      */
-    init(army: [Enemy], battleSize: Int, rules: WarRulesProtocol? = nil, delegate: BattleDelegate? = nil) throws {
+    init(army: [Enemy], level: Int, rules: DigitalInvadersRulesProtocol, delegate: BattleDelegate? = nil) throws {
         guard army.count != 0 else { throw BattleError.ArmyHasNoEnemies }
         guard army.count <= 30 else { throw BattleError.TooManyEnemiesInArmy }
         
         self.delegate = delegate
         self.army = army
+        self.level = level
         self.battleLost = false
-        self.battleSize = battleSize
+        self.battleSize = rules.numberOfSpacesForEnemies(level: level)
         self.battlefield = Array(repeating: nil, count: battleSize)
         self.rules = rules
     }
@@ -125,12 +126,10 @@ class Battle {
     /**
      Specilaised constructor to simplify populating army from enemy values
      */
-    convenience init(armyValues: [Int], rules: WarRulesProtocol? = nil, delegate: BattleDelegate? = nil) throws {
-        guard armyValues.count != 0 else { throw BattleError.ArmyHasNoEnemies }
-        guard armyValues.count <= 16 else { throw BattleError.TooManyEnemiesInArmy }
+    convenience init(armyValues: [Int], level: Int, rules: DigitalInvadersRulesProtocol, delegate: BattleDelegate? = nil) throws {
         try self.init(
             army: armyValues.map( { return Enemy(value: $0) }),
-            battleSize: 6,
+            level: level,
             rules: rules,
             delegate: delegate
         )

@@ -6,30 +6,7 @@
 //
 
 import Foundation
-
 import SpriteKit
-
-
-/**
- Represents a character that can be displayed on a screen
- */
-enum DigitalCharacter: Int {
-    case zero = 0
-    case one = 1
-    case two = 2
-    case three = 3
-    case four = 4
-    case five = 5
-    case six = 6
-    case seven = 7
-    case eight = 8
-    case nine = 9
-    case mothership = 10
-    case threebars = 11
-    case twobars = 12
-    case onebar = 13
-    case space = 14
-}
 
 /**
  Represents a character on the screen. Rendered to look like the old school digital characters
@@ -44,6 +21,7 @@ enum DigitalCharacter: Int {
   -
 
  ````
+ 
  */
 class DigitalCharacterNode: SKSpriteNode {
     
@@ -52,12 +30,12 @@ class DigitalCharacterNode: SKSpriteNode {
     /**
      The digital character being presented by the node
      */
-    var character: DigitalCharacter = .space {
+    public var character: DigitalCharacter = .space {
         didSet {
             self.configureCharacter(character)
         }
     }
-     
+    
     // MARK: - Private Properties
     
     /// The thickness of the digit's bars
@@ -74,13 +52,15 @@ class DigitalCharacterNode: SKSpriteNode {
         return spacer
     }
     
-    /// The distance bars need to move from each other to achieve barSpacer gap.
+    /**
+     The distance bars need to move from each other to achieve barSpacer gap.
+     */
     private var barSpacerShift: CGFloat {
         return sqrt((self.barSpacer * self.barSpacer)/2)
     }
     
     /// Colour of bar borders
-    private var barStroke: UIColor = UIColor.gameBattlefieldText
+    private var barStroke: UIColor = .red //UIColor.gameBattlefieldText
     
     /// Colour of bar fill
     private var barFill: UIColor = UIColor.gameBattlefieldText
@@ -88,29 +68,36 @@ class DigitalCharacterNode: SKSpriteNode {
     /**
      Each array in the mapping represents a display character. The flags in each array determine which bars are visible starting from the top bar, working clockwise and finishing with the middle bar.
     */
-    private var valueBarMap:[[Int]] = [
-        [1,1,1,1,1,1,0], // 0
-        [0,1,1,0,0,0,0], // 1
-        [1,1,0,1,1,0,1], // 2
-        [1,1,1,1,0,0,1], // 3
-        [0,1,1,0,0,1,1], // 4
-        [1,0,1,1,0,1,1], // 5
-        [1,0,1,1,1,1,1], // 6
-        [1,1,1,0,0,0,0], // 7
-        [1,1,1,1,1,1,1], // 8
-        [1,1,1,1,0,1,1], // 9
-        [0,0,1,0,1,0,1], // n
-        [1,0,0,1,0,0,1], // 3 lives
-        [0,0,0,1,0,0,1], // 2 lives
-        [0,0,0,0,0,0,1], // 1 life or hyphen
-        [0,0,0,0,0,0,0], // space
+    private var valueBarMap:[DigitalCharacter: [Int]] = [
+        .zero: [1,1,1,1,1,1,0], // 0
+        .one: [0,1,1,0,0,0,0], // 1
+        .two: [1,1,0,1,1,0,1], // 2
+        .three: [1,1,1,1,0,0,1], // 3
+        .four: [0,1,1,0,0,1,1], // 4
+        .five: [1,0,1,1,0,1,1], // 5
+        .six: [1,0,1,1,1,1,1], // 6
+        .seven: [1,1,1,0,0,0,0], // 7
+        .eight: [1,1,1,1,1,1,1], // 8
+        .nine: [1,1,1,1,0,1,1], // 9
+        .mothership: [0,0,1,0,1,0,1], // n
+        .threebars: [1,0,0,1,0,0,1], // 3 lives
+        .twobars: [0,0,0,1,0,0,1], // 2 lives
+        .onebar: [0,0,0,0,0,0,1], // 1 life or hyphen
+        .space: [0,0,0,0,0,0,0], // space
+        .upsideDownA: [0,1,1,1,1,1,1], // upside down A
+        .A: [1,1,1,0,1,1,1], // A
     ]
     
     // MARK: - Initializers
     
     init(character: DigitalCharacter, size: CGSize = CGSize(width: 15, height: 40)) {
         self.character = character
+        
         super.init(texture: nil, color: .clear, size: size)
+
+        // To allow the bars to expand to create the corner gaps, we need to bring the actual size for the didits in a bit.The two sides will each expand by barSpacer (2 * barSpacer), while the height will expand by the top, bottom, and top/bottom halves all moving a barSpacer each (4*barSpacer).
+        // Note the resulting shape of the digit will still be equal to the initialiser's size.
+        self.size = size.offSetBy(dw: -2 * self.barSpacer, dh: -4 * self.barSpacer)
         
         self.addChild(self.barTop)
         self.addChild(self.barTopRight)
@@ -130,6 +117,20 @@ class DigitalCharacterNode: SKSpriteNode {
         self.configureCharacter(character)
     }
     
+    convenience init(key: CalculatorKey, size: CGSize = CGSize(width: 15, height: 40)) {
+        
+        var character: DigitalCharacter
+        
+        // convert the calculator key into a DigitalCharacter
+        if key.isDigit {
+            character = DigitalCharacter(rawValue: key.rawValue) ?? .space
+        } else {
+            character = DigitalCharacter.space
+        }
+        
+        self.init(character: character, size: size)
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -139,10 +140,11 @@ class DigitalCharacterNode: SKSpriteNode {
     private func configureCharacter(_ character: DigitalCharacter) {
         guard character.rawValue < self.valueBarMap.count else { return }
         
-        let visibleBars = self.valueBarMap[character.rawValue]
-        for (index,item) in self.bars.enumerated() {
-            item.fillColor = visibleBars[index] == 1 ? UIColor.gameBattlefieldText : .clear //UIColor.gameBattlefieldTextBackground
-            item.strokeColor = visibleBars[index] == 1 ? UIColor.gameBattlefieldText : .clear //UIColor.gameBattlefieldTextBackground
+        if let visibleBars = self.valueBarMap[character] {
+            for (index,item) in self.bars.enumerated() {
+                item.fillColor = visibleBars[index] == 1 ? UIColor.gameBattlefieldText : .clear
+                item.strokeColor = visibleBars[index] == 1 ? UIColor.gameBattlefieldText : .clear
+            }
         }
     }
     

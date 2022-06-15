@@ -25,14 +25,14 @@ class BattleTests: XCTestCase {
             Enemy(value: 3),
             Enemy(value: 4),
             Enemy(value: 5),
-            ], battleSize: 6)
+        ], level: 1, rules: DigitalInvadersClassicRules())
         XCTAssertTrue(battle.enemies.count == 0)
         XCTAssertTrue(battle.battlefield.count == 6)
         XCTAssertTrue(battle.battlefield.filter({ $0 == nil }).count == 6)
     }
     
     func testNewBattleFromValues() throws {
-        let battle = try! Battle(armyValues: [1,2,3,4,5])
+        let battle = try! Battle(armyValues: [1,2,3,4,5], level: 1, rules: DigitalInvadersClassicRules())
         XCTAssertTrue(battle.enemies.count == 0)
     }
     
@@ -43,7 +43,7 @@ class BattleTests: XCTestCase {
             Enemy(value: 3),
             Enemy(value: 4),
             Enemy(value: 5),
-            ], battleSize: 6)
+            ], level: 1, rules: DigitalInvadersClassicRules())
         
         let _ = battle.advanceEnemies()
         XCTAssertTrue(battle.enemies.count == 1, "Should be one enemy on the battlefield")
@@ -56,7 +56,7 @@ class BattleTests: XCTestCase {
             Enemy(value: 1),
             Enemy(value: 2),
             Enemy(value: 3)
-            ], battleSize: 6)
+            ], level: 1, rules: DigitalInvadersClassicRules())
         
         let _ = battle.advanceEnemies() //1
         let _ = battle.advanceEnemies() //2
@@ -73,7 +73,7 @@ class BattleTests: XCTestCase {
             Enemy(value: 1),
             Enemy(value: 2),
             Enemy(value: 3)
-            ], battleSize: 6)
+            ], level: 1, rules: DigitalInvadersClassicRules())
         
         let _ = battle.advanceEnemies() //1
         let _ = battle.advanceEnemies() //2
@@ -92,11 +92,14 @@ class BattleTests: XCTestCase {
             Enemy(value: 3),
             Enemy(value: 4),
             Enemy(value: 5),
-            ], battleSize: 3)
+            ], level: 1, rules: DigitalInvadersClassicRules())
         
-        XCTAssertTrue(battle.advanceEnemies())
-        XCTAssertTrue(battle.advanceEnemies())
-        XCTAssertTrue(battle.advanceEnemies())
+        XCTAssertTrue(battle.advanceEnemies()) // 1
+        XCTAssertTrue(battle.advanceEnemies()) // 2
+        XCTAssertTrue(battle.advanceEnemies()) // 3
+        XCTAssertTrue(battle.advanceEnemies()) // 4
+        XCTAssertTrue(battle.advanceEnemies()) // 5
+        XCTAssertTrue(battle.advanceEnemies()) // 6
         
         // returns false means the delegate method enemiesWon() will be called
         XCTAssertFalse(battle.advanceEnemies())
@@ -109,7 +112,7 @@ class BattleTests: XCTestCase {
             Enemy(value: 3),
             Enemy(value: 4),
             Enemy(value: 5),
-            ], battleSize: 6)
+            ], level: 1, rules: DigitalInvadersClassicRules())
         
         // advance 3 enemies onto the battlefield
         let _ = battle.advanceEnemies() // 1
@@ -132,7 +135,7 @@ class BattleTests: XCTestCase {
             Enemy(value: 3),
             Enemy(value: 4),
             Enemy(value: 5),
-            ], battleSize: 6)
+            ], level: 1, rules: DigitalInvadersClassicRules())
         
         // advance 3 enemies onto the battlefield
         let _ = battle.advanceEnemies() // 1
@@ -159,7 +162,7 @@ class BattleTests: XCTestCase {
             Enemy(value: 3),
             Enemy(value: 4),
             Enemy(value: 5),
-            ], battleSize: 6)
+            ], level: 1, rules: DigitalInvadersClassicRules())
         
         // advance 3 enemies onto the battlefield
         let _ = battle.advanceEnemies() // 1
@@ -176,7 +179,7 @@ class BattleTests: XCTestCase {
             Enemy(value: 1),
             Enemy(value: 2),
             Enemy(value: 3),
-            ], battleSize: 6)
+            ], level: 1, rules: DigitalInvadersClassicRules())
         
         // advance all 3 enemies onto the battlefield
         let _ = battle.advanceEnemies() // 1
@@ -196,7 +199,7 @@ class BattleTests: XCTestCase {
             Enemy(value: 1),
             Enemy(value: 2),
             Enemy(value: 3),
-            ], battleSize: 6)
+            ], level: 1, rules: DigitalInvadersClassicRules())
         
         // advance all 3 enemies onto the battlefield
         let _ = battle.advanceEnemies() // 1
@@ -218,13 +221,16 @@ class BattleTests: XCTestCase {
             Enemy(value: 1),
             Enemy(value: 2),
             Enemy(value: 3),
-            ], battleSize: 3)
+            ], level: 1, rules: DigitalInvadersClassicRules())
         
         // advance all 3 enemies onto the battlefield
         let _ = battle.advanceEnemies() // 1
         let _ = battle.advanceEnemies() // 2
         let _ = battle.advanceEnemies() // 3
-        
+        let _ = battle.advanceEnemies() // 4
+        let _ = battle.advanceEnemies() // 5
+        let _ = battle.advanceEnemies() // 6
+
         // this looses the battle
         let _ = battle.advanceEnemies()
         
@@ -239,10 +245,8 @@ class BattleTests: XCTestCase {
     
     func testMothership10() {
         
-        let rules = SpaceInvadersWarRules()
-        
         // create single battle for war
-        let battle = try! Battle(armyValues: [1,7,3,5], rules: rules)
+        let battle = try! Battle(armyValues: [1,7,3,5], level: 1, rules: DigitalInvadersClassicRules())
         battle.battleSize = 6
         
         // bring first 3 enemies on to screen
@@ -266,10 +270,8 @@ class BattleTests: XCTestCase {
      */
     func testMothershipEmptyBattlefield() {
         
-        let rules = SpaceInvadersWarRules()
-        
         // create single battle for war
-        let battle = try! Battle(armyValues: [7,3,5,1], rules: rules)
+        let battle = try! Battle(armyValues: [7,3,5,1], level: 1, rules: DigitalInvadersClassicRules())
         battle.battleSize = 6
         
         // bring first 3 enemies on to screen
@@ -289,10 +291,9 @@ class BattleTests: XCTestCase {
     
     func testMothershipInSecondWave() {
         
-        let rules = SpaceInvadersWarRules()
         
         // create single battle for war
-        let battle = try! Battle(armyValues: [1,7,3], rules: rules)
+        let battle = try! Battle(armyValues: [1,7,3], level: 1, rules: DigitalInvadersClassicRules())
         battle.battleSize = 6
         
         // bring first 3 enemies on to screen
@@ -319,3 +320,5 @@ class BattleTests: XCTestCase {
     }
     
 }
+
+

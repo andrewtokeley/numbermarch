@@ -12,16 +12,65 @@ class WarTests: XCTestCase {
     
     var warService: WarServiceInterface = WarFactory.sharedInstance.warService
     
-    func testBattleSize() throws {
-        let rules = SpaceInvadersWarRules()
+    func testWarBattleSpeeds() throws {
+            
+        let rules = DigitalInvadersClassicRules()
+        
+        XCTAssertEqual(rules.stepTimeInterval(level: 1), rules.stepTimeInterval(level: 10))
+        XCTAssertEqual(rules.stepTimeInterval(level: 2), rules.stepTimeInterval(level: 11))
+        XCTAssertEqual(rules.stepTimeInterval(level: 3), rules.stepTimeInterval(level: 12))
+        XCTAssertEqual(rules.stepTimeInterval(level: 4), rules.stepTimeInterval(level: 13))
+        XCTAssertEqual(rules.stepTimeInterval(level: 5), rules.stepTimeInterval(level: 14))
+        XCTAssertEqual(rules.stepTimeInterval(level: 6), rules.stepTimeInterval(level: 15))
+        XCTAssertEqual(rules.stepTimeInterval(level: 7), rules.stepTimeInterval(level: 16))
+        XCTAssertEqual(rules.stepTimeInterval(level: 8), rules.stepTimeInterval(level: 17))
+        XCTAssertEqual(rules.stepTimeInterval(level: 9), rules.stepTimeInterval(level: 18))
+        
+    }
+    
+    func testBattleFieldSize() throws {
+        let rules = DigitalInvadersClassicRules()
         
         warService.createWar(rules: rules) { war, error in
             XCTAssertNil(error)
             
             // SpaceInvader rules have battle size at 6 until the 10th battle when it changes to 5
-            let _ = war.moveToNextBattle() // 1st battle
+            
+            // Creating a war schedules the first battle...
+            XCTAssertTrue(war.battle?.battleSize == 6)
+            XCTAssertTrue(war.battle?.battlefield.count == 6)
+            
+            let _ = war.moveToNextBattle() // 2
+            let _ = war.moveToNextBattle() // 3
+            let _ = war.moveToNextBattle() // 4
+            let _ = war.moveToNextBattle() // 5
+            let _ = war.moveToNextBattle() // 6
+            let _ = war.moveToNextBattle() // 7
+            let _ = war.moveToNextBattle() // 8
+            let _ = war.moveToNextBattle() // 9
+            XCTAssertEqual(war.battle?.battleSize, 6)
+            XCTAssertEqual(war.battle?.battlefield.count, 6)
+            
+            let _ = war.moveToNextBattle() // 10
+            let _ = war.moveToNextBattle() // 11
+            XCTAssertEqual(war.battle?.battleSize, 5)
+            XCTAssertEqual(war.battle?.battlefield.count, 5)
+            
+        }
+    }
+    
+    func testBattleSize() throws {
+        let rules = DigitalInvadersClassicRules()
+        
+        warService.createWar(rules: rules) { war, error in
+            XCTAssertNil(error)
+            
+            // SpaceInvader rules have battle size at 6 until the 10th battle when it changes to 5
+            
+            // Creating a war schedules the first battle...
             XCTAssertTrue(war.battle?.battleSize == 6)
             XCTAssertTrue(war.battle?.level == 1)
+            
             let _ = war.moveToNextBattle() // 2
             let _ = war.moveToNextBattle() // 3
             let _ = war.moveToNextBattle() // 4
@@ -35,12 +84,16 @@ class WarTests: XCTestCase {
             XCTAssertTrue(war.battle?.battleSize == 6)
             
             let _ = war.moveToNextBattle() // first level in the second wave, battlefield now 5
+            XCTAssertTrue(war.battle?.battleSize == 5)
+            let _ = war.moveToNextBattle() // 10
+            let _ = war.moveToNextBattle() // 11
+            // still 5?
             XCTAssertTrue(war.battle?.battleSize == 5) // 10
         }
     }
     
     func testScoreLevel() throws {
-        let rules = SpaceInvadersWarRules()
+        let rules = DigitalInvadersClassicRules()
         
         let enemy = Enemy(value: 3)
         
@@ -67,7 +120,7 @@ class WarTests: XCTestCase {
         let expectation = self.expectation(description: "testWarCreatesCorrectNumberOfBattles")
         var newWar: War?
         
-        let rules = SpaceInvadersWarRules()
+        let rules = DigitalInvadersClassicRules()
         
         warService.createWar(rules: rules) { war, error in
             newWar = war
@@ -82,13 +135,13 @@ class WarTests: XCTestCase {
         let expectation = self.expectation(description: "testWarCreatesCorrectNumberOfBattles")
         var newWar: War?
         
-        let rules = SpaceInvadersWarRules()
+        let rules = DigitalInvadersClassicRules()
         
-        let battle1 = try! Battle(armyValues: [1,2,3], rules: rules, delegate: nil)
+        let battle1 = try! Battle(armyValues: [1,2,3], level: 1, rules: rules, delegate: nil)
         battle1.score = 11
-        let battle2 = try! Battle(armyValues: [1,2,3], rules: rules, delegate: nil)
+        let battle2 = try! Battle(armyValues: [1,2,3], level: 1, rules: rules, delegate: nil)
         battle2.score = 21
-        let battle3 = try! Battle(armyValues: [1,2,3], rules: rules, delegate: nil)
+        let battle3 = try! Battle(armyValues: [1,2,3], level: 1, rules: rules, delegate: nil)
         battle3.score = 31
         
         warService.createWar(battles: [battle1, battle2, battle3], rules: rules) { war, error in
@@ -104,13 +157,13 @@ class WarTests: XCTestCase {
         
         var newWar: War?
         
-        let rules = SpaceInvadersWarRules()
+        let rules = DigitalInvadersClassicRules()
         
-        let battle1 = try! Battle(armyValues: [1,2,3], rules: rules, delegate: nil)
+        let battle1 = try! Battle(armyValues: [1,2,3], level: 1, rules: rules, delegate: nil)
         battle1.score = 11
-        let battle2 = try! Battle(armyValues: [1,2,3], rules: rules, delegate: nil)
+        let battle2 = try! Battle(armyValues: [1,2,3], level: 1, rules: rules, delegate: nil)
         battle2.score = 21
-        let battle3 = try! Battle(armyValues: [1,2,3], rules: rules, delegate: nil)
+        let battle3 = try! Battle(armyValues: [1,2,3], level: 1, rules: rules, delegate: nil)
         battle3.score = 31
         
         let delegate = MockWarDelegate(self)
@@ -143,13 +196,13 @@ class WarTests: XCTestCase {
     func testLevelAfterNewBattle() {
         var newWar: War?
         
-        let rules = SpaceInvadersWarRules()
+        let rules = DigitalInvadersClassicRules()
         
-        let battle1 = try! Battle(armyValues: [1,2,3], rules: rules, delegate: nil)
+        let battle1 = try! Battle(armyValues: [1,2,3], level: 1, rules: rules, delegate: nil)
         battle1.score = 11
-        let battle2 = try! Battle(armyValues: [1,2,3], rules: rules, delegate: nil)
+        let battle2 = try! Battle(armyValues: [1,2,3], level: 2, rules: rules, delegate: nil)
         battle2.score = 21
-        let battle3 = try! Battle(armyValues: [1,2,3], rules: rules, delegate: nil)
+        let battle3 = try! Battle(armyValues: [1,2,3], level: 3, rules: rules, delegate: nil)
         battle3.score = 31
         
         let delegate = MockWarDelegate(self)
@@ -209,57 +262,3 @@ class MockWarDelegate: WarDelegate {
     }
 }
 
-//class TestWarRule: WarRulesProtocol {
-//    func pointsForKillingEnemy(enemy: Enemy, level: Int, position: Int) -> Int {
-//        if enemy.type == .Mothership { return 300 }
-//        return 10
-//    }
-//
-//    func numberOfShotsAtLevel(level: Int) -> Int {
-//        return 30
-//    }
-//
-//    func numberOfSpacesForEnemies(level: Int) -> Int {
-//        return 6
-//    }
-//
-//    func shouldGetExtraLife(level: Int) -> Bool {
-//        return false
-//    }
-//
-//    var warDescription: String {
-//        return ""
-//    }
-//
-//    func levelDescription(level: Int) -> String {
-//        return ""
-//    }
-//
-//    func stepTimeInterval(level: Int) -> TimeInterval {
-//        return TimeInterval(1)
-//    }
-//
-//    func shouldSpawnMothership(lastKillValue: Int, level: Int) -> Bool {
-//        return false
-//    }
-//
-//    func clearState() {
-//        //
-//    }
-//
-//    func numberOfEnemiesAtLevel(level: Int) -> Int {
-//        return 10
-//    }
-//
-//    func pointsForKillingEnemy(enemy: Enemy, level: Int) -> Int {
-//        return 0
-//    }
-//
-//    var numberOfLevels: Int {
-//        return 3
-//    }
-//
-//    var numberOfLives: Int {
-//        return 0
-//    }
-//}

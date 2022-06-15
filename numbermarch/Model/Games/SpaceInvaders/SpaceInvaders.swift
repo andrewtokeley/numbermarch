@@ -26,7 +26,7 @@ class SpaceInvaders {
     /**
      The rules of war
      */
-    private var rules: WarRulesProtocol
+    private var rules: DigitalInvadersRulesProtocol
     
     /**
      Internal flag to advise whether a game is in play or not
@@ -64,6 +64,13 @@ class SpaceInvaders {
     private var killTimer: Timer?
     
     /**
+     Timer used to advance enemies.
+     
+     Make sure you invalidate this if the game is stopped.
+     */
+    private var enemyAdvanceTimer: Timer?
+    
+    /**
      Set to stop the game loop from advancing the enemies
      */
     private var stopAdvance: Bool = false
@@ -92,7 +99,7 @@ class SpaceInvaders {
         - screen: a reference to the screen in order to be able to display game characters
         - rules: the rules of the game
      */
-    init(screen: ScreenProtocol, rules: WarRulesProtocol) {
+    init(screen: ScreenProtocol, rules: DigitalInvadersRulesProtocol) {
         self.screen = screen
         self.rules = rules
     }
@@ -179,8 +186,11 @@ class SpaceInvaders {
      */
     private func displayLives(lives: Int) {
         var character: DigitalCharacter = .threebars
-        if lives == 2 { character = .twobars }
-        else if lives == 1 { character = .onebar }
+        if lives == 2 {
+            character = .twobars
+        } else if lives == 1 {
+            character = .onebar
+        }
         self.screen.display(character, screenPosition: 3)
     }
     
@@ -318,14 +328,22 @@ class SpaceInvaders {
     private func displayEnemies(delay: TimeInterval = TimeInterval(0), completion: (() -> Void)? = nil) {
         if let characters = self.battle?.battlefield.map( { ($0 != nil) ? DigitalCharacter(rawValue: $0!.value ) ?? .space : .space }) {
             
+            // start displaying the characters from 3 + battleSize, back towards the opponent
+            //
             self.screen.display(characters, screenPosition: 3 + (self.battle?.battleSize ?? 6))
         }
-        let _ = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { (timer) in
+        // just to be sure no other timer is present, probably unnecessary
+        self.enemyAdvanceTimer?.invalidate()
+        self.enemyAdvanceTimer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { (timer) in
             completion?()
         }
     }
     
+    /**
+     Initialises the game for a new battle to start
+     */
     private func startBattle(_ battle: Battle) {
+        
         // redefine the delegate on the new battle to hear of significant events
         self.battle = battle
         self.battle?.delegate = self
@@ -390,6 +408,7 @@ extension SpaceInvaders: BattleDelegate {
     }
     
     func battleAllEnemiesKilled(_ battle: Battle) {
+        // This will trigger a new battle call to the WarDelegate
         let _ = self.war.moveToNextBattle()
     }
     
@@ -420,6 +439,7 @@ extension SpaceInvaders: GamesProtocol {
     }
     
     func stop() {
+        self.enemyAdvanceTimer?.invalidate()
         self.stopAdvance = true
     }
     

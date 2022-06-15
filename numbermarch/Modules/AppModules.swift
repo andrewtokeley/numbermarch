@@ -6,12 +6,12 @@
 //
 
 import Foundation
+import Viperit
 
 //MARK: - Application modules
 enum AppModules: String, ViperitModule {
-    case game
     case loader
-    case calculator
+    case main
     var viewType: ViperitViewType {
         if self == .loader {
             return .storyboard

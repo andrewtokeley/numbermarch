@@ -7,6 +7,9 @@
 
 import Foundation
 
+/**
+ The distances in mm of the original calculator.
+ */
 struct CalculatorMeasurements {
     var width: CGFloat = 100
     var height: CGFloat = 165
@@ -20,8 +23,18 @@ struct CalculatorMeasurements {
     var buttonHorizontalDistanceBetween: CGFloat = 4
     var buttonsDistanceFromVerticalEdge: CGFloat = 7
     var buttonsDistanceFromBottomEdge: CGFloat = 7
+    
+    var switchWidth: CGFloat = 14
+    var switchHeight: CGFloat = 10
+    var switchDistanceFromBottom: CGFloat = 72
+    var switchDistanceToLeftEdge: CGFloat = 16.5
 }
 
+/**
+ Used to let the scene that hosts an image of the MG-880 know the proportions and location of keys.
+ 
+ Note the calculators coordinate system has its origin (0,0) at its centre
+ */
 class CalculatorDimensions {
         
     public let original = CalculatorMeasurements()
@@ -65,6 +78,18 @@ class CalculatorDimensions {
         return CGSize(width: original.buttonWidth * ratio, height: original.buttonHeight * ratio)
     }
     
+    /**
+     Size of the switch
+     */
+    var switchSize: CGSize {
+        return CGSize(width: original.switchWidth * ratio, height: original.switchHeight * ratio)
+    }
+    
+    var switchCentre: CGPoint {
+        let originalX = -original.width/2 + original.switchDistanceToLeftEdge + original.switchWidth/2
+        let originalY = -original.height/2 + original.switchDistanceFromBottom + original.switchHeight/2
+        return CGPoint(x: originalX * ratio, y: originalY * ratio)
+    }
     
     /**
      Returns the key corresponding to the point provided
@@ -112,11 +137,11 @@ class CalculatorDimensions {
         guard row >= 1 && row <= 5 && column >= 1 && column <= 5 else { return nil }
         
         let keys = [
-            [CalculatorKey.unknown, CalculatorKey.zero, CalculatorKey.point, CalculatorKey.unknown, CalculatorKey.plus],
-            [CalculatorKey.unknown, CalculatorKey.one, CalculatorKey.two, CalculatorKey.three, CalculatorKey.unknown],
-            [CalculatorKey.unknown, CalculatorKey.four, CalculatorKey.five, CalculatorKey.six, CalculatorKey.unknown],
-            [CalculatorKey.game, CalculatorKey.seven, CalculatorKey.eight, CalculatorKey.nine, CalculatorKey.unknown],
-            [CalculatorKey.onoffSwitch, CalculatorKey.onoffSwitch, CalculatorKey.unknown, CalculatorKey.unknown, CalculatorKey.unknown]
+            [CalculatorKey.AC, CalculatorKey.zero, CalculatorKey.point, CalculatorKey.equals, CalculatorKey.plus],
+            [CalculatorKey.C, CalculatorKey.one, CalculatorKey.two, CalculatorKey.three, CalculatorKey.minus],
+            [CalculatorKey.percent, CalculatorKey.four, CalculatorKey.five, CalculatorKey.six, CalculatorKey.times],
+            [CalculatorKey.game, CalculatorKey.seven, CalculatorKey.eight, CalculatorKey.nine, CalculatorKey.divide],
+            [CalculatorKey.onoffSwitch, CalculatorKey.onoffSwitch, CalculatorKey.MR, CalculatorKey.Mminus, CalculatorKey.Mplus]
         ]
         
         return keys[row-1][column-1]

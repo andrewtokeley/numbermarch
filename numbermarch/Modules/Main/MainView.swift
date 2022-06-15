@@ -1,18 +1,18 @@
 //
-//  CalculatorView.swift
+//  MainView.swift
 //  numbermarch
 //
-//  Created by Andrew Tokeley on 28/05/22.
+//  Created by Andrew Tokeley on 13/06/22.
 //
 //
 
 import UIKit
+import Viperit
 import SpriteKit
-import SwiftUI
 import PureLayout
 
-//MARK: CalculatorView Class
-final class CalculatorView: UIViewController {
+//MARK: MainView Class
+final class MainView: UserInterface {
     
     // MARK: - Public Properties
     //private let GAME_SIZE: CGSize = CGSize(width: 300, height: 300)
@@ -101,5 +101,19 @@ final class CalculatorView: UIViewController {
             default: return
             }
         }
+    }
+}
+
+//MARK: - MainView API
+extension MainView: MainViewApi {
+}
+
+// MARK: - MainView Viper Components API
+private extension MainView {
+    var presenter: MainPresenterApi {
+        return _presenter as! MainPresenterApi
+    }
+    var displayData: MainDisplayData {
+        return _displayData as! MainDisplayData
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Viperit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Open first view
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        let module = AppModules.calculator.build()
+        let module = AppModules.main.build()
         module.router.show(inWindow: self.window, embedInNavController: false, setupData: nil, makeKeyAndVisible: true)
 
         return true

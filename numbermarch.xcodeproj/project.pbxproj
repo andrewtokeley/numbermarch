@@ -7,12 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		61B8226AD1A5E31289CDC80F /* Pods_numbermarch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A063E9AFDCB964CA2E1C565 /* Pods_numbermarch.framework */; };
+		B2CDE721EBF74F5E4E3AF1A5 /* Pods_numbermarchTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2C42631744F48BE4B14668 /* Pods_numbermarchTests.framework */; };
+		D8014F962857B3100024DD99 /* ExpressionBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8014F952857B3100024DD99 /* ExpressionBuilderTests.swift */; };
+		D804A073285721770080632F /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D804A072285721770080632F /* Podfile */; };
 		D824E40B28416CD900C144F1 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D824E40A28416CD900C144F1 /* README.md */; };
-		D824E4122841D02B00C144F1 /* CalculatorDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D824E40C2841D02B00C144F1 /* CalculatorDisplayData.swift */; };
-		D824E4132841D02B00C144F1 /* CalculatorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D824E40D2841D02B00C144F1 /* CalculatorPresenter.swift */; };
-		D824E4142841D02B00C144F1 /* CalculatorRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D824E40E2841D02B00C144F1 /* CalculatorRouter.swift */; };
-		D824E4152841D02B00C144F1 /* CalculatorModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D824E40F2841D02B00C144F1 /* CalculatorModuleApi.swift */; };
-		D824E4162841D02B00C144F1 /* CalculatorInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D824E4102841D02B00C144F1 /* CalculatorInteractor.swift */; };
 		D824E4172841D02B00C144F1 /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D824E4112841D02B00C144F1 /* CalculatorView.swift */; };
 		D82F3E2A2830783500436EDF /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82F3E292830783500436EDF /* UIColor.swift */; };
 		D82F3E2C28307AED00436EDF /* WarFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82F3E2B28307AED00436EDF /* WarFactory.swift */; };
@@ -25,7 +24,6 @@
 		D8338DFD2849D563000007C6 /* SKNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8338DFC2849D563000007C6 /* SKNodeTests.swift */; };
 		D84F148A2841FE7E00886521 /* SpaceInvaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84F14892841FE7E00886521 /* SpaceInvaders.swift */; };
 		D84F148C2841FE8900886521 /* GamesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84F148B2841FE8900886521 /* GamesProtocol.swift */; };
-		D84F148E28420D1300886521 /* CalculatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84F148D28420D1300886521 /* CalculatorProtocol.swift */; };
 		D84F14902842209500886521 /* ScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84F148F2842209500886521 /* ScreenTests.swift */; };
 		D860383B282F403500781EA5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D860383A282F403500781EA5 /* AppDelegate.swift */; };
 		D8603844282F403600781EA5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8603843282F403600781EA5 /* Assets.xcassets */; };
@@ -34,40 +32,43 @@
 		D8603874282F4B4F00781EA5 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8603873282F4B4F00781EA5 /* Enemy.swift */; };
 		D8603876282F4C4900781EA5 /* BattleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8603875282F4C4900781EA5 /* BattleDelegate.swift */; };
 		D86A48C8283840AD00C3BE8D /* DigitalCharacterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86A48C7283840AD00C3BE8D /* DigitalCharacterNode.swift */; };
-		D86D008F2830393F00113F26 /* DisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86D00862830393F00113F26 /* DisplayData.swift */; };
-		D86D00902830393F00113F26 /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86D00872830393F00113F26 /* Interactor.swift */; };
-		D86D00912830393F00113F26 /* UserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86D00882830393F00113F26 /* UserInterface.swift */; };
-		D86D00922830393F00113F26 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86D00892830393F00113F26 /* Router.swift */; };
-		D86D00932830393F00113F26 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86D008A2830393F00113F26 /* Presenter.swift */; };
-		D86D00942830393F00113F26 /* ViperComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86D008B2830393F00113F26 /* ViperComponent.swift */; };
-		D86D00952830393F00113F26 /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86D008C2830393F00113F26 /* Module.swift */; };
-		D86D00962830393F00113F26 /* ViperitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86D008D2830393F00113F26 /* ViperitError.swift */; };
-		D86D00972830393F00113F26 /* ViperitModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86D008E2830393F00113F26 /* ViperitModule.swift */; };
-		D86D009E2830398000113F26 /* UserInterface+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86D00992830398000113F26 /* UserInterface+SwiftUI.swift */; };
-		D86D009F2830398000113F26 /* UserInterface+Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86D009A2830398000113F26 /* UserInterface+Table.swift */; };
-		D86D00A02830398000113F26 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86D009B2830398000113F26 /* String+.swift */; };
-		D86D00A12830398000113F26 /* UserInterface+Split.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86D009C2830398000113F26 /* UserInterface+Split.swift */; };
-		D86D00A22830398000113F26 /* UserInterface+Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86D009D2830398000113F26 /* UserInterface+Collection.swift */; };
-		D86D00AD28303D1100113F26 /* NSLayoutConstraint+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D86D00A628303D1100113F26 /* NSLayoutConstraint+PureLayout.m */; };
-		D86D00AE28303D1100113F26 /* ALView+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D86D00A928303D1100113F26 /* ALView+PureLayout.m */; };
-		D86D00AF28303D1100113F26 /* NSArray+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D86D00AB28303D1100113F26 /* NSArray+PureLayout.m */; };
+		D86B8C13285726B3005045B1 /* MainDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86B8C0C285726B3005045B1 /* MainDisplayData.swift */; };
+		D86B8C14285726B3005045B1 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86B8C0D285726B3005045B1 /* MainPresenter.swift */; };
+		D86B8C15285726B3005045B1 /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86B8C0E285726B3005045B1 /* MainRouter.swift */; };
+		D86B8C16285726B3005045B1 /* MainModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86B8C0F285726B3005045B1 /* MainModuleApi.swift */; };
+		D86B8C17285726B3005045B1 /* MainInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86B8C10285726B3005045B1 /* MainInteractor.swift */; };
+		D86B8C18285726B3005045B1 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86B8C11285726B3005045B1 /* MainView.swift */; };
+		D86B8C1A28573B3C005045B1 /* Decimal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86B8C1928573B3C005045B1 /* Decimal.swift */; };
+		D86B8C1C2857AB83005045B1 /* ExpressionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86B8C1B2857AB83005045B1 /* ExpressionBuilder.swift */; };
 		D86D00B128303E3D00113F26 /* AppModules.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86D00B028303E3D00113F26 /* AppModules.swift */; };
 		D86D00B328306ECC00113F26 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D86D00B228306ECC00113F26 /* LaunchScreen.storyboard */; };
 		D878A8912841D5D1001CD2F9 /* ScreenProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878A8902841D5D1001CD2F9 /* ScreenProtocol.swift */; };
 		D878A8932841D83F001CD2F9 /* KeyboardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878A8922841D83F001CD2F9 /* KeyboardDelegate.swift */; };
 		D878A8962841DA6C001CD2F9 /* ScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878A8952841DA6C001CD2F9 /* ScreenNode.swift */; };
-		D878A89928446809001CD2F9 /* KeyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878A89828446809001CD2F9 /* KeyNode.swift */; };
 		D878A89B28446934001CD2F9 /* CalculatorKeyEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878A89A28446934001CD2F9 /* CalculatorKeyEnum.swift */; };
 		D878A89D284AE6B9001CD2F9 /* CalculatorDimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878A89C284AE6B9001CD2F9 /* CalculatorDimensions.swift */; };
 		D87ED4CD2832D8DE00BA6DF4 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87ED4CC2832D8DE00BA6DF4 /* String.swift */; };
-		D87ED4CF2832DCE800BA6DF4 /* WarRulesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87ED4CE2832DCE800BA6DF4 /* WarRulesProtocol.swift */; };
+		D87ED4CF2832DCE800BA6DF4 /* DigitalInvadersRulesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87ED4CE2832DCE800BA6DF4 /* DigitalInvadersRulesProtocol.swift */; };
 		D87ED4D32832E37E00BA6DF4 /* War.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87ED4D22832E37E00BA6DF4 /* War.swift */; };
 		D87ED4D528337AF500BA6DF4 /* WarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87ED4D428337AF500BA6DF4 /* WarTests.swift */; };
-		D87ED4D828349FED00BA6DF4 /* SpaceInvadersWarRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87ED4D728349FED00BA6DF4 /* SpaceInvadersWarRules.swift */; };
+		D87ED4D828349FED00BA6DF4 /* DigitalInvadersClassicRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87ED4D728349FED00BA6DF4 /* DigitalInvadersClassicRules.swift */; };
+		D882F74628557A3800F288D6 /* MusicEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D882F74528557A3800F288D6 /* MusicEngine.swift */; };
+		D882F7482855867D00F288D6 /* NumberEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D882F7472855867D00F288D6 /* NumberEngine.swift */; };
+		D882F74C28558C3600F288D6 /* NumberEngineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D882F74B28558C3600F288D6 /* NumberEngineDelegate.swift */; };
+		D882F74E2855975C00F288D6 /* DigitalCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D882F74D2855975C00F288D6 /* DigitalCharacter.swift */; };
+		D8C1ED9128597C79003A1092 /* EightMissileTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1ED9028597C79003A1092 /* EightMissileTypeEnum.swift */; };
+		D8C1ED9328597CDE003A1092 /* EightMissile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1ED9228597CDE003A1092 /* EightMissile.swift */; };
+		D8C1ED952859AEBA003A1092 /* EightBattleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1ED942859AEBA003A1092 /* EightBattleTests.swift */; };
+		D8E721AF28587AE50023B2BF /* EightAttack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E721AE28587AE50023B2BF /* EightAttack.swift */; };
+		D8E721B128587E580023B2BF /* EightBattle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E721B028587E580023B2BF /* EightBattle.swift */; };
+		D8E721B3285881070023B2BF /* EightBattleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E721B2285881070023B2BF /* EightBattleDelegate.swift */; };
+		D8E721B5285881210023B2BF /* EightEnemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E721B4285881210023B2BF /* EightEnemy.swift */; };
+		D8E721B72858830D0023B2BF /* EightBomb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E721B62858830D0023B2BF /* EightBomb.swift */; };
 		D8E94F45284C0F3300AC87C2 /* CalculatorDimensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E94F44284C0F3300AC87C2 /* CalculatorDimensionsTests.swift */; };
 		D8E94F48284DF06F00AC87C2 /* ScoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E94F47284DF06F00AC87C2 /* ScoreService.swift */; };
 		D8F39B53284ED23500FA57C7 /* WarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F39B52284ED23500FA57C7 /* WarDelegate.swift */; };
 		D8F39B55284FF5AF00FA57C7 /* CalculatorEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F39B54284FF5AF00FA57C7 /* CalculatorEngine.swift */; };
+		D8F39B572851A17900FA57C7 /* DigitalDecimalPlaceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F39B562851A17900FA57C7 /* DigitalDecimalPlaceNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,12 +82,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A2C42631744F48BE4B14668 /* Pods_numbermarchTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_numbermarchTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A063E9AFDCB964CA2E1C565 /* Pods_numbermarch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_numbermarch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		30EABCA65DBD330E93947089 /* Pods-numbermarch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-numbermarch.release.xcconfig"; path = "Target Support Files/Pods-numbermarch/Pods-numbermarch.release.xcconfig"; sourceTree = "<group>"; };
+		399578A6CE7D0A49CAE7E200 /* Pods-numbermarchTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-numbermarchTests.release.xcconfig"; path = "Target Support Files/Pods-numbermarchTests/Pods-numbermarchTests.release.xcconfig"; sourceTree = "<group>"; };
+		985A1B3ADE8B4972664EF2B2 /* Pods-numbermarch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-numbermarch.debug.xcconfig"; path = "Target Support Files/Pods-numbermarch/Pods-numbermarch.debug.xcconfig"; sourceTree = "<group>"; };
+		C5646766D70F4DADBAF62FEB /* Pods-numbermarchTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-numbermarchTests.debug.xcconfig"; path = "Target Support Files/Pods-numbermarchTests/Pods-numbermarchTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D8014F952857B3100024DD99 /* ExpressionBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionBuilderTests.swift; sourceTree = "<group>"; };
+		D804A072285721770080632F /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D824E40A28416CD900C144F1 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		D824E40C2841D02B00C144F1 /* CalculatorDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorDisplayData.swift; sourceTree = "<group>"; };
-		D824E40D2841D02B00C144F1 /* CalculatorPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorPresenter.swift; sourceTree = "<group>"; };
-		D824E40E2841D02B00C144F1 /* CalculatorRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorRouter.swift; sourceTree = "<group>"; };
-		D824E40F2841D02B00C144F1 /* CalculatorModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorModuleApi.swift; sourceTree = "<group>"; };
-		D824E4102841D02B00C144F1 /* CalculatorInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorInteractor.swift; sourceTree = "<group>"; };
 		D824E4112841D02B00C144F1 /* CalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
 		D82F3E292830783500436EDF /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		D82F3E2B28307AED00436EDF /* WarFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarFactory.swift; sourceTree = "<group>"; };
@@ -99,7 +103,6 @@
 		D8338DFC2849D563000007C6 /* SKNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKNodeTests.swift; sourceTree = "<group>"; };
 		D84F14892841FE7E00886521 /* SpaceInvaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceInvaders.swift; sourceTree = "<group>"; };
 		D84F148B2841FE8900886521 /* GamesProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesProtocol.swift; sourceTree = "<group>"; };
-		D84F148D28420D1300886521 /* CalculatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorProtocol.swift; sourceTree = "<group>"; };
 		D84F148F2842209500886521 /* ScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTests.swift; sourceTree = "<group>"; };
 		D8603837282F403500781EA5 /* numbermarch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = numbermarch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D860383A282F403500781EA5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -112,46 +115,43 @@
 		D8603873282F4B4F00781EA5 /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		D8603875282F4C4900781EA5 /* BattleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleDelegate.swift; sourceTree = "<group>"; };
 		D86A48C7283840AD00C3BE8D /* DigitalCharacterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitalCharacterNode.swift; sourceTree = "<group>"; };
-		D86D00862830393F00113F26 /* DisplayData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayData.swift; sourceTree = "<group>"; };
-		D86D00872830393F00113F26 /* Interactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
-		D86D00882830393F00113F26 /* UserInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInterface.swift; sourceTree = "<group>"; };
-		D86D00892830393F00113F26 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
-		D86D008A2830393F00113F26 /* Presenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
-		D86D008B2830393F00113F26 /* ViperComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViperComponent.swift; sourceTree = "<group>"; };
-		D86D008C2830393F00113F26 /* Module.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
-		D86D008D2830393F00113F26 /* ViperitError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViperitError.swift; sourceTree = "<group>"; };
-		D86D008E2830393F00113F26 /* ViperitModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViperitModule.swift; sourceTree = "<group>"; };
-		D86D00992830398000113F26 /* UserInterface+SwiftUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserInterface+SwiftUI.swift"; sourceTree = "<group>"; };
-		D86D009A2830398000113F26 /* UserInterface+Table.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserInterface+Table.swift"; sourceTree = "<group>"; };
-		D86D009B2830398000113F26 /* String+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
-		D86D009C2830398000113F26 /* UserInterface+Split.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserInterface+Split.swift"; sourceTree = "<group>"; };
-		D86D009D2830398000113F26 /* UserInterface+Collection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserInterface+Collection.swift"; sourceTree = "<group>"; };
-		D86D00A428303D1100113F26 /* PureLayout+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PureLayout+Internal.h"; sourceTree = "<group>"; };
-		D86D00A528303D1100113F26 /* PureLayoutDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PureLayoutDefines.h; sourceTree = "<group>"; };
-		D86D00A628303D1100113F26 /* NSLayoutConstraint+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+PureLayout.m"; sourceTree = "<group>"; };
-		D86D00A728303D1100113F26 /* ALView+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALView+PureLayout.h"; sourceTree = "<group>"; };
-		D86D00A828303D1100113F26 /* NSArray+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+PureLayout.h"; sourceTree = "<group>"; };
-		D86D00A928303D1100113F26 /* ALView+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALView+PureLayout.m"; sourceTree = "<group>"; };
-		D86D00AA28303D1100113F26 /* PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PureLayout.h; sourceTree = "<group>"; };
-		D86D00AB28303D1100113F26 /* NSArray+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+PureLayout.m"; sourceTree = "<group>"; };
-		D86D00AC28303D1100113F26 /* NSLayoutConstraint+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+PureLayout.h"; sourceTree = "<group>"; };
+		D86B8C0C285726B3005045B1 /* MainDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDisplayData.swift; sourceTree = "<group>"; };
+		D86B8C0D285726B3005045B1 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
+		D86B8C0E285726B3005045B1 /* MainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
+		D86B8C0F285726B3005045B1 /* MainModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModuleApi.swift; sourceTree = "<group>"; };
+		D86B8C10285726B3005045B1 /* MainInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInteractor.swift; sourceTree = "<group>"; };
+		D86B8C11285726B3005045B1 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		D86B8C1928573B3C005045B1 /* Decimal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decimal.swift; sourceTree = "<group>"; };
+		D86B8C1B2857AB83005045B1 /* ExpressionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionBuilder.swift; sourceTree = "<group>"; };
 		D86D00B028303E3D00113F26 /* AppModules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModules.swift; sourceTree = "<group>"; };
 		D86D00B228306ECC00113F26 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D878A8902841D5D1001CD2F9 /* ScreenProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenProtocol.swift; sourceTree = "<group>"; };
 		D878A8922841D83F001CD2F9 /* KeyboardDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDelegate.swift; sourceTree = "<group>"; };
 		D878A8952841DA6C001CD2F9 /* ScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenNode.swift; sourceTree = "<group>"; };
-		D878A89828446809001CD2F9 /* KeyNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyNode.swift; sourceTree = "<group>"; };
 		D878A89A28446934001CD2F9 /* CalculatorKeyEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorKeyEnum.swift; sourceTree = "<group>"; };
 		D878A89C284AE6B9001CD2F9 /* CalculatorDimensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorDimensions.swift; sourceTree = "<group>"; };
 		D87ED4CC2832D8DE00BA6DF4 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
-		D87ED4CE2832DCE800BA6DF4 /* WarRulesProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarRulesProtocol.swift; sourceTree = "<group>"; };
+		D87ED4CE2832DCE800BA6DF4 /* DigitalInvadersRulesProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitalInvadersRulesProtocol.swift; sourceTree = "<group>"; };
 		D87ED4D22832E37E00BA6DF4 /* War.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = War.swift; sourceTree = "<group>"; };
 		D87ED4D428337AF500BA6DF4 /* WarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarTests.swift; sourceTree = "<group>"; };
-		D87ED4D728349FED00BA6DF4 /* SpaceInvadersWarRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceInvadersWarRules.swift; sourceTree = "<group>"; };
+		D87ED4D728349FED00BA6DF4 /* DigitalInvadersClassicRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitalInvadersClassicRules.swift; sourceTree = "<group>"; };
+		D882F74528557A3800F288D6 /* MusicEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicEngine.swift; sourceTree = "<group>"; };
+		D882F7472855867D00F288D6 /* NumberEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberEngine.swift; sourceTree = "<group>"; };
+		D882F74B28558C3600F288D6 /* NumberEngineDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberEngineDelegate.swift; sourceTree = "<group>"; };
+		D882F74D2855975C00F288D6 /* DigitalCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitalCharacter.swift; sourceTree = "<group>"; };
+		D8C1ED9028597C79003A1092 /* EightMissileTypeEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EightMissileTypeEnum.swift; sourceTree = "<group>"; };
+		D8C1ED9228597CDE003A1092 /* EightMissile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EightMissile.swift; sourceTree = "<group>"; };
+		D8C1ED942859AEBA003A1092 /* EightBattleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EightBattleTests.swift; sourceTree = "<group>"; };
+		D8E721AE28587AE50023B2BF /* EightAttack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EightAttack.swift; sourceTree = "<group>"; };
+		D8E721B028587E580023B2BF /* EightBattle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EightBattle.swift; sourceTree = "<group>"; };
+		D8E721B2285881070023B2BF /* EightBattleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EightBattleDelegate.swift; sourceTree = "<group>"; };
+		D8E721B4285881210023B2BF /* EightEnemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EightEnemy.swift; sourceTree = "<group>"; };
+		D8E721B62858830D0023B2BF /* EightBomb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EightBomb.swift; sourceTree = "<group>"; };
 		D8E94F44284C0F3300AC87C2 /* CalculatorDimensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorDimensionsTests.swift; sourceTree = "<group>"; };
 		D8E94F47284DF06F00AC87C2 /* ScoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreService.swift; sourceTree = "<group>"; };
 		D8F39B52284ED23500FA57C7 /* WarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarDelegate.swift; sourceTree = "<group>"; };
 		D8F39B54284FF5AF00FA57C7 /* CalculatorEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorEngine.swift; sourceTree = "<group>"; };
+		D8F39B562851A17900FA57C7 /* DigitalDecimalPlaceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitalDecimalPlaceNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +159,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61B8226AD1A5E31289CDC80F /* Pods_numbermarch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,26 +167,32 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2CDE721EBF74F5E4E3AF1A5 /* Pods_numbermarchTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0CDB808F68AF2D0A90BB374D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				985A1B3ADE8B4972664EF2B2 /* Pods-numbermarch.debug.xcconfig */,
+				30EABCA65DBD330E93947089 /* Pods-numbermarch.release.xcconfig */,
+				C5646766D70F4DADBAF62FEB /* Pods-numbermarchTests.debug.xcconfig */,
+				399578A6CE7D0A49CAE7E200 /* Pods-numbermarchTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		D824E4182841D03700C144F1 /* Calculator */ = {
 			isa = PBXGroup;
 			children = (
 				D8338DF22844C9E7000007C6 /* CalculatorScene.swift */,
 				D878A89C284AE6B9001CD2F9 /* CalculatorDimensions.swift */,
-				D878A897284467F1001CD2F9 /* Keys */,
+				D878A89A28446934001CD2F9 /* CalculatorKeyEnum.swift */,
 				D878A8942841DA56001CD2F9 /* Screen */,
-				D824E40C2841D02B00C144F1 /* CalculatorDisplayData.swift */,
-				D824E40D2841D02B00C144F1 /* CalculatorPresenter.swift */,
-				D824E40E2841D02B00C144F1 /* CalculatorRouter.swift */,
-				D824E40F2841D02B00C144F1 /* CalculatorModuleApi.swift */,
-				D824E4102841D02B00C144F1 /* CalculatorInteractor.swift */,
 				D824E4112841D02B00C144F1 /* CalculatorView.swift */,
-				D84F148D28420D1300886521 /* CalculatorProtocol.swift */,
 			);
 			path = Calculator;
 			sourceTree = "<group>";
@@ -199,6 +206,7 @@
 				D87ED4CC2832D8DE00BA6DF4 /* String.swift */,
 				D8338DF62846AF9B000007C6 /* CGRect.swift */,
 				D8338DF82846B34E000007C6 /* CGSize.swift */,
+				D86B8C1928573B3C005045B1 /* Decimal.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -215,6 +223,7 @@
 		D84F14872841FE6000886521 /* Games */ = {
 			isa = PBXGroup;
 			children = (
+				D8E721AD28587ACE0023B2BF /* 8Attack */,
 				D8E94F46284DF05800AC87C2 /* Scoring */,
 				D84F14882841FE6900886521 /* SpaceInvaders */,
 				D84F148B2841FE8900886521 /* GamesProtocol.swift */,
@@ -240,26 +249,22 @@
 		D84F14982843310D00886521 /* Rules */ = {
 			isa = PBXGroup;
 			children = (
-				D87ED4D728349FED00BA6DF4 /* SpaceInvadersWarRules.swift */,
-				D87ED4CE2832DCE800BA6DF4 /* WarRulesProtocol.swift */,
+				D87ED4D728349FED00BA6DF4 /* DigitalInvadersClassicRules.swift */,
+				D87ED4CE2832DCE800BA6DF4 /* DigitalInvadersRulesProtocol.swift */,
 			);
 			path = Rules;
-			sourceTree = "<group>";
-		};
-		D84F14992843318C00886521 /* _Deprecated */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = _Deprecated;
 			sourceTree = "<group>";
 		};
 		D860382E282F403500781EA5 = {
 			isa = PBXGroup;
 			children = (
+				D804A072285721770080632F /* Podfile */,
 				D824E40A28416CD900C144F1 /* README.md */,
 				D8603839282F403500781EA5 /* numbermarch */,
 				D8603850282F403600781EA5 /* numbermarchTests */,
 				D8603838282F403500781EA5 /* Products */,
+				0CDB808F68AF2D0A90BB374D /* Pods */,
+				FC436344BA0E22E4C951AC0E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -280,12 +285,9 @@
 				D86D00B228306ECC00113F26 /* LaunchScreen.storyboard */,
 				D860383A282F403500781EA5 /* AppDelegate.swift */,
 				D8603843282F403600781EA5 /* Assets.xcassets */,
-				D84F14992843318C00886521 /* _Deprecated */,
 				D82F3E282830782300436EDF /* Extensions */,
-				D86A48C628383CDC00C3BE8D /* Images */,
 				D8603870282F4B2600781EA5 /* Model */,
 				D860387728302B4D00781EA5 /* Modules */,
-				D860386A282F408200781EA5 /* PodImports */,
 			);
 			path = numbermarch;
 			sourceTree = "<group>";
@@ -298,17 +300,10 @@
 				D84F148F2842209500886521 /* ScreenTests.swift */,
 				D8338DFC2849D563000007C6 /* SKNodeTests.swift */,
 				D8E94F44284C0F3300AC87C2 /* CalculatorDimensionsTests.swift */,
+				D8014F952857B3100024DD99 /* ExpressionBuilderTests.swift */,
+				D8C1ED942859AEBA003A1092 /* EightBattleTests.swift */,
 			);
 			path = numbermarchTests;
-			sourceTree = "<group>";
-		};
-		D860386A282F408200781EA5 /* PodImports */ = {
-			isa = PBXGroup;
-			children = (
-				D86D00A328303D0400113F26 /* PureLayout */,
-				D86D0064283037AF00113F26 /* Viperit */,
-			);
-			path = PodImports;
 			sourceTree = "<group>";
 		};
 		D8603870282F4B2600781EA5 /* Model */ = {
@@ -323,70 +318,24 @@
 		D860387728302B4D00781EA5 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				D86B8C0A28572685005045B1 /* Main */,
 				D824E4182841D03700C144F1 /* Calculator */,
 				D86D00B028303E3D00113F26 /* AppModules.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
 		};
-		D86A48C628383CDC00C3BE8D /* Images */ = {
+		D86B8C0A28572685005045B1 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				D86B8C0C285726B3005045B1 /* MainDisplayData.swift */,
+				D86B8C0D285726B3005045B1 /* MainPresenter.swift */,
+				D86B8C0E285726B3005045B1 /* MainRouter.swift */,
+				D86B8C0F285726B3005045B1 /* MainModuleApi.swift */,
+				D86B8C10285726B3005045B1 /* MainInteractor.swift */,
+				D86B8C11285726B3005045B1 /* MainView.swift */,
 			);
-			path = Images;
-			sourceTree = "<group>";
-		};
-		D86D0064283037AF00113F26 /* Viperit */ = {
-			isa = PBXGroup;
-			children = (
-				D86D00982830396F00113F26 /* Extensions */,
-				D86D00852830392D00113F26 /* Core */,
-			);
-			path = Viperit;
-			sourceTree = "<group>";
-		};
-		D86D00852830392D00113F26 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				D86D00862830393F00113F26 /* DisplayData.swift */,
-				D86D00872830393F00113F26 /* Interactor.swift */,
-				D86D008C2830393F00113F26 /* Module.swift */,
-				D86D008A2830393F00113F26 /* Presenter.swift */,
-				D86D00892830393F00113F26 /* Router.swift */,
-				D86D00882830393F00113F26 /* UserInterface.swift */,
-				D86D008B2830393F00113F26 /* ViperComponent.swift */,
-				D86D008D2830393F00113F26 /* ViperitError.swift */,
-				D86D008E2830393F00113F26 /* ViperitModule.swift */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
-		D86D00982830396F00113F26 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				D86D009B2830398000113F26 /* String+.swift */,
-				D86D009D2830398000113F26 /* UserInterface+Collection.swift */,
-				D86D009C2830398000113F26 /* UserInterface+Split.swift */,
-				D86D00992830398000113F26 /* UserInterface+SwiftUI.swift */,
-				D86D009A2830398000113F26 /* UserInterface+Table.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		D86D00A328303D0400113F26 /* PureLayout */ = {
-			isa = PBXGroup;
-			children = (
-				D86D00A728303D1100113F26 /* ALView+PureLayout.h */,
-				D86D00A928303D1100113F26 /* ALView+PureLayout.m */,
-				D86D00A828303D1100113F26 /* NSArray+PureLayout.h */,
-				D86D00AB28303D1100113F26 /* NSArray+PureLayout.m */,
-				D86D00AC28303D1100113F26 /* NSLayoutConstraint+PureLayout.h */,
-				D86D00A628303D1100113F26 /* NSLayoutConstraint+PureLayout.m */,
-				D86D00AA28303D1100113F26 /* PureLayout.h */,
-				D86D00A428303D1100113F26 /* PureLayout+Internal.h */,
-				D86D00A528303D1100113F26 /* PureLayoutDefines.h */,
-			);
-			path = PureLayout;
+			path = Main;
 			sourceTree = "<group>";
 		};
 		D878A88E2841D58B001CD2F9 /* Calculator */ = {
@@ -394,6 +343,10 @@
 			children = (
 				D878A8922841D83F001CD2F9 /* KeyboardDelegate.swift */,
 				D8F39B54284FF5AF00FA57C7 /* CalculatorEngine.swift */,
+				D882F74528557A3800F288D6 /* MusicEngine.swift */,
+				D882F7472855867D00F288D6 /* NumberEngine.swift */,
+				D882F74B28558C3600F288D6 /* NumberEngineDelegate.swift */,
+				D86B8C1B2857AB83005045B1 /* ExpressionBuilder.swift */,
 			);
 			path = Calculator;
 			sourceTree = "<group>";
@@ -401,20 +354,27 @@
 		D878A8942841DA56001CD2F9 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				D882F74D2855975C00F288D6 /* DigitalCharacter.swift */,
 				D86A48C7283840AD00C3BE8D /* DigitalCharacterNode.swift */,
+				D8F39B562851A17900FA57C7 /* DigitalDecimalPlaceNode.swift */,
 				D878A8952841DA6C001CD2F9 /* ScreenNode.swift */,
 				D878A8902841D5D1001CD2F9 /* ScreenProtocol.swift */,
 			);
 			path = Screen;
 			sourceTree = "<group>";
 		};
-		D878A897284467F1001CD2F9 /* Keys */ = {
+		D8E721AD28587ACE0023B2BF /* 8Attack */ = {
 			isa = PBXGroup;
 			children = (
-				D878A89828446809001CD2F9 /* KeyNode.swift */,
-				D878A89A28446934001CD2F9 /* CalculatorKeyEnum.swift */,
+				D8E721AE28587AE50023B2BF /* EightAttack.swift */,
+				D8E721B028587E580023B2BF /* EightBattle.swift */,
+				D8E721B2285881070023B2BF /* EightBattleDelegate.swift */,
+				D8E721B4285881210023B2BF /* EightEnemy.swift */,
+				D8E721B62858830D0023B2BF /* EightBomb.swift */,
+				D8C1ED9028597C79003A1092 /* EightMissileTypeEnum.swift */,
+				D8C1ED9228597CDE003A1092 /* EightMissile.swift */,
 			);
-			path = Keys;
+			path = 8Attack;
 			sourceTree = "<group>";
 		};
 		D8E94F46284DF05800AC87C2 /* Scoring */ = {
@@ -425,6 +385,15 @@
 			path = Scoring;
 			sourceTree = "<group>";
 		};
+		FC436344BA0E22E4C951AC0E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2A063E9AFDCB964CA2E1C565 /* Pods_numbermarch.framework */,
+				1A2C42631744F48BE4B14668 /* Pods_numbermarchTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -432,9 +401,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D8603861282F403600781EA5 /* Build configuration list for PBXNativeTarget "numbermarch" */;
 			buildPhases = (
+				56180378711560EE0AF5E6E9 /* [CP] Check Pods Manifest.lock */,
 				D8603833282F403500781EA5 /* Sources */,
 				D8603834282F403500781EA5 /* Frameworks */,
 				D8603835282F403500781EA5 /* Resources */,
+				9D3B5B0027DDEFB6FDDC0C6F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -449,6 +420,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D8603864282F403600781EA5 /* Build configuration list for PBXNativeTarget "numbermarchTests" */;
 			buildPhases = (
+				FCC6DCD477C91F418F95D4F8 /* [CP] Check Pods Manifest.lock */,
 				D8603849282F403600781EA5 /* Sources */,
 				D860384A282F403600781EA5 /* Frameworks */,
 				D860384B282F403600781EA5 /* Resources */,
@@ -508,6 +480,7 @@
 			files = (
 				D824E40B28416CD900C144F1 /* README.md in Resources */,
 				D8603844282F403600781EA5 /* Assets.xcassets in Resources */,
+				D804A073285721770080632F /* Podfile in Resources */,
 				D86D00B328306ECC00113F26 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -521,6 +494,70 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		56180378711560EE0AF5E6E9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-numbermarch-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9D3B5B0027DDEFB6FDDC0C6F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-numbermarch/Pods-numbermarch-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-numbermarch/Pods-numbermarch-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-numbermarch/Pods-numbermarch-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FCC6DCD477C91F418F95D4F8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-numbermarchTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D8603833282F403500781EA5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -529,56 +566,52 @@
 				D87ED4D32832E37E00BA6DF4 /* War.swift in Sources */,
 				D8F39B55284FF5AF00FA57C7 /* CalculatorEngine.swift in Sources */,
 				D878A8912841D5D1001CD2F9 /* ScreenProtocol.swift in Sources */,
+				D8E721B3285881070023B2BF /* EightBattleDelegate.swift in Sources */,
 				D87ED4CD2832D8DE00BA6DF4 /* String.swift in Sources */,
-				D86D00932830393F00113F26 /* Presenter.swift in Sources */,
 				D8338DF32844C9E7000007C6 /* CalculatorScene.swift in Sources */,
-				D86D009E2830398000113F26 /* UserInterface+SwiftUI.swift in Sources */,
+				D8E721B5285881210023B2BF /* EightEnemy.swift in Sources */,
+				D8E721B128587E580023B2BF /* EightBattle.swift in Sources */,
 				D878A89D284AE6B9001CD2F9 /* CalculatorDimensions.swift in Sources */,
 				D8603876282F4C4900781EA5 /* BattleDelegate.swift in Sources */,
-				D86D00AF28303D1100113F26 /* NSArray+PureLayout.m in Sources */,
-				D878A89928446809001CD2F9 /* KeyNode.swift in Sources */,
 				D878A8962841DA6C001CD2F9 /* ScreenNode.swift in Sources */,
+				D8E721B72858830D0023B2BF /* EightBomb.swift in Sources */,
+				D8F39B572851A17900FA57C7 /* DigitalDecimalPlaceNode.swift in Sources */,
 				D8603874282F4B4F00781EA5 /* Enemy.swift in Sources */,
-				D84F148E28420D1300886521 /* CalculatorProtocol.swift in Sources */,
-				D87ED4CF2832DCE800BA6DF4 /* WarRulesProtocol.swift in Sources */,
-				D824E4132841D02B00C144F1 /* CalculatorPresenter.swift in Sources */,
-				D86D00AD28303D1100113F26 /* NSLayoutConstraint+PureLayout.m in Sources */,
-				D824E4122841D02B00C144F1 /* CalculatorDisplayData.swift in Sources */,
+				D87ED4CF2832DCE800BA6DF4 /* DigitalInvadersRulesProtocol.swift in Sources */,
 				D8F39B53284ED23500FA57C7 /* WarDelegate.swift in Sources */,
 				D82F3E2C28307AED00436EDF /* WarFactory.swift in Sources */,
 				D84F148A2841FE7E00886521 /* SpaceInvaders.swift in Sources */,
 				D860383B282F403500781EA5 /* AppDelegate.swift in Sources */,
+				D86B8C1C2857AB83005045B1 /* ExpressionBuilder.swift in Sources */,
 				D84F148C2841FE8900886521 /* GamesProtocol.swift in Sources */,
-				D86D00A12830398000113F26 /* UserInterface+Split.swift in Sources */,
-				D86D00A02830398000113F26 /* String+.swift in Sources */,
-				D86D00922830393F00113F26 /* Router.swift in Sources */,
+				D882F74C28558C3600F288D6 /* NumberEngineDelegate.swift in Sources */,
+				D882F74628557A3800F288D6 /* MusicEngine.swift in Sources */,
 				D86A48C8283840AD00C3BE8D /* DigitalCharacterNode.swift in Sources */,
 				D86D00B128303E3D00113F26 /* AppModules.swift in Sources */,
 				D82F3E3A2832343B00436EDF /* CGPoint.swift in Sources */,
 				D82F3E2A2830783500436EDF /* UIColor.swift in Sources */,
-				D87ED4D828349FED00BA6DF4 /* SpaceInvadersWarRules.swift in Sources */,
+				D87ED4D828349FED00BA6DF4 /* DigitalInvadersClassicRules.swift in Sources */,
 				D82F3E3628317E0B00436EDF /* SKNode.swift in Sources */,
-				D824E4152841D02B00C144F1 /* CalculatorModuleApi.swift in Sources */,
-				D86D00952830393F00113F26 /* Module.swift in Sources */,
-				D86D00942830393F00113F26 /* ViperComponent.swift in Sources */,
-				D86D00902830393F00113F26 /* Interactor.swift in Sources */,
+				D86B8C13285726B3005045B1 /* MainDisplayData.swift in Sources */,
 				D8E94F48284DF06F00AC87C2 /* ScoreService.swift in Sources */,
-				D86D00A22830398000113F26 /* UserInterface+Collection.swift in Sources */,
-				D86D00972830393F00113F26 /* ViperitModule.swift in Sources */,
-				D86D008F2830393F00113F26 /* DisplayData.swift in Sources */,
+				D8E721AF28587AE50023B2BF /* EightAttack.swift in Sources */,
+				D882F74E2855975C00F288D6 /* DigitalCharacter.swift in Sources */,
 				D878A8932841D83F001CD2F9 /* KeyboardDelegate.swift in Sources */,
-				D86D00912830393F00113F26 /* UserInterface.swift in Sources */,
+				D86B8C15285726B3005045B1 /* MainRouter.swift in Sources */,
+				D8C1ED9128597C79003A1092 /* EightMissileTypeEnum.swift in Sources */,
 				D878A89B28446934001CD2F9 /* CalculatorKeyEnum.swift in Sources */,
+				D8C1ED9328597CDE003A1092 /* EightMissile.swift in Sources */,
 				D824E4172841D02B00C144F1 /* CalculatorView.swift in Sources */,
 				D8338DF92846B34E000007C6 /* CGSize.swift in Sources */,
+				D86B8C14285726B3005045B1 /* MainPresenter.swift in Sources */,
+				D86B8C1A28573B3C005045B1 /* Decimal.swift in Sources */,
+				D86B8C18285726B3005045B1 /* MainView.swift in Sources */,
 				D82F3E2E28307B7E00436EDF /* WarService.swift in Sources */,
 				D8338DF72846AF9B000007C6 /* CGRect.swift in Sources */,
 				D8603872282F4B3A00781EA5 /* Battle.swift in Sources */,
-				D824E4142841D02B00C144F1 /* CalculatorRouter.swift in Sources */,
-				D824E4162841D02B00C144F1 /* CalculatorInteractor.swift in Sources */,
-				D86D00AE28303D1100113F26 /* ALView+PureLayout.m in Sources */,
-				D86D00962830393F00113F26 /* ViperitError.swift in Sources */,
-				D86D009F2830398000113F26 /* UserInterface+Table.swift in Sources */,
+				D882F7482855867D00F288D6 /* NumberEngine.swift in Sources */,
+				D86B8C16285726B3005045B1 /* MainModuleApi.swift in Sources */,
+				D86B8C17285726B3005045B1 /* MainInteractor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,6 +624,8 @@
 				D8E94F45284C0F3300AC87C2 /* CalculatorDimensionsTests.swift in Sources */,
 				D8603852282F403600781EA5 /* BattleTests.swift in Sources */,
 				D8338DFD2849D563000007C6 /* SKNodeTests.swift in Sources */,
+				D8C1ED952859AEBA003A1092 /* EightBattleTests.swift in Sources */,
+				D8014F962857B3100024DD99 /* ExpressionBuilderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -723,6 +758,7 @@
 		};
 		D8603862282F403600781EA5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 985A1B3ADE8B4972664EF2B2 /* Pods-numbermarch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -752,6 +788,7 @@
 		};
 		D8603863282F403600781EA5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 30EABCA65DBD330E93947089 /* Pods-numbermarch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -781,6 +818,7 @@
 		};
 		D8603865282F403600781EA5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C5646766D70F4DADBAF62FEB /* Pods-numbermarchTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -801,6 +839,7 @@
 		};
 		D8603866282F403600781EA5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 399578A6CE7D0A49CAE7E200 /* Pods-numbermarchTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";

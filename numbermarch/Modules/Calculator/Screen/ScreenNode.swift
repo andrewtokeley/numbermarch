@@ -17,7 +17,7 @@ class ScreenNode: SKSpriteNode {
      Proportional distance for the smallest margin gap
      */
     private var GAP: CGFloat {
-        return 0.1 * self.frame.height
+        return 0.15 * self.frame.height
     }
     
     // MARK: - Private Properties
@@ -35,10 +35,15 @@ class ScreenNode: SKSpriteNode {
     private var delayTimer: Timer?
     
     /**
-     Reference to the digital characters displayed across all screen positions (including spaces)
+     Reference to the digital characters displayed on the screen
      */
-    private var screenCharacterNodes: [DigitalCharacterNode] =  [DigitalCharacterNode]()
+    public var screenCharacterNodes: [DigitalCharacterNode] =  [DigitalCharacterNode]()
   
+    /**
+     Reference to the digital decimal points displayed between digits on the screen
+     */
+    public var decimalPointNodes: [DigitalDecimalPointNode] = [DigitalDecimalPointNode]()
+    
     /**
      The size of a digital character, always in the ratio 1:2 (w:h)
      */
@@ -49,9 +54,16 @@ class ScreenNode: SKSpriteNode {
         return CGSize(width: width, height: 2*width)
     }
     
+    /**
+     Returns the size a decimal point character should be. This is sized to be halk the width of the space between characters.
+     */
+    private var decimalPointSize: CGSize {
+        return CGSize(width: self.spaceBetweenCharacters, height: self.characterSize.height)
+    }
+    
     private var spaceBetweenCharacters: CGFloat {
-        // define a width that allows for a GAP space on the left and right of the display and a GAP between digits
-        return 2 * GAP
+        // define a width between each character on the screen
+        return GAP
     }
     
     /**
@@ -67,13 +79,13 @@ class ScreenNode: SKSpriteNode {
     init(numberOfCharacters: Int, size: CGSize = CGSize(width: 300, height: 100)) {
         self.numberOfCharacters = numberOfCharacters
         super.init(texture: nil, color: .clear, size: size)
-        self.color = .clear
         
         self.textLabel.position = CGPoint(x: -self.frame.width/2 + self.spaceBetweenCharacters + self.characterSize.width, y: self.frame.height/2 - GAP)
         self.addChild(self.textLabel)
         
         self.addSpaceCharacterNodes()
-
+        self.addDecimalPointNodes()
+        
     }
     
     /**
@@ -102,12 +114,24 @@ class ScreenNode: SKSpriteNode {
         return CGPoint(x: x - self.size.width/2, y: -GAP)
     }
     
+    /**
+     Returns the sscreen postion for a decimal point that should to the right of the given digit postion
+     */
+    private func cgPointAtScreenPositionForDecimal(_ screenPosition: Int) -> CGPoint {
+        return cgPointAtScreenPosition(screenPosition).offsetBy(dx: self.characterSize.width/2 + self.decimalPointSize.width/2, dy: 0)
+    }
+    
     // MARK: - Children
+    
+//    private lazy var decimalPoint: DigitalDecimalPointNode = {
+//        let node = DigitalDecimalPointNode(size: self.decimalPointSize)
+//        return node
+//    }()
     
     private lazy var textLabel: SKLabelNode = {
         let label = SKLabelNode()
         label.fontName = "Arial"
-        label.fontSize = self.characterSize.height / 2
+        label.fontSize = self.GAP * 1.3
         label.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         label.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
         label.fontColor = .black //UIColor.gameBattlefieldText
@@ -128,10 +152,34 @@ class ScreenNode: SKSpriteNode {
             let node = self.screenCharacterNodes[position - 1]
             node.position = self.cgPointAtScreenPosition(position)
             self.addChild(node)
-            
         }
     }
     
+    /**
+     Add the decimal place nodes in hidden state
+     */
+    private func addDecimalPointNodes() {
+        
+        // default to all hidden
+        for position in 1...self.numberOfCharacters {
+            let node = DigitalDecimalPointNode(size: self.decimalPointSize)
+            node.position = self.cgPointAtScreenPositionForDecimal(position)
+            node.isHidden = true
+            self.decimalPointNodes.append(node)
+            self.addChild(node)
+        }
+    }
+    
+    /**
+     Returns the screen position of the first decimal point. If no decimal point is visible this function returns nil. When the screen is displaying numbers there will only be one decimal point, but theoretcially you could display many.
+     */
+    private func decimalPointPosition() -> Int? {
+        if let index = self.decimalPointNodes.firstIndex(where: { !$0.isHidden }) {
+            return index + 1
+        } else {
+            return nil
+        }
+    }
     
 }
 
@@ -141,6 +189,28 @@ class ScreenNode: SKSpriteNode {
  All screens must be able to do these things!
  */
 extension ScreenNode: ScreenProtocol {
+    
+    public var canAppendWithoutLoss: Bool {
+        return self.characterAt(1) == .space
+    }
+    
+    public var asNumber: NSNumber? {
+        if let float = Float(self.displayAsString) {
+            return NSNumber(value: float)
+        }
+        return nil
+    }
+    
+    private var displayAsString: String {
+        var result = ""
+        for position in 1...self.numberOfCharacters {
+            let c = self.characterAt(position)
+            if let text = c.asText {
+                result += text
+            }
+        }
+        return result
+    }
     
     func displayTextMessage(text: String) {
         self.textLabel.text = text.uppercased()
@@ -156,8 +226,15 @@ extension ScreenNode: ScreenProtocol {
     
     func clearScreen(includingMessageText: Bool) {
         self.display(Array(repeating: DigitalCharacter.space, count: self.numberOfCharacters), screenPosition: self.numberOfCharacters)
+        
         if includingMessageText {
             self.displayTextMessage(text: "")
+        }
+        
+        // remove any decimal places
+        let visibleDPs = self.decimalPointNodes.filter( { $0.isHidden == false } )
+        visibleDPs.forEach { dp in
+            dp.isHidden = true
         }
     }
     
@@ -168,8 +245,15 @@ extension ScreenNode: ScreenProtocol {
             self.display(copy, screenPosition: position)
         }
         
-        // add to the end of the screen
+        // display the new character at the far right of screen
         self.display(character, screenPosition: self.numberOfCharacters)
+        
+        // shift the decimal place to the right
+        if let newDPPosition = self.decimalPointPosition() {
+            if newDPPosition > 1 {
+                self.displayDecimalPoint(newDPPosition - 1)
+            }
+        }
     }
     
     func append(_ character: DigitalCharacter, delay: TimeInterval, completion: (() -> Void)?) {
@@ -181,6 +265,18 @@ extension ScreenNode: ScreenProtocol {
         }
     }
     
+    func appendDecimalPoint() {
+        displayDecimalPoint(self.numberOfCharacters)
+    }
+    
+    func removeDecimalPoint(screenPosition: Int) {
+        for position in screenPosition...(freezePosition + 2) {
+            let copy = self.characterAt(position - 1)
+            self.display(copy, screenPosition: position)
+        }
+        self.display(.space, screenPosition: freezePosition + 1)
+    }
+    
     func remove(screenPosition: Int) {
         for position in screenPosition...(freezePosition + 2) {
             let copy = self.characterAt(position - 1)
@@ -189,18 +285,36 @@ extension ScreenNode: ScreenProtocol {
         self.display(.space, screenPosition: freezePosition + 1)
     }
     
+    func displayDecimalPoint(_ screenPosition: Int, makeUnique: Bool) {
+        if makeUnique {
+            self.decimalPointNodes.forEach { $0.isHidden = true }
+        }
+        self.decimalPointNodes[screenPosition - 1].isHidden = false
+    }
+    
+    func removeDecimalPoint(_ screenPosition: Int) {
+        self.decimalPointNodes[screenPosition - 1].isHidden = true
+    }
+    
     func display(_ character: DigitalCharacter, screenPosition: Int) {
         self.screenCharacterNodes[screenPosition - 1].character = character
     }
     
     func display(_ characters: [DigitalCharacter], screenPosition: Int) {
-        var position = self.numberOfCharacters
-        var charIndex = characters.count - 1 // start from the end of the array of characters
+        // reference to the position to start displaying the digit
+        var position = screenPosition
+        
+        // iterate through the characters from the last one to the first
+        var charIndex = characters.count - 1
         while charIndex >= 0 && position >= 1 {
             if charIndex < characters.count {
-                self.display(characters[charIndex], screenPosition: position)
+                if characters[charIndex] == .point {
+                    self.displayDecimalPoint(position)
+                } else {
+                    self.display(characters[charIndex], screenPosition: position)
+                    position -= 1
+                }
             }
-            position -= 1
             charIndex -= 1
         }
     }
@@ -213,9 +327,8 @@ extension ScreenNode: ScreenProtocol {
         }
     }
     
-    func display(_ string: String, screenPosition: Int? = nil, delay: TimeInterval = 0, completion: (() -> Void)? = nil) {
-        let position = screenPosition == nil ? self.numberOfCharacters : screenPosition!
-
+    func display(_ string: String, screenPosition: Int, delay: TimeInterval, completion: (() -> Void)?) {
+        
         // create [DisplayCharater] from string
         var result = [DigitalCharacter]()
         for c in string {
@@ -224,17 +337,41 @@ extension ScreenNode: ScreenProtocol {
             } else {
                 if c == "-" {
                     result.append(.onebar)
+                } else if c == "." {
+                    result.append(.point)
                 } else if c == " " {
                     result.append(.space)
                 }
             }
         }
-        self.display(result, screenPosition: position)
-        if completion != nil {
+        self.display(result, screenPosition: screenPosition)
+        if let completion = completion {
             self.delayTimer?.invalidate()
             self.delayTimer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { (timer) in
-                completion?()
+                completion()
             }
+        }
+    }
+    
+    func display(_ number: Double) {
+        
+        // reference to the position to start displaying digits
+        var position = self.numberOfCharacters
+        
+        let characters = String(number)
+        
+        // iterate through the characters from the last one to the first
+        var charIndex = characters.count - 1
+        while charIndex >= 0 && position >= 1 {
+            if charIndex < characters.count {
+                if characters[charIndex] == "." {
+                    self.displayDecimalPoint(position, makeUnique: true)
+                } else {
+                    self.display(String(characters[charIndex]), screenPosition: position)
+                    position -= 1
+                }
+            }
+            charIndex -= 1
         }
     }
     

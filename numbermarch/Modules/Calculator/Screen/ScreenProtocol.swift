@@ -12,11 +12,24 @@ import Foundation
  */
 protocol ScreenProtocol {
 
+    // MARK: - Public Properties
+    
     /**
     The number of characters the screen can display
      */
     var numberOfCharacters: Int { get }
 
+    /**
+     Returns whether appending another character will cause the far left character to "fall" off the screen because the screen is full.
+     */
+    var canAppendWithoutLoss: Bool { get }
+    /**
+     Returns what is displayed on the screen as a number.
+     
+     If the characters on the screen don't represent a number, nil is returned.
+     */
+    var asNumber: NSNumber? { get }
+    
     /**
      Freezes the characters up to the screenPosition from moving when new characters are appended.
      */
@@ -31,12 +44,24 @@ protocol ScreenProtocol {
     func clearScreen(includingMessageText: Bool)
     func clearScreen()
     
+    
+    // MARK: - Display Methods
+    
+    /**
+     Displays a decimal point at the given position. The position is to the right of where digits are rendered at the same position.
+     
+     - Parameters:
+        - screenPosition: the position on the screen to draw the decimal. Default value is the far right of the screen.
+        - makeUnique: if true, any other decimal point(s) on the screen will be removed. Default is true.
+     */
+    func displayDecimalPoint(_ screenPosition: Int, makeUnique: Bool)
+    
     /**
      Display a single character to the screen at the given position.
      
      - Parameters:
         - character: charater to display
-        - screenPosition: 1 based position on the screen
+        - screenPosition: 1 based position on the screen. Default value is the far right of the screen.
      */
     func display(_ character: DigitalCharacter, screenPosition: Int)
     
@@ -46,9 +71,11 @@ protocol ScreenProtocol {
      Note that characters will always be displayed right aligned
      
      - Parameters:
-        - screenPosition: the screen position to display the character. The value is 1 based. Where position 1 is the first visible location on the screen.
+        - character: charater to display
+        - screenPosition: the screen position to display the character. The value is 1 based. Where position 1 is the first visible location on the screen. Default value is the far right of the screen.
+        - delay: time to wait before the completion handler is called. Default is TimeInterval(0).
+        - completion: handler to call after delay. Default is nil
      */
-    func display(_ characters: [DigitalCharacter], screenPosition: Int)
     func display(_ characters: [DigitalCharacter], screenPosition: Int, delay: TimeInterval, completion: (() -> Void)?)
     
     /**
@@ -58,17 +85,42 @@ protocol ScreenProtocol {
      
      - Parameters:
         - string: the text to display
-        - screenPosition: the screen position to display the character. The value is 1 based. Where position 1 is the first visible location on the screen.  If omitted or set to nil, text will be right aligned.
+        - screenPosition: the screen position to display the character. The value is 1 based. Where position 1 is the first visible location on the screen.  The default is the last position on the screen.
         - delay: the number of seconds to wait before calling the completion handler. If no completion handler has been set, this argument is ignored.
         - completion: optional completion handler
      */
-    func display(_ string: String, screenPosition: Int?, delay: TimeInterval, completion: (() -> Void)?)
+    func display(_ string: String, screenPosition: Int, delay: TimeInterval, completion: (() -> Void)?)
+    
+    /**
+     Display the number, right aligned, to the screen
+     
+     Numbers will be rounded to fit within the number of characters on the screen (``numberOfCharacters``)
+     
+     If the number can not be displayed on the screen it will be abbreviated using E notation (TODO!)
+     
+     - Parameters:
+        - number: number to display
+     */
+    func display(_ number: Double)
+    
+    /**
+     Displays a textual message on the screen
+     */
+    func displayTextMessage(text: String)
+    
+    // MARK: - Append Methods
     
     /**
      Appends a new character to the far right of the screen and shifts any characters that are not fixed to the left.
      */
-    func append(_ character: DigitalCharacter)
     func append(_ character: DigitalCharacter, delay: TimeInterval, completion: (() -> Void)?)
+    
+    /**
+     Appends a decimal place to the end of the screen
+     */
+    func appendDecimalPoint()
+    
+    // MARK: - Remove Methods
     
     /**
      Removes the character at the given screen postion
@@ -76,9 +128,11 @@ protocol ScreenProtocol {
     func remove(screenPosition: Int)
     
     /**
-     Displays a textual message on the screen
+     Remove decimal point from position
      */
-    func displayTextMessage(text: String)
+    func removeDecimalPoint(_ screenPosition: Int)
+    
+    // MARK: - Search Methods
     
     /**
     Returns the character displayed at the given screen position.
@@ -89,4 +143,28 @@ protocol ScreenProtocol {
      Finds the position of the first occurance of the character on the screen, searching from left to right
      */
     func findPosition(_ character: DigitalCharacter, fromPosition: Int) -> Int?
+}
+
+// MARK: - ScreenProtocol Extensions
+
+extension ScreenProtocol {
+    
+    func displayDecimalPoint(_ screenPosition: Int = -1, makeUnique: Bool = true) {
+        let position = screenPosition == -1 ? self.numberOfCharacters : screenPosition
+        displayDecimalPoint(position, makeUnique: makeUnique)
+    }
+    
+    func append(_ character: DigitalCharacter, delay: TimeInterval = TimeInterval(0), completion: (() -> Void)? = nil) {
+        append(character, delay: delay, completion: completion)
+    }
+    
+    func display(_ string: String, screenPosition: Int = -1, delay: TimeInterval = TimeInterval(0), completion: (() -> Void)? = nil) {
+        let position = screenPosition == -1 ? self.numberOfCharacters : screenPosition
+        display(string, screenPosition: position, delay: delay, completion: completion)
+    }
+    
+    func display(_ characters: [DigitalCharacter], screenPosition: Int = -1, delay: TimeInterval = TimeInterval(0), completion: (() -> Void)? = nil) {
+        let position = screenPosition == -1 ? self.numberOfCharacters : screenPosition
+        display(characters, screenPosition: position, delay: delay, completion: completion)
+    }
 }

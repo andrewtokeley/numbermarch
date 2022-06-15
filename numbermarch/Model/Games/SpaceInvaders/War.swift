@@ -25,7 +25,7 @@ class War {
     /**
      The rules of the war, applied to all battles.
      */
-    public var rules: WarRulesProtocol
+    public var rules: DigitalInvadersRulesProtocol
     
     /**
      Delegate to advice of significant war events
@@ -73,7 +73,7 @@ class War {
     /**
      Creates a new war instance containing the given battles and rule set.
      */
-    init(battles: [Battle], rules: WarRulesProtocol) {
+    init(battles: [Battle], rules: DigitalInvadersRulesProtocol) {
         self.battles = battles
         self.rules = rules
         
