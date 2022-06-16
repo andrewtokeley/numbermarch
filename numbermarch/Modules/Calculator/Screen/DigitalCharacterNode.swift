@@ -69,23 +69,26 @@ class DigitalCharacterNode: SKSpriteNode {
      Each array in the mapping represents a display character. The flags in each array determine which bars are visible starting from the top bar, working clockwise and finishing with the middle bar.
     */
     private var valueBarMap:[DigitalCharacter: [Int]] = [
-        .zero: [1,1,1,1,1,1,0], // 0
-        .one: [0,1,1,0,0,0,0], // 1
-        .two: [1,1,0,1,1,0,1], // 2
-        .three: [1,1,1,1,0,0,1], // 3
-        .four: [0,1,1,0,0,1,1], // 4
-        .five: [1,0,1,1,0,1,1], // 5
-        .six: [1,0,1,1,1,1,1], // 6
-        .seven: [1,1,1,0,0,0,0], // 7
-        .eight: [1,1,1,1,1,1,1], // 8
-        .nine: [1,1,1,1,0,1,1], // 9
-        .mothership: [0,0,1,0,1,0,1], // n
-        .threebars: [1,0,0,1,0,0,1], // 3 lives
-        .twobars: [0,0,0,1,0,0,1], // 2 lives
-        .onebar: [0,0,0,0,0,0,1], // 1 life or hyphen
-        .space: [0,0,0,0,0,0,0], // space
-        .upsideDownA: [0,1,1,1,1,1,1], // upside down A
-        .A: [1,1,1,0,1,1,1], // A
+        .zero:          [1,1,1,1,1,1,0],
+        .one:           [0,1,1,0,0,0,0],
+        .two:           [1,1,0,1,1,0,1],
+        .three:         [1,1,1,1,0,0,1],
+        .four:          [0,1,1,0,0,1,1],
+        .five:          [1,0,1,1,0,1,1],
+        .six:           [1,0,1,1,1,1,1],
+        .seven:         [1,1,1,0,0,0,0],
+        .eight:         [1,1,1,1,1,1,1],
+        .nine:          [1,1,1,1,0,1,1],
+        .mothership:    [0,0,1,0,1,0,1],
+        .threebars:     [1,0,0,1,0,0,1],
+        .twobars:       [0,0,0,1,0,0,1],
+        .onebar:        [0,0,0,0,0,0,1],
+        .space:         [0,0,0,0,0,0,0],
+        .upsideDownA:   [0,1,1,1,1,1,1],
+        .A:             [1,1,1,0,1,1,1],
+        .missileTop:    [1,0,0,0,0,0,0],
+        .missileMiddle: [0,0,0,0,0,0,1],
+        .missileBottom: [0,0,0,1,0,0,0],
     ]
     
     // MARK: - Initializers
@@ -138,8 +141,6 @@ class DigitalCharacterNode: SKSpriteNode {
     // MARK: - Private Methods
     
     private func configureCharacter(_ character: DigitalCharacter) {
-        guard character.rawValue < self.valueBarMap.count else { return }
-        
         if let visibleBars = self.valueBarMap[character] {
             for (index,item) in self.bars.enumerated() {
                 item.fillColor = visibleBars[index] == 1 ? UIColor.gameBattlefieldText : .clear

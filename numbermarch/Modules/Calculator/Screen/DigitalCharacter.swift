@@ -12,30 +12,37 @@ import Foundation
  */
 enum DigitalCharacter: Int {
     case zero = 0
-    case one = 1
-    case two = 2
-    case three = 3
-    case four = 4
-    case five = 5
-    case six = 6
-    case seven = 7
-    case eight = 8
-    case nine = 9
-    case mothership = 10
-    case threebars = 11
-    case twobars = 12
-    case onebar = 13
-    case space = 14
-    case point = 15
-    case upsideDownA = 16
-    case A = 17
+    case one
+    case two
+    case three
+    case four
+    case five
+    case six
+    case seven
+    case eight
+    case nine
+    case mothership
+    case threebars
+    case twobars
+    case onebar
+    case space
+    case point
+    case upsideDownA
+    case A
+    case missileTop
+    case missileMiddle
+    case missileBottom
     
     var isDigit: Bool {
         return self.rawValue <= 10
     }
     
+    /**
+     Used to return a string representation of a character, if it exists.
+     */
     var asText: String? {
         if isDigit {
+            // scary assumption that the order of digits sit in the first 0-9 locations of enum!
             return String(rawValue)
         } else if self == .point {
             return "."
@@ -45,6 +52,9 @@ enum DigitalCharacter: Int {
         return nil
     }
     
+    /**
+     Convenience constructor to convert a calculator key into a digital key enum
+     */
     init?(calculatorKey: CalculatorKey) {
         if calculatorKey.isDigit {
             self.init(rawValue: calculatorKey.rawValue)

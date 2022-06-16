@@ -204,9 +204,10 @@ extension ScreenNode: ScreenProtocol {
     private var displayAsString: String {
         var result = ""
         for position in 1...self.numberOfCharacters {
-            let c = self.characterAt(position)
-            if let text = c.asText {
-                result += text
+            if let c = self.characterAt(position) {
+                if let text = c.asText {
+                    result += text
+                }
             }
         }
         return result
@@ -217,6 +218,8 @@ extension ScreenNode: ScreenProtocol {
     }
     
     func freezeCharacters(screenPosition: Int) {
+        guard screenPosition.isBetween(1, self.numberOfCharacters, true) else { return }
+        
         self.freezePosition = screenPosition
     }
     
@@ -241,8 +244,9 @@ extension ScreenNode: ScreenProtocol {
     func append(_ character: DigitalCharacter) {
         // move all characters to the left, but protecting any characters from freezePosition back.
         for position in (freezePosition + 1)...(self.numberOfCharacters - 1) {
-            let copy = self.characterAt(position + 1)
-            self.display(copy, screenPosition: position)
+            if let copy = self.characterAt(position + 1) {
+                self.display(copy, screenPosition: position)
+            }
         }
         
         // display the new character at the far right of screen
@@ -270,22 +274,30 @@ extension ScreenNode: ScreenProtocol {
     }
     
     func removeDecimalPoint(screenPosition: Int) {
+        guard screenPosition.isBetween(1, self.numberOfCharacters, true) else { return }
+        
         for position in screenPosition...(freezePosition + 2) {
-            let copy = self.characterAt(position - 1)
-            self.display(copy, screenPosition: position)
+            if let copy = self.characterAt(position - 1) {
+                self.display(copy, screenPosition: position)
+            }
         }
         self.display(.space, screenPosition: freezePosition + 1)
     }
     
     func remove(screenPosition: Int) {
+        guard screenPosition.isBetween(1, self.numberOfCharacters, true) else { return }
+        
         for position in screenPosition...(freezePosition + 2) {
-            let copy = self.characterAt(position - 1)
-            self.display(copy, screenPosition: position)
+            if let copy = self.characterAt(position - 1) {
+                self.display(copy, screenPosition: position)
+            }
         }
         self.display(.space, screenPosition: freezePosition + 1)
     }
     
     func displayDecimalPoint(_ screenPosition: Int, makeUnique: Bool) {
+        guard screenPosition.isBetween(1, self.numberOfCharacters, true) else { return }
+        
         if makeUnique {
             self.decimalPointNodes.forEach { $0.isHidden = true }
         }
@@ -293,14 +305,20 @@ extension ScreenNode: ScreenProtocol {
     }
     
     func removeDecimalPoint(_ screenPosition: Int) {
+        guard screenPosition.isBetween(1, self.numberOfCharacters, true) else { return }
+        
         self.decimalPointNodes[screenPosition - 1].isHidden = true
     }
     
     func display(_ character: DigitalCharacter, screenPosition: Int) {
+        guard screenPosition.isBetween(1, self.numberOfCharacters, true) else { return }
+
         self.screenCharacterNodes[screenPosition - 1].character = character
     }
     
     func display(_ characters: [DigitalCharacter], screenPosition: Int) {
+        guard screenPosition.isBetween(1, self.numberOfCharacters, true) else { return }
+        
         // reference to the position to start displaying the digit
         var position = screenPosition
         
@@ -320,6 +338,8 @@ extension ScreenNode: ScreenProtocol {
     }
     
     func display(_ characters: [DigitalCharacter], screenPosition: Int, delay: TimeInterval, completion: (() -> Void)?) {
+        guard screenPosition.isBetween(1, self.numberOfCharacters, true) else { return }
+        
         self.delayTimer?.invalidate()
         self.display(characters, screenPosition: screenPosition)
         self.delayTimer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { (timer) in
@@ -328,6 +348,7 @@ extension ScreenNode: ScreenProtocol {
     }
     
     func display(_ string: String, screenPosition: Int, delay: TimeInterval, completion: (() -> Void)?) {
+        guard screenPosition.isBetween(1, self.numberOfCharacters, true) else { return }
         
         // create [DisplayCharater] from string
         var result = [DigitalCharacter]()
@@ -345,6 +366,8 @@ extension ScreenNode: ScreenProtocol {
             }
         }
         self.display(result, screenPosition: screenPosition)
+        guard screenPosition.isBetween(1, self.numberOfCharacters, true) else { return }
+        
         if let completion = completion {
             self.delayTimer?.invalidate()
             self.delayTimer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { (timer) in
@@ -375,7 +398,8 @@ extension ScreenNode: ScreenProtocol {
         }
     }
     
-    func characterAt(_ screenPosition: Int) -> DigitalCharacter {
+    func characterAt(_ screenPosition: Int) -> DigitalCharacter? {
+        guard screenPosition < self.numberOfCharacters else { return nil }
         return self.screenCharacterNodes[screenPosition - 1].character
     }
     

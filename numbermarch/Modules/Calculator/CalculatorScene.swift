@@ -102,12 +102,13 @@ class CalculatorScene: SKScene {
     private func startGame() {
         self.onOffSwitch = .calcGame
         self.calculatorEngine = nil
+        self.musicEngine = nil
         
         self.game?.stop()
         
         //self.game = SpaceInvaders(screen: screen, rules: DigitalInvadersClassicRules())
         self.game = EightAttack(screen: screen)
-        //self.keyboardDelegate = game as? KeyboardDelegate
+        self.keyboardDelegate = game as? KeyboardDelegate
         
         // game starts automatically
         game?.start()

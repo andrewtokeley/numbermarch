@@ -59,6 +59,8 @@
 		D8C1ED9128597C79003A1092 /* EightMissileTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1ED9028597C79003A1092 /* EightMissileTypeEnum.swift */; };
 		D8C1ED9328597CDE003A1092 /* EightMissile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1ED9228597CDE003A1092 /* EightMissile.swift */; };
 		D8C1ED952859AEBA003A1092 /* EightBattleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1ED942859AEBA003A1092 /* EightBattleTests.swift */; };
+		D8C1ED97285AD549003A1092 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1ED96285AD549003A1092 /* Int.swift */; };
+		D8C1ED99285AE139003A1092 /* IntExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1ED98285AE139003A1092 /* IntExtensionTests.swift */; };
 		D8E721AF28587AE50023B2BF /* EightAttack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E721AE28587AE50023B2BF /* EightAttack.swift */; };
 		D8E721B128587E580023B2BF /* EightBattle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E721B028587E580023B2BF /* EightBattle.swift */; };
 		D8E721B3285881070023B2BF /* EightBattleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E721B2285881070023B2BF /* EightBattleDelegate.swift */; };
@@ -142,6 +144,8 @@
 		D8C1ED9028597C79003A1092 /* EightMissileTypeEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EightMissileTypeEnum.swift; sourceTree = "<group>"; };
 		D8C1ED9228597CDE003A1092 /* EightMissile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EightMissile.swift; sourceTree = "<group>"; };
 		D8C1ED942859AEBA003A1092 /* EightBattleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EightBattleTests.swift; sourceTree = "<group>"; };
+		D8C1ED96285AD549003A1092 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
+		D8C1ED98285AE139003A1092 /* IntExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensionTests.swift; sourceTree = "<group>"; };
 		D8E721AE28587AE50023B2BF /* EightAttack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EightAttack.swift; sourceTree = "<group>"; };
 		D8E721B028587E580023B2BF /* EightBattle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EightBattle.swift; sourceTree = "<group>"; };
 		D8E721B2285881070023B2BF /* EightBattleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EightBattleDelegate.swift; sourceTree = "<group>"; };
@@ -207,6 +211,7 @@
 				D8338DF62846AF9B000007C6 /* CGRect.swift */,
 				D8338DF82846B34E000007C6 /* CGSize.swift */,
 				D86B8C1928573B3C005045B1 /* Decimal.swift */,
+				D8C1ED96285AD549003A1092 /* Int.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -302,6 +307,7 @@
 				D8E94F44284C0F3300AC87C2 /* CalculatorDimensionsTests.swift */,
 				D8014F952857B3100024DD99 /* ExpressionBuilderTests.swift */,
 				D8C1ED942859AEBA003A1092 /* EightBattleTests.swift */,
+				D8C1ED98285AE139003A1092 /* IntExtensionTests.swift */,
 			);
 			path = numbermarchTests;
 			sourceTree = "<group>";
@@ -610,6 +616,7 @@
 				D8338DF72846AF9B000007C6 /* CGRect.swift in Sources */,
 				D8603872282F4B3A00781EA5 /* Battle.swift in Sources */,
 				D882F7482855867D00F288D6 /* NumberEngine.swift in Sources */,
+				D8C1ED97285AD549003A1092 /* Int.swift in Sources */,
 				D86B8C16285726B3005045B1 /* MainModuleApi.swift in Sources */,
 				D86B8C17285726B3005045B1 /* MainInteractor.swift in Sources */,
 			);
@@ -620,6 +627,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D87ED4D528337AF500BA6DF4 /* WarTests.swift in Sources */,
+				D8C1ED99285AE139003A1092 /* IntExtensionTests.swift in Sources */,
 				D84F14902842209500886521 /* ScreenTests.swift in Sources */,
 				D8E94F45284C0F3300AC87C2 /* CalculatorDimensionsTests.swift in Sources */,
 				D8603852282F403600781EA5 /* BattleTests.swift in Sources */,

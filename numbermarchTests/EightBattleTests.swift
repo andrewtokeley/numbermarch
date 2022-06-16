@@ -10,18 +10,35 @@ import XCTest
 
 class EightBattleTests: XCTestCase {
 
+    func testHitWhenAddingMissile() {
+        let battle = EightBattle(screenSize: 9)
+        battle.readyForNextEnemy() // add an enemy to position 1
+        self.advanceEnemy(battle, times: 8) // bring to the end
+        if let missileTypeToKill = battle.enemy?.type.canBeKilledByMissleType {
+            battle.addMissile(type: missileTypeToKill)
+            XCTAssertEqual(battle.enemy?.isDead, true)
+        } else {
+            XCTFail()
+        }
+    }
+    
     func testMissileHitAndMiss() {
         let battle = EightBattle(screenSize: 9)
-        battle.initialiseGame() // should add an enemy to position 1
-        
+        battle.readyForNextEnemy() // add an enemy to position 1
+        let _ = battle.advanceEnemy() // move to position 2
         if let enemy = battle.enemy {
-            let missileType = EightMissilleTypeEnum.not(enemy.type.canBeKilledByMissleType)
-            battle.addMissile(type: missileType)
-            self.advanceMissile(battle, times: 8) // 8th move shoud hit the enemy but not kill
+            enemy.type = .bottomMissing
+            battle.addMissile(type: .top) // position 9
+            self.advanceMissile(battle, times: 7) // position 2
                 
             XCTAssertEqual(battle.killCount, 0)
             XCTAssertEqual(enemy.isDead, false)
             XCTAssertNil(battle.missile)
+            
+            // make sure we can still advance the enemy
+            let _ = battle.advanceEnemy() // move to position 3
+            XCTAssertEqual(battle.enemy?.position, 3)
+            
         } else {
             XCTFail()
         }
@@ -29,7 +46,8 @@ class EightBattleTests: XCTestCase {
     
     func testMissileHitAndKill() {
         let battle = EightBattle(screenSize: 9)
-        battle.initialiseGame() // should add an enemy to position 1
+        battle.readyForNextEnemy() // add an enemy to position 1
+        
         XCTAssertEqual(battle.killCount, 0)
         
         if let enemy = battle.enemy {
@@ -46,7 +64,7 @@ class EightBattleTests: XCTestCase {
     
     func testAddMoveEnemy() {
         let battle = EightBattle(screenSize: 9)
-        battle.initialiseGame() // should add an enemy
+        battle.readyForNextEnemy() // add an enemy to position 1
         if let enemy = battle.enemy {
             XCTAssertEqual(enemy.isDead, false)
             
@@ -56,7 +74,7 @@ class EightBattleTests: XCTestCase {
             XCTAssertTrue(position <= battle.screenSize)
             
             let direction = enemy.direction
-            battle.advanceEnemy()
+            let _ = battle.advanceEnemy()
             XCTAssertEqual(enemy.position, position + direction.rawValue)
         }
     }
@@ -72,13 +90,13 @@ class EightBattleTests: XCTestCase {
         let delegateMethod = "battleLost"
         delegate.createExpectation("testLoseLife", methodOfInterest: delegateMethod)
         
-        battle.initialiseGame() // should add an enemy to position 1
+        battle.readyForNextEnemy() // add an enemy to position 1
         
         // move to the far right
         self.advanceEnemy(battle, times: 8)
         
         // next move should lose a life
-        battle.advanceEnemy()
+        let _ = battle.advanceEnemy()
         
         // wait until the delegate fires
         self.waitForExpectations(timeout: 5, handler: nil)
@@ -89,26 +107,9 @@ class EightBattleTests: XCTestCase {
     
     func testBattleStart() throws {
         let battle = EightBattle(screenSize: 9)
-        let delegate = MockEightBattleDelegate(self)
-        battle.delegate = delegate
-
-        let delegateMethod = "addEnemy"
-        delegate.createExpectation("testBattleStart", methodOfInterest: delegateMethod)
-        battle.initialiseGame()
         
-        // wait until the delegate fires
-        self.waitForExpectations(timeout: 5, handler: nil)
-        
-        XCTAssertEqual(delegate.method, delegateMethod)
-        let enemy = delegate.parameters[0] as? EightEnemy
-        XCTAssertNotNil(enemy)
-        
-        // Games always start on the left side of screen
-        XCTAssertEqual(enemy?.position, 1)
-        XCTAssertEqual(enemy?.direction, .right)
-        
-        XCTAssertEqual(battle.screenSize, 9)
-        XCTAssertEqual(battle.numberOfExplodedBombs, 0)
+        XCTAssertNil(battle.enemy)
+        XCTAssertNil(battle.missile)
         
     }
 
@@ -117,12 +118,12 @@ class EightBattleTests: XCTestCase {
         let delegate = MockEightBattleDelegate(self)
         battle.delegate = delegate
 
-        battle.initialiseGame() // start at position 1
-        battle.advanceEnemy() // move to 2
+        battle.readyForNextEnemy() // add an enemy to position 1
+        let _ = battle.advanceEnemy() // move to 2
         
         let delegateMethod = "movedPositionFrom"
         delegate.createExpectation("testMovedPositionFromDelegate", methodOfInterest: delegateMethod)
-        battle.advanceEnemy() // move to 3
+        let _ = battle.advanceEnemy() // move to 3
         
         // wait until the delegate fires
         self.waitForExpectations(timeout: 5, handler: nil)
@@ -139,15 +140,15 @@ class EightBattleTests: XCTestCase {
         let delegate = MockEightBattleDelegate(self)
         battle.delegate = delegate
 
-        battle.initialiseGame() // start at position 1
-        battle.advanceEnemy() // 2
-        battle.advanceEnemy() // 3
+        battle.readyForNextEnemy() // add an enemy to position 1
+        let _ = battle.advanceEnemy() // 2
+        let _ = battle.advanceEnemy() // 3
         battle.addMissile(type: .middle) // 9
-        battle.advanceMissile() // 8
+        let _ = battle.advanceMissile() // 8
         
         let delegateMethod = "missileMovedPositionFrom"
         delegate.createExpectation("testMissileMovedPositionFromDelegate", methodOfInterest: delegateMethod)
-        battle.advanceMissile() // 7
+        let _ = battle.advanceMissile() // 7
         
         // wait until the delegate fires
         self.waitForExpectations(timeout: 5, handler: nil)
@@ -164,41 +165,41 @@ class EightBattleTests: XCTestCase {
         let delegate = MockEightBattleDelegate(self)
         battle.delegate = delegate
 
-        battle.initialiseGame() // start at position 1, moving right
-        battle.advanceEnemy() // 2
-        battle.advanceEnemy() // 3
+        battle.readyForNextEnemy() // adds enemy to 1
+        let _ = battle.advanceEnemy() // 2
+        let _ = battle.advanceEnemy() // 3
         XCTAssertEqual(battle.enemy?.position, 3)
         
         // prepare a missile that will kill
-        battle.addMissile(type: battle.enemy!.type.canBeKilledByMissleType) // 9
-        battle.advanceMissile() // 8
-        battle.advanceMissile() // 7
-        battle.advanceMissile() // 6
-        battle.advanceMissile() // 5
-        battle.advanceMissile() // 4
-        XCTAssertEqual(battle.missile?.position, 4)
+        if let missileType = battle.enemy?.type.canBeKilledByMissleType {
+            battle.addMissile(type: missileType) // 9
+            self.advanceMissile(battle, times: 5)
+            XCTAssertEqual(battle.missile?.position, 4)
+        } else {
+            XCTFail()
+        }
         
-        let delegateMethod = "enemyKilled"
-        delegate.createExpectation("testEnemyKilledDelegate", methodOfInterest: delegateMethod)
-        battle.advanceMissile() // 3 - this should cause a hit and match
-
-        // wait until the delegate fires
-        self.waitForExpectations(timeout: 5, handler: nil)
-
-        // Test delegate method called with right parameters
-        XCTAssertEqual(delegate.method, "enemyKilled")
-        XCTAssertEqual((delegate.parameters[0] as? EightEnemy)?.position, 3)
+//        let delegateMethod = "enemyKilled"
+//        delegate.createExpectation("testEnemyKilledDelegate", methodOfInterest: delegateMethod)
+//        let _ = battle.advanceMissile() // 3 - this should cause a hit and match
+//
+//        // wait until the delegate fires
+//        self.waitForExpectations(timeout: 5, handler: nil)
+//
+//        // Test delegate method called with right parameters
+//        XCTAssertEqual(delegate.method, "enemyKilled")
+//        XCTAssertEqual((delegate.parameters[0] as? EightEnemy)?.position, 3)
     }
     
     private func advanceEnemy(_ battle: EightBattle, times: Int) {
         for _ in 1...times {
-            battle.advanceEnemy()
+            let _ = battle.advanceEnemy()
         }
     }
     
     private func advanceMissile(_ battle: EightBattle, times: Int) {
         for _ in 1...times {
-            battle.advanceMissile()
+            let _ = battle.advanceMissile()
         }
     }
 }
@@ -211,6 +212,21 @@ class MockEightBattleDelegate: EightBattleDelegate {
     var method: String?
     var parameters = [Any]()
     var methodOfInterest: String?
+    
+    func battleWon(_ battle: EightBattle) {
+        guard methodOfInterest == "battleWon" else { return }
+        
+        method = "battleWon"
+        fulfillExpectation()
+    }
+    
+    func eightBattle(_ battle: EightBattle, removeEnemy enemy: EightEnemy) {
+        guard methodOfInterest == "removeEnemy" else { return }
+        
+        method = "removeEnemy"
+        parameters.append(enemy)
+        fulfillExpectation()
+    }
     
     func battleLost(_ battle: EightBattle) {
         guard methodOfInterest == "battleLost" else { return }

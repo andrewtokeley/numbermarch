@@ -23,4 +23,15 @@ enum EightMissilleTypeEnum: Int {
         if type == .bottom { return .middle }
         return .top
     }
+    
+    var asDigitalCharacter: DigitalCharacter {
+        switch self {
+        case .top:
+            return DigitalCharacter.missileTop
+        case .middle:
+            return DigitalCharacter.missileMiddle
+        case .bottom:
+            return DigitalCharacter.missileBottom
+        }
+    }
 }

@@ -137,7 +137,7 @@ protocol ScreenProtocol {
     /**
     Returns the character displayed at the given screen position.
      */
-    func characterAt(_ screenPosition: Int) -> DigitalCharacter
+    func characterAt(_ screenPosition: Int) -> DigitalCharacter?
     
     /**
      Finds the position of the first occurance of the character on the screen, searching from left to right

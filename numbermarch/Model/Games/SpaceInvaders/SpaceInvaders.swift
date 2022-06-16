@@ -170,14 +170,16 @@ class SpaceInvaders {
      */
     private func aim() {
         // increment the gun value
-        var value = self.screen.characterAt(2).rawValue
-        if value > 9 {
-            value = 0
-        } else {
-            value += 1
-        }
-        if let character = DigitalCharacter(rawValue: value) {
-            self.screen.display(character, screenPosition: 2)
+        if let currentValue = self.screen.characterAt(2)?.rawValue {
+            var value = currentValue
+            if value > 9 {
+                value = 0
+            } else {
+                value += 1
+            }
+            if let character = DigitalCharacter(rawValue: value) {
+                self.screen.display(character, screenPosition: 2)
+            }
         }
     }
     
@@ -303,8 +305,9 @@ class SpaceInvaders {
      */
     private func shoot() {
         // get the value of the gun
-        let value = self.screen.characterAt(2).rawValue
-        self.battle?.shoot(value: value)
+        if let value = self.screen.characterAt(2)?.rawValue {
+            self.battle?.shoot(value: value)
+        }
     }
     
     /**
