@@ -1,0 +1,24 @@
+PODS:
+  - MathExpression (1.2.0)
+  - PureLayout (3.1.9)
+  - Viperit (1.5.0)
+
+DEPENDENCIES:
+  - MathExpression (~> 1.2.0)
+  - PureLayout
+  - Viperit
+
+SPEC REPOS:
+  trunk:
+    - MathExpression
+    - PureLayout
+    - Viperit
+
+SPEC CHECKSUMS:
+  MathExpression: 4384cff82c09443c72f4de75c39ae48d5d62d1f6
+  PureLayout: 5fb5e5429519627d60d079ccb1eaa7265ce7cf88
+  Viperit: 0eb802210bf0aff1e662c0fb545d268983501867
+
+PODFILE CHECKSUM: 122dc2e9aa5e215deea0528c59938cf455a58c8d
+
+COCOAPODS: 1.11.3
