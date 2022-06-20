@@ -23,6 +23,8 @@ final class MainView: UserInterface {
     
     private var game: GamesProtocol?
     
+    private var skin: CalculatorSkin?
+    
     private var calculatorScene: CalculatorScene? {
         return calculatorView.scene as? CalculatorScene
     }
@@ -41,14 +43,6 @@ final class MainView: UserInterface {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let scene = CalculatorScene(size: view.bounds.size)
-        
-        calculatorView.showsFPS = true
-        calculatorView.showsNodeCount = true
-        calculatorView.ignoresSiblingOrder = false
-        scene.scaleMode = .resizeFill
-        calculatorView.presentScene(scene)
     }
     
     override func loadView() {
@@ -79,7 +73,9 @@ final class MainView: UserInterface {
         
         let up = UIKeyCommand(input: UIKeyCommand.inputUpArrow, modifierFlags: [], action: #selector(keyPress))
         
-        return [left, right, up]
+        let down = UIKeyCommand(input: UIKeyCommand.inputDownArrow, modifierFlags: [], action: #selector(keyPress))
+        
+        return [left, right, up, down]
     }
     
     override var canBecomeFirstResponder: Bool {
@@ -98,6 +94,9 @@ final class MainView: UserInterface {
             case UIKeyCommand.inputUpArrow:
                 self.calculatorScene?.keyPressed(key: .game)
                 return
+            case UIKeyCommand.inputDownArrow:
+                self.calculatorScene?.keyPressed(key: .equals)
+                return
             default: return
             }
         }
@@ -106,6 +105,20 @@ final class MainView: UserInterface {
 
 //MARK: - MainView API
 extension MainView: MainViewApi {
+    
+    func displayCalculator(_ calculator: CalculatorSkin) {
+        
+        var skin = calculator
+        skin.width = view.bounds.size.width * 0.95
+        let scene = CalculatorScene(size: view.bounds.size, skin: skin)
+        
+        calculatorView.showsFPS = true
+        calculatorView.showsNodeCount = true
+        calculatorView.ignoresSiblingOrder = false
+        scene.scaleMode = .resizeFill
+        calculatorView.presentScene(scene)
+        
+    }
 }
 
 // MARK: - MainView Viper Components API

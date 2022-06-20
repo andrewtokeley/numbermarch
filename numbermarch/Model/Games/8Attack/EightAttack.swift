@@ -12,10 +12,17 @@ import Foundation
  */
 class EightAttack {
     
+    private var ignoreKeyPresses: Bool = true
+    
     /**
      Internal flag to advise whether a game is in play or not
      */
     private var gameActive: Bool = false
+    
+    /**
+     Rules of the game
+     */
+    private var rules: EightAttackRules
     
     /**
      Game's battle logic. A battle is completed when all the bombs are exploded.
@@ -27,7 +34,7 @@ class EightAttack {
     private var lastEnemyAdvance: Date?
     private var lastMissileAdvance: Date?
     
-    private var enemyTimeInterval = TimeInterval(0.3)
+    private var enemyTimeInterval = TimeInterval(0.5)
     private var missileTimeInterval = TimeInterval(0.2)
     
     
@@ -36,41 +43,55 @@ class EightAttack {
      */
     private var screen: ScreenProtocol
     
-    init(screen: ScreenProtocol) {
+    init(screen: ScreenProtocol, rules: EightAttackRules) {
+        self.rules = rules
         self.screen = screen
         self.screen.clearScreen(includingMessageText: true)
         
-        self.battle = EightBattle(screenSize: self.screen.numberOfCharacters)
+        self.battle = EightBattle(screenSize: self.screen.numberOfCharacters, rules: self.rules)
         self.battle.delegate = self
+        self.ignoreKeyPresses = true
     }
     
-    private func startNewBattle() {
+    /**
+     Called to start a new game.
+     */
+    private func startNewGame() {
+        self.gameLoopTimer?.invalidate()
         self.gameActive = true
-        self.battle.readyForNewBattle()
-        self.battle.readyForNextEnemy()
-        self.startGameLoop()
+        
+        // initialise the game speed
+        // TODO
+        self.battle.readyToStartGame()
+        self.displayLives(self.battle.lives)
     }
     
+    /**
+     Game loop responsible for advancing and drawing the enemies and missiles
+     */
     private func startGameLoop() {
         self.lastEnemyAdvance = Date.now
         self.lastMissileAdvance = Date.now
         
-        print("create Timer")
         self.gameLoopTimer = Timer.scheduledTimer(withTimeInterval: self.gameLoopTimeInterval, repeats: true, block: { timer in
             
             let dEnemy = self.lastEnemyAdvance!.distance(to: Date.now)
             let dMissile = self.lastMissileAdvance!.distance(to: Date.now)
             
-            let moveEnemy = dEnemy > self.enemyTimeInterval
+            let enemyTimeInterval = self.rules.speedOfEnemies(level: self.battle.level)
+            let moveEnemy = dEnemy > enemyTimeInterval
+            
             let moveMissile = dMissile > self.missileTimeInterval
             
-            if moveEnemy { self.advanceEnemy() }
             if moveMissile { self.advanceMissile() }
+            if moveEnemy { self.advanceEnemy() }
+            
         })
         
     }
     
     private func stopBattle() {
+        self.gameActive = false
         self.gameLoopTimer?.invalidate()
     }
     
@@ -101,32 +122,79 @@ class EightAttack {
         
         battle.addMissile(type: missileType)
     }
+    
+    private func displayScore(level: Int, score: Int, completion: (() -> Void)? = nil) {
+        self.screen.clearScreen(includingMessageText: false)
+        
+        // pad out the score with leading zeros to make it exactly 6 characters long
+        let scorePadded = String(score).leftPadding(toLength: 6, withPad: "0")
+        let levelPadded = String(level).leftPadding(toLength: 2, withPad: " ")
+        let message = "\(levelPadded)-\(scorePadded)"
+        self.screen.display(message, screenPosition: self.screen.numberOfCharacters, delay: TimeInterval(2)) {
+            completion?()
+        }
+    }
+    
+    private func displayLives(_ lives: Int) {
+        self.screen.displayTextMessage(text: "LIVES - \(lives)")
+    }
 }
 
 extension EightAttack: EightBattleDelegate {
     
+//    func eightBattle(_ battle: EightBattle, enemyChangedType type: EightEnemyType, position: Int) {
+//        self.screen.display(type.asDigitalCharacter, screenPosition: position)
+//    }
+    
+    func eightBattle(_ battle: EightBattle, lostLife livesLeft: Int) {
+        
+        self.displayLives(self.battle.lives)
+        self.displayScore(level: self.battle.level, score: self.battle.score) {
+            self.screen.clearScreen(includingMessageText: false)
+            self.battle.readyToRestartLevel()
+        }
+    }
+    
+    func eightBattle(_ battle: EightBattle, gainedLife livesGained: Int) {
+        self.displayLives(self.battle.lives)
+    }
+    
+    func battleGameOver(_ battle: EightBattle) {
+        self.screen.displayTextMessage(text: "GAME OVER")
+        self.stopBattle()
+        self.displayScore(level: self.battle.level, score: self.battle.score)
+    }
+    
+    func eightBattle(_ battle: EightBattle, newLevel: Int, score: Int) {
+        
+        self.ignoreKeyPresses = true
+        self.gameLoopTimer?.invalidate()
+        self.displayScore(level: self.battle.level, score: self.battle.score) {
+            self.screen.clearScreen(includingMessageText: false)
+            self.ignoreKeyPresses = false
+            self.battle.readyForNextLevel()
+            self.startGameLoop()
+        }
+    }
+    
     func battleWon(_ battle: EightBattle) {
         self.screen.displayTextMessage(text: "YOU WON!")
         self.gameActive = false
+        self.displayScore(level: self.battle.level, score: self.battle.score)
     }
     
     func eightBattle(_ battle: EightBattle, removeEnemy enemy: EightEnemy) {
         self.screen.display(.space, screenPosition: enemy.position)
     }
     
-    func battleLost(_ battle: EightBattle) {
-        self.screen.displayTextMessage(text: "BATTLE LOST")
-        self.gameActive = false
-    }
-    
     func eightBattle(_ battle: EightBattle, addEnemy enemy: EightEnemy, position: Int) {
         self.lastEnemyAdvance = Date.now
-        self.screen.display(enemy.asDigitalCharacter, screenPosition: position)
+        self.screen.display(enemy.type.asDigitalCharacter, screenPosition: position)
     }
     
     func eightBattle(_ battle: EightBattle, enemy: EightEnemy, movedPositionFrom from: Int, to: Int) {
         self.screen.display(.space, screenPosition: from)
-        self.screen.display(enemy.asDigitalCharacter, screenPosition: to)
+        self.screen.display(enemy.type.asDigitalCharacter, screenPosition: to)
     }
     
     func eightBattle(_ battle: EightBattle, enemyKilled enemy: EightEnemy) {
@@ -174,6 +242,11 @@ extension EightAttack: EightBattleDelegate {
 }
 
 extension EightAttack: GamesProtocol {
+    
+    var showScreenCellBorders: Bool {
+        return false
+    }
+    
     var name: String {
         return "8 Attack"
     }
@@ -187,7 +260,7 @@ extension EightAttack: GamesProtocol {
     }
     
     func start() {
-        self.startNewBattle()
+        self.startNewGame()
     }
     
     func stop() {
@@ -207,6 +280,8 @@ extension EightAttack: GamesProtocol {
 
 extension EightAttack: KeyboardDelegate {
     func keyPressed(key: CalculatorKey) {
+        guard !self.ignoreKeyPresses else { return }
+        
         if key == .point {
             self.fire(.top)
         } else if key == .equals {

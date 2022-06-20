@@ -32,6 +32,7 @@ enum DigitalCharacter: Int {
     case missileTop
     case missileMiddle
     case missileBottom
+    case H
     
     var isDigit: Bool {
         return self.rawValue <= 10

@@ -61,6 +61,20 @@
 		D8C1ED952859AEBA003A1092 /* EightBattleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1ED942859AEBA003A1092 /* EightBattleTests.swift */; };
 		D8C1ED97285AD549003A1092 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1ED96285AD549003A1092 /* Int.swift */; };
 		D8C1ED99285AE139003A1092 /* IntExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1ED98285AE139003A1092 /* IntExtensionTests.swift */; };
+		D8C1ED9B285C2786003A1092 /* SKSpriteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1ED9A285C2786003A1092 /* SKSpriteNode.swift */; };
+		D8C1ED9E285DA93F003A1092 /* EightAttackRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1ED9D285DA93F003A1092 /* EightAttackRules.swift */; };
+		D8C1EDA0285DB6A7003A1092 /* ClassicEightAttackRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1ED9F285DB6A7003A1092 /* ClassicEightAttackRules.swift */; };
+		D8C1EDA2285EBBB7003A1092 /* CalculatorSkin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1EDA1285EBBB7003A1092 /* CalculatorSkin.swift */; };
+		D8C1EDA6285F0ECF003A1092 /* MG880Skin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1EDA5285F0ECF003A1092 /* MG880Skin.swift */; };
+		D8C1EDA8285F12E3003A1092 /* MG775Skin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1EDA7285F12E3003A1092 /* MG775Skin.swift */; };
+		D8C1EDAA285F1747003A1092 /* MG885Skin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1EDA9285F1747003A1092 /* MG885Skin.swift */; };
+		D8C1EDAC28602219003A1092 /* NumberEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1EDAB28602218003A1092 /* NumberEngineTests.swift */; };
+		D8C1EDB4286028D0003A1092 /* ListDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1EDAE286028CF003A1092 /* ListDisplayData.swift */; };
+		D8C1EDB5286028D0003A1092 /* ListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1EDAF286028CF003A1092 /* ListPresenter.swift */; };
+		D8C1EDB6286028D0003A1092 /* ListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1EDB0286028CF003A1092 /* ListRouter.swift */; };
+		D8C1EDB7286028D0003A1092 /* ListModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1EDB1286028CF003A1092 /* ListModuleApi.swift */; };
+		D8C1EDB8286028D0003A1092 /* ListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1EDB2286028CF003A1092 /* ListInteractor.swift */; };
+		D8C1EDB9286028D0003A1092 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1EDB3286028CF003A1092 /* ListView.swift */; };
 		D8E721AF28587AE50023B2BF /* EightAttack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E721AE28587AE50023B2BF /* EightAttack.swift */; };
 		D8E721B128587E580023B2BF /* EightBattle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E721B028587E580023B2BF /* EightBattle.swift */; };
 		D8E721B3285881070023B2BF /* EightBattleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E721B2285881070023B2BF /* EightBattleDelegate.swift */; };
@@ -146,6 +160,20 @@
 		D8C1ED942859AEBA003A1092 /* EightBattleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EightBattleTests.swift; sourceTree = "<group>"; };
 		D8C1ED96285AD549003A1092 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		D8C1ED98285AE139003A1092 /* IntExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensionTests.swift; sourceTree = "<group>"; };
+		D8C1ED9A285C2786003A1092 /* SKSpriteNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKSpriteNode.swift; sourceTree = "<group>"; };
+		D8C1ED9D285DA93F003A1092 /* EightAttackRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EightAttackRules.swift; sourceTree = "<group>"; };
+		D8C1ED9F285DB6A7003A1092 /* ClassicEightAttackRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassicEightAttackRules.swift; sourceTree = "<group>"; };
+		D8C1EDA1285EBBB7003A1092 /* CalculatorSkin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorSkin.swift; sourceTree = "<group>"; };
+		D8C1EDA5285F0ECF003A1092 /* MG880Skin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MG880Skin.swift; sourceTree = "<group>"; };
+		D8C1EDA7285F12E3003A1092 /* MG775Skin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MG775Skin.swift; sourceTree = "<group>"; };
+		D8C1EDA9285F1747003A1092 /* MG885Skin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MG885Skin.swift; sourceTree = "<group>"; };
+		D8C1EDAB28602218003A1092 /* NumberEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberEngineTests.swift; sourceTree = "<group>"; };
+		D8C1EDAE286028CF003A1092 /* ListDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDisplayData.swift; sourceTree = "<group>"; };
+		D8C1EDAF286028CF003A1092 /* ListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPresenter.swift; sourceTree = "<group>"; };
+		D8C1EDB0286028CF003A1092 /* ListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRouter.swift; sourceTree = "<group>"; };
+		D8C1EDB1286028CF003A1092 /* ListModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModuleApi.swift; sourceTree = "<group>"; };
+		D8C1EDB2286028CF003A1092 /* ListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListInteractor.swift; sourceTree = "<group>"; };
+		D8C1EDB3286028CF003A1092 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		D8E721AE28587AE50023B2BF /* EightAttack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EightAttack.swift; sourceTree = "<group>"; };
 		D8E721B028587E580023B2BF /* EightBattle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EightBattle.swift; sourceTree = "<group>"; };
 		D8E721B2285881070023B2BF /* EightBattleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EightBattleDelegate.swift; sourceTree = "<group>"; };
@@ -192,11 +220,12 @@
 		D824E4182841D03700C144F1 /* Calculator */ = {
 			isa = PBXGroup;
 			children = (
+				D8C1EDA4285EBD26003A1092 /* Skins */,
 				D8338DF22844C9E7000007C6 /* CalculatorScene.swift */,
 				D878A89C284AE6B9001CD2F9 /* CalculatorDimensions.swift */,
 				D878A89A28446934001CD2F9 /* CalculatorKeyEnum.swift */,
-				D878A8942841DA56001CD2F9 /* Screen */,
 				D824E4112841D02B00C144F1 /* CalculatorView.swift */,
+				D8C1EDA1285EBBB7003A1092 /* CalculatorSkin.swift */,
 			);
 			path = Calculator;
 			sourceTree = "<group>";
@@ -212,6 +241,7 @@
 				D8338DF82846B34E000007C6 /* CGSize.swift */,
 				D86B8C1928573B3C005045B1 /* Decimal.swift */,
 				D8C1ED96285AD549003A1092 /* Int.swift */,
+				D8C1ED9A285C2786003A1092 /* SKSpriteNode.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -308,6 +338,7 @@
 				D8014F952857B3100024DD99 /* ExpressionBuilderTests.swift */,
 				D8C1ED942859AEBA003A1092 /* EightBattleTests.swift */,
 				D8C1ED98285AE139003A1092 /* IntExtensionTests.swift */,
+				D8C1EDAB28602218003A1092 /* NumberEngineTests.swift */,
 			);
 			path = numbermarchTests;
 			sourceTree = "<group>";
@@ -324,6 +355,8 @@
 		D860387728302B4D00781EA5 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				D8C1EDAD2860287E003A1092 /* List */,
+				D878A8942841DA56001CD2F9 /* Screen */,
 				D86B8C0A28572685005045B1 /* Main */,
 				D824E4182841D03700C144F1 /* Calculator */,
 				D86D00B028303E3D00113F26 /* AppModules.swift */,
@@ -369,9 +402,42 @@
 			path = Screen;
 			sourceTree = "<group>";
 		};
+		D8C1ED9C285DA92E003A1092 /* Rules */ = {
+			isa = PBXGroup;
+			children = (
+				D8C1ED9D285DA93F003A1092 /* EightAttackRules.swift */,
+				D8C1ED9F285DB6A7003A1092 /* ClassicEightAttackRules.swift */,
+			);
+			path = Rules;
+			sourceTree = "<group>";
+		};
+		D8C1EDA4285EBD26003A1092 /* Skins */ = {
+			isa = PBXGroup;
+			children = (
+				D8C1EDA5285F0ECF003A1092 /* MG880Skin.swift */,
+				D8C1EDA7285F12E3003A1092 /* MG775Skin.swift */,
+				D8C1EDA9285F1747003A1092 /* MG885Skin.swift */,
+			);
+			path = Skins;
+			sourceTree = "<group>";
+		};
+		D8C1EDAD2860287E003A1092 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				D8C1EDAE286028CF003A1092 /* ListDisplayData.swift */,
+				D8C1EDAF286028CF003A1092 /* ListPresenter.swift */,
+				D8C1EDB0286028CF003A1092 /* ListRouter.swift */,
+				D8C1EDB1286028CF003A1092 /* ListModuleApi.swift */,
+				D8C1EDB2286028CF003A1092 /* ListInteractor.swift */,
+				D8C1EDB3286028CF003A1092 /* ListView.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
 		D8E721AD28587ACE0023B2BF /* 8Attack */ = {
 			isa = PBXGroup;
 			children = (
+				D8C1ED9C285DA92E003A1092 /* Rules */,
 				D8E721AE28587AE50023B2BF /* EightAttack.swift */,
 				D8E721B028587E580023B2BF /* EightBattle.swift */,
 				D8E721B2285881070023B2BF /* EightBattleDelegate.swift */,
@@ -569,6 +635,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8C1EDB5286028D0003A1092 /* ListPresenter.swift in Sources */,
+				D8C1EDA2285EBBB7003A1092 /* CalculatorSkin.swift in Sources */,
 				D87ED4D32832E37E00BA6DF4 /* War.swift in Sources */,
 				D8F39B55284FF5AF00FA57C7 /* CalculatorEngine.swift in Sources */,
 				D878A8912841D5D1001CD2F9 /* ScreenProtocol.swift in Sources */,
@@ -577,15 +645,21 @@
 				D8338DF32844C9E7000007C6 /* CalculatorScene.swift in Sources */,
 				D8E721B5285881210023B2BF /* EightEnemy.swift in Sources */,
 				D8E721B128587E580023B2BF /* EightBattle.swift in Sources */,
+				D8C1ED9B285C2786003A1092 /* SKSpriteNode.swift in Sources */,
+				D8C1EDA0285DB6A7003A1092 /* ClassicEightAttackRules.swift in Sources */,
 				D878A89D284AE6B9001CD2F9 /* CalculatorDimensions.swift in Sources */,
 				D8603876282F4C4900781EA5 /* BattleDelegate.swift in Sources */,
 				D878A8962841DA6C001CD2F9 /* ScreenNode.swift in Sources */,
+				D8C1EDB4286028D0003A1092 /* ListDisplayData.swift in Sources */,
 				D8E721B72858830D0023B2BF /* EightBomb.swift in Sources */,
+				D8C1EDB9286028D0003A1092 /* ListView.swift in Sources */,
 				D8F39B572851A17900FA57C7 /* DigitalDecimalPlaceNode.swift in Sources */,
 				D8603874282F4B4F00781EA5 /* Enemy.swift in Sources */,
 				D87ED4CF2832DCE800BA6DF4 /* DigitalInvadersRulesProtocol.swift in Sources */,
+				D8C1EDB8286028D0003A1092 /* ListInteractor.swift in Sources */,
 				D8F39B53284ED23500FA57C7 /* WarDelegate.swift in Sources */,
 				D82F3E2C28307AED00436EDF /* WarFactory.swift in Sources */,
+				D8C1EDB7286028D0003A1092 /* ListModuleApi.swift in Sources */,
 				D84F148A2841FE7E00886521 /* SpaceInvaders.swift in Sources */,
 				D860383B282F403500781EA5 /* AppDelegate.swift in Sources */,
 				D86B8C1C2857AB83005045B1 /* ExpressionBuilder.swift in Sources */,
@@ -604,6 +678,7 @@
 				D882F74E2855975C00F288D6 /* DigitalCharacter.swift in Sources */,
 				D878A8932841D83F001CD2F9 /* KeyboardDelegate.swift in Sources */,
 				D86B8C15285726B3005045B1 /* MainRouter.swift in Sources */,
+				D8C1EDAA285F1747003A1092 /* MG885Skin.swift in Sources */,
 				D8C1ED9128597C79003A1092 /* EightMissileTypeEnum.swift in Sources */,
 				D878A89B28446934001CD2F9 /* CalculatorKeyEnum.swift in Sources */,
 				D8C1ED9328597CDE003A1092 /* EightMissile.swift in Sources */,
@@ -611,14 +686,18 @@
 				D8338DF92846B34E000007C6 /* CGSize.swift in Sources */,
 				D86B8C14285726B3005045B1 /* MainPresenter.swift in Sources */,
 				D86B8C1A28573B3C005045B1 /* Decimal.swift in Sources */,
+				D8C1EDB6286028D0003A1092 /* ListRouter.swift in Sources */,
 				D86B8C18285726B3005045B1 /* MainView.swift in Sources */,
+				D8C1EDA8285F12E3003A1092 /* MG775Skin.swift in Sources */,
 				D82F3E2E28307B7E00436EDF /* WarService.swift in Sources */,
 				D8338DF72846AF9B000007C6 /* CGRect.swift in Sources */,
 				D8603872282F4B3A00781EA5 /* Battle.swift in Sources */,
+				D8C1EDA6285F0ECF003A1092 /* MG880Skin.swift in Sources */,
 				D882F7482855867D00F288D6 /* NumberEngine.swift in Sources */,
 				D8C1ED97285AD549003A1092 /* Int.swift in Sources */,
 				D86B8C16285726B3005045B1 /* MainModuleApi.swift in Sources */,
 				D86B8C17285726B3005045B1 /* MainInteractor.swift in Sources */,
+				D8C1ED9E285DA93F003A1092 /* EightAttackRules.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -626,6 +705,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8C1EDAC28602219003A1092 /* NumberEngineTests.swift in Sources */,
 				D87ED4D528337AF500BA6DF4 /* WarTests.swift in Sources */,
 				D8C1ED99285AE139003A1092 /* IntExtensionTests.swift in Sources */,
 				D84F14902842209500886521 /* ScreenTests.swift in Sources */,

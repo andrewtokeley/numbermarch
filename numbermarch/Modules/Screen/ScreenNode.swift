@@ -14,6 +14,11 @@ class ScreenNode: SKSpriteNode {
     // MARK: - Private Constants
     
     /**
+     This value determines the amount of lean each digita character has. 1 would mean they lean over their full width. Default is 0.2.
+     */
+    private let skew: CGFloat = 0.2
+    
+    /**
      Proportional distance for the smallest margin gap
      */
     private var GAP: CGFloat {
@@ -21,6 +26,18 @@ class ScreenNode: SKSpriteNode {
     }
     
     // MARK: - Private Properties
+    
+    private var _showCellBorders: Bool = false
+    
+    var showCellBorders: Bool {
+        get {
+            return _showCellBorders
+        }
+        set {
+            _showCellBorders = newValue
+            self.setCellBorders(_showCellBorders)
+        }
+    }
     
     /**
      The number of characters that can fit on the screen.
@@ -44,21 +61,22 @@ class ScreenNode: SKSpriteNode {
      */
     public var decimalPointNodes: [DigitalDecimalPointNode] = [DigitalDecimalPointNode]()
     
+    private var cellBorderNodes: [SKShapeNode] = [SKShapeNode]()
+    
     /**
-     The size of a digital character, always in the ratio 1:2 (w:h)
+     The size of a digital character, where the width allows for a ``spaceBetweenCharacters`` on the left and right of the screen and the same gap between digits. The height of a digital character is always twice the width.
      */
     private var characterSize: CGSize {
-        // define a width that allows for a GAP space on the left and right of the display and a GAP between digits
         let totalGaps = CGFloat(self.numberOfCharacters + 1) * spaceBetweenCharacters
         let width = (self.frame.width - totalGaps) / CGFloat(self.numberOfCharacters)
         return CGSize(width: width, height: 2*width)
     }
     
     /**
-     Returns the size a decimal point character should be. This is sized to be halk the width of the space between characters.
+     Returns the size a decimal point character should be. This is sized to be half the width of the space between characters.
      */
     private var decimalPointSize: CGSize {
-        return CGSize(width: self.spaceBetweenCharacters, height: self.characterSize.height)
+        return CGSize(width: self.spaceBetweenCharacters/2, height: self.characterSize.height)
     }
     
     private var spaceBetweenCharacters: CGFloat {
@@ -80,12 +98,12 @@ class ScreenNode: SKSpriteNode {
         self.numberOfCharacters = numberOfCharacters
         super.init(texture: nil, color: .clear, size: size)
         
-        self.textLabel.position = CGPoint(x: -self.frame.width/2 + self.spaceBetweenCharacters + self.characterSize.width, y: self.frame.height/2 - GAP)
+        self.textLabel.position = CGPoint(x: -self.frame.width/2 + self.spaceBetweenCharacters + self.characterSize.width, y: self.frame.height/2 - 0.5 * GAP)
         self.addChild(self.textLabel)
         
-        self.addSpaceCharacterNodes()
+        self.addDigitalCharacterNodes()
         self.addDecimalPointNodes()
-        
+        self.addCellBorders()
     }
     
     /**
@@ -96,11 +114,20 @@ class ScreenNode: SKSpriteNode {
     }
     
     // MARK: - Private Functions
-     
+    
     /**
-     Returns the screen position for a given position, where position 1 is the first position on the screen.
+     Draws a border around each cell
+     */
+    private func setCellBorders(_ showCellBorders: Bool) {
+        for position in 1...self.numberOfCharacters {
+            self.cellBorderNodes[position-1].strokeColor = showCellBorders ? .gameBlue : .clear
+        }
+    }
+    
+    /**
+     Returns the point at the centre of a digit for a given position, where position 1 is the first position on the screen and each digit has a ``GAP`` space.
      
-     Digits are positioned at their centre. Digits are added to a SpriteNode which has an origin (0.0) at its centre.
+     Note, when adding digits to the screen, remeber Digits have an anchor at their centre, but the screen (SKSpriteNode) they are being added to has its origin at (0,0)
      */
     private func cgPointAtScreenPosition(_ screenPosition: Int) -> CGPoint {
         guard screenPosition >= 1 && screenPosition <= self.numberOfCharacters else { return CGPoint.zero }
@@ -115,10 +142,10 @@ class ScreenNode: SKSpriteNode {
     }
     
     /**
-     Returns the sscreen postion for a decimal point that should to the right of the given digit postion
+     Returns the point in the screen's coordinate system (origin at (0,0)). The postion for a decimal point is 1/2 a ``GAP`` distance to the right of its neighbouring digit.
      */
     private func cgPointAtScreenPositionForDecimal(_ screenPosition: Int) -> CGPoint {
-        return cgPointAtScreenPosition(screenPosition).offsetBy(dx: self.characterSize.width/2 + self.decimalPointSize.width/2, dy: 0)
+        return cgPointAtScreenPosition(screenPosition).offsetBy(dx: self.characterSize.width/2 + self.decimalPointSize.width/2 * 0.2, dy: 0)
     }
     
     // MARK: - Children
@@ -141,7 +168,7 @@ class ScreenNode: SKSpriteNode {
     /**
      Fills the screen with character nodes, all set to be a space
      */
-    private func addSpaceCharacterNodes() {
+    private func addDigitalCharacterNodes() {
         
         // default to empty spaces
         let screenCharacters = Array(repeating: DigitalCharacter.space, count: self.numberOfCharacters)
@@ -150,8 +177,8 @@ class ScreenNode: SKSpriteNode {
         
         for position in 1...self.numberOfCharacters {
             let node = self.screenCharacterNodes[position - 1]
-            node.position = self.cgPointAtScreenPosition(position)
-            self.addChild(node)
+            node.position = self.cgPointAtScreenPosition(position).offsetBy(dx: -self.skew*self.characterSize.width, dy: 0)
+            self.addChild(node, skewValue: self.skew)
         }
     }
     
@@ -166,7 +193,7 @@ class ScreenNode: SKSpriteNode {
             node.position = self.cgPointAtScreenPositionForDecimal(position)
             node.isHidden = true
             self.decimalPointNodes.append(node)
-            self.addChild(node)
+            self.addChild(node, skewValue: self.skew)
         }
     }
     
@@ -180,7 +207,20 @@ class ScreenNode: SKSpriteNode {
             return nil
         }
     }
-    
+        
+    /**
+     Adds the cell border cells, initially in a clear state. Can be shown by setting the ``showCellBorders`` property
+     */
+    private func addCellBorders() {
+        for position in 1...self.numberOfCharacters {
+            let border = SKShapeNode(rectOf: self.characterSize.offSetBy(dw: GAP, dh: GAP))
+            border.fillColor = .clear
+            border.strokeColor = .clear
+            border.position = cgPointAtScreenPosition(position)
+            self.cellBorderNodes.append(border)
+            self.addChild(border)
+        }
+    }
 }
 
 // MARK: - ScreenProtocol
@@ -366,7 +406,7 @@ extension ScreenNode: ScreenProtocol {
             }
         }
         self.display(result, screenPosition: screenPosition)
-        guard screenPosition.isBetween(1, self.numberOfCharacters, true) else { return }
+        //guard screenPosition.isBetween(1, self.numberOfCharacters, true) else { return }
         
         if let completion = completion {
             self.delayTimer?.invalidate()
@@ -398,9 +438,9 @@ extension ScreenNode: ScreenProtocol {
         }
     }
     
-    func characterAt(_ screenPosition: Int) -> DigitalCharacter? {
-        guard screenPosition < self.numberOfCharacters else { return nil }
-        return self.screenCharacterNodes[screenPosition - 1].character
+    func characterAt(_ position: Int) -> DigitalCharacter? {
+        guard position.isBetween(1, self.numberOfCharacters, true) else { return nil }
+        return self.screenCharacterNodes[position - 1].character
     }
     
     func findPosition(_ character: DigitalCharacter, fromPosition: Int = 1) -> Int? {

@@ -20,7 +20,11 @@ protocol EightBattleDelegate {
     func eightBattle(_ battle: EightBattle, missile: EightMissile, movedPositionFrom from: Int, to: Int)
     func eightBattle(_ battle: EightBattle, removeMissile missile: EightMissile)
     
-    func battleLost(_ battle: EightBattle)
-    func battleWon(_ battle: EightBattle)
+    func eightBattle(_ battle: EightBattle, lostLife livesLeft: Int)
+    func eightBattle(_ battle: EightBattle, gainedLife livesGained: Int)
     
+    func battleGameOver(_ battle: EightBattle)
+    func battleWon(_ battle: EightBattle)
+
+    func eightBattle(_ battle: EightBattle, newLevel: Int, score: Int)
 }

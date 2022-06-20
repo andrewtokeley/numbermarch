@@ -15,7 +15,7 @@ class CalculatorDimensionsTests: XCTestCase {
         // this width is the same as the original
         let width: CGFloat = 100
         
-        let d = CalculatorDimensions(width: width)
+        let d = CalculatorDimensions(width: width, originalMeasurements: MG_880_Measurements())
         
         // + button is bottom, right, define with calculator centre being (0, 0)
         let point_plus_middle = CGPoint(
@@ -33,7 +33,7 @@ class CalculatorDimensionsTests: XCTestCase {
         // this width is the same as the original
         let width: CGFloat = 100
         
-        let d = CalculatorDimensions(width: width)
+        let d = CalculatorDimensions(width: width, originalMeasurements: MG_880_Measurements())
         
         // + button is bottom, right, define with calculator centre being (0, 0)
         let point_plus_leftcentre = CGPoint(
@@ -72,7 +72,7 @@ class CalculatorDimensionsTests: XCTestCase {
         // this width is the same as the original
         let width: CGFloat = 100
         
-        let d = CalculatorDimensions(width: width)
+        let d = CalculatorDimensions(width: width, originalMeasurements: MG_880_Measurements())
         let bufferHorizontal = d.original.buttonHorizontalDistanceBetween/2 - 1
         let bufferVertical = d.original.buttonVerticalDistanceBetween/2 - 1
         

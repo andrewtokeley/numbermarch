@@ -9,13 +9,13 @@ import Foundation
 import SpriteKit
 import SwiftUI
 
-enum CalculatorSwitch: Int {
+enum CalculatorSwitchPosition: Int {
     case off = 0
-    case music = 1
-    case calcGame = 2
-    func next() -> CalculatorSwitch {
+    case on1 = 1
+    case on2 = 2
+    func next() -> CalculatorSwitchPosition {
         let nextRawValue = self.rawValue == 2 ? 0 : self.rawValue + 1
-        return CalculatorSwitch(rawValue: nextRawValue) ?? self
+        return CalculatorSwitchPosition(rawValue: nextRawValue) ?? self
     }
 }
 
@@ -26,23 +26,32 @@ class CalculatorScene: SKScene {
     private var musicEngine: MusicEngine?
     private var haptic = UIImpactFeedbackGenerator(style: .light)
     
-    private var onOffSwitch = CalculatorSwitch.off {
+    private var skin: CalculatorSkin
+    
+    // MARK: - Initialisers
+    
+    init(size: CGSize, skin: CalculatorSkin) {
+        self.skin = skin
+        super.init(size: size)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Private Properties
+    
+    private var onOffSwitch = CalculatorSwitchPosition.off {
         didSet(value) {
-            if value == .off {
-                self.calculatorSwitch.texture = SKTexture(imageNamed: "Switch-Off")
-            } else if value == .music {
-                self.calculatorSwitch.texture = SKTexture(imageNamed: "Switch-Music")
-            } else if value == .calcGame {
-                self.calculatorSwitch.texture = SKTexture(imageNamed: "Switch-Cal")
-            }
+            self.calculatorSwitch.texture = self.skin.switchTexture(value)
         }
     }
     
-    private var dimensions: CalculatorDimensions!
+    //private var dimensions: CalculatorDimensions!
     
-    private var sizeButton: CGSize {
-        return CGSize(width: self.frame.width/7, height: self.frame.height/20)
-    }
+//    private var sizeButton: CGSize {
+//        return CGSize(width: self.frame.width/7, height: self.frame.height/20)
+//    }
     
     /**
      The delegate will be advised of any key presses within the calculator
@@ -53,9 +62,8 @@ class CalculatorScene: SKScene {
         super.sceneDidLoad()
         self.backgroundColor = .white
         haptic.prepare()
-        self.dimensions = CalculatorDimensions(width: self.size.width * 0.9)
+        //self.dimensions = CalculatorDimensions(width: self.size.width * 0.9)
         self.addChildNodes()
-        
         self.switchToOff()
     }
     
@@ -63,9 +71,9 @@ class CalculatorScene: SKScene {
     
     private func addChildNodes() {
         self.addChild(self.calculatorBackground, verticalAlign: .top, horizontalAlign: .centre, offSet: CGVector(dx: 0, dy: -100))
-        self.addChild(self.screen, verticalAlign: .top, horizontalAlign: .centre, offSet: CGVector(dx: 0, dy: -100-dimensions.distanceFromTopToScreenTop))
+        self.addChild(self.screen, verticalAlign: .top, horizontalAlign: .centre, offSet: CGVector(dx: 0, dy: -100-skin.dimensions.distanceFromTopToScreenTop))
         
-        self.calculatorSwitch.position = dimensions.switchCentre
+        self.calculatorSwitch.position = skin.dimensions.switchCentre
         self.calculatorBackground.addChild(self.calculatorSwitch)
         //self.addChild(self.calculatorSwitch, verticalAlign: .centre, horizontalAlign: .left)
     }
@@ -74,7 +82,7 @@ class CalculatorScene: SKScene {
      The image of the calculator
      */
     public lazy var calculatorBackground: SKSpriteNode   = {
-        let node = SKSpriteNode(texture: SKTexture(imageNamed: "Background"), size: CGSize(width: dimensions.size.width, height: dimensions.size.height))
+        let node = SKSpriteNode(texture: self.skin.calculatorTexture, size: CGSize(width: self.skin.dimensions.size.width, height: self.skin.dimensions.size.height))
         node.name = "calculator"
         return node
     }()
@@ -83,14 +91,15 @@ class CalculatorScene: SKScene {
      Off/Music/Calc Switch
      */
     public lazy var calculatorSwitch: SKSpriteNode   = {
-        let node = SKSpriteNode(texture: SKTexture(imageNamed: "Switch-Off"), size: CGSize(width: dimensions.switchSize.width, height: dimensions.switchSize.height))
+        let node = SKSpriteNode(texture: self.skin.switchTexture(.off), size: CGSize(width: self.skin.dimensions.switchSize.width, height: self.skin.dimensions.switchSize.height))
         node.name = "switch"
         return node
     }()
     
     public lazy var screen: ScreenNode = {
-        let node = ScreenNode(numberOfCharacters: 9, size: CGSize(width: self.dimensions.screenSize.width, height: self.dimensions.screenSize.height))
+        let node = ScreenNode(numberOfCharacters: self.skin.screenSize, size: CGSize(width: self.skin.dimensions.screenSize.width, height: self.skin.dimensions.screenSize.height))
         node.display ("0", screenPosition: 1)
+        node.showCellBorders = true
         return node
     }()
 
@@ -100,14 +109,16 @@ class CalculatorScene: SKScene {
     Creates a new instance of game and calls it's start method.
      */
     private func startGame() {
-        self.onOffSwitch = .calcGame
+        self.screen.showCellBorders = true
+        self.onOffSwitch = .on2
         self.calculatorEngine = nil
         self.musicEngine = nil
         
         self.game?.stop()
         
         //self.game = SpaceInvaders(screen: screen, rules: DigitalInvadersClassicRules())
-        self.game = EightAttack(screen: screen)
+        self.game = self.skin.gameEngine(self.screen)
+        
         self.keyboardDelegate = game as? KeyboardDelegate
         
         // game starts automatically
@@ -117,6 +128,7 @@ class CalculatorScene: SKScene {
     private func switchToOff() {
         self.onOffSwitch = .off
         self.screen.clearScreen()
+        self.screen.showCellBorders = false
         self.game?.stop()
         self.keyboardDelegate = nil
         self.game = nil
@@ -124,26 +136,28 @@ class CalculatorScene: SKScene {
     }
     
     private func switchToCalculator() {
-        self.onOffSwitch = .calcGame
+        self.onOffSwitch = .on2
+        self.screen.showCellBorders = false
         self.game?.stop()
         self.game = nil
         
         self.screen.clearScreen()
         self.screen.display("0")
         
-        self.calculatorEngine = CalculatorEngine(screen: self.screen)
+        self.calculatorEngine = self.skin.calculatorEngine(self.screen)
         self.keyboardDelegate = self.calculatorEngine
     }
     
     private func switchToMusic() {
-        self.onOffSwitch = .music
+        self.screen.showCellBorders = false
+        self.onOffSwitch = .on1
         self.game?.stop()
         self.game = nil
         
         self.screen.clearScreen()
         self.screen.display("0")
         
-        self.musicEngine = MusicEngine(screen: self.screen)
+        self.musicEngine = self.skin.musicEngine(self.screen)
         self.keyboardDelegate = self.musicEngine
     }
     /**
@@ -156,9 +170,9 @@ class CalculatorScene: SKScene {
         if key == .onoffSwitch {
             if onOffSwitch == .off {
                 self.switchToOff()
-            } else if onOffSwitch == .calcGame {
+            } else if onOffSwitch == .on2 {
                 self.switchToCalculator()
-            } else if onOffSwitch == .music {
+            } else if onOffSwitch == .on1 {
                 self.switchToMusic()
             }
             return
@@ -200,7 +214,7 @@ class CalculatorScene: SKScene {
                 if node.name == "calculator" {
                     let localLocation = touch.location(in: node)
                     // button click
-                    if let key = self.dimensions.keyAt(localLocation) {
+                    if let key = self.skin.keyAt(localLocation) {
                         
                         if key == .onoffSwitch {
                             self.haptic.impactOccurred()

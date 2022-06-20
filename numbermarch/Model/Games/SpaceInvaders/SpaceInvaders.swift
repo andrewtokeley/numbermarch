@@ -425,6 +425,10 @@ extension SpaceInvaders: BattleDelegate {
 
 extension SpaceInvaders: GamesProtocol {
     
+    var showScreenCellBorders: Bool {
+        return false
+    }
+    
     var name: String {
         return "Digit Invaders"
     }

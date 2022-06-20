@@ -15,6 +15,11 @@ protocol ScreenProtocol {
     // MARK: - Public Properties
     
     /**
+     Determines whether to show a faint grey border around each character cell.
+     */
+    var showCellBorders: Bool { get set }
+    
+    /**
     The number of characters the screen can display
      */
     var numberOfCharacters: Int { get }

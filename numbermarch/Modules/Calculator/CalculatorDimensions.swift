@@ -8,26 +8,30 @@
 import Foundation
 
 /**
- The distances in mm of the original calculator.
+ Need to implement this protocol for each type of calculator skin
  */
-struct CalculatorMeasurements {
-    var width: CGFloat = 100
-    var height: CGFloat = 165
-    var screenWidth: CGFloat = 66
-    var screenHeight: CGFloat = 18
-    var distanceFromTopToScreen: CGFloat = 11
-    var buttonHeight: CGFloat = 10
-    var buttonWidth: CGFloat = 14
-    var buttonVerticalDistanceBetween: CGFloat = 5
-    var buttonVerticalDistanceToTopRow: CGFloat = 6
-    var buttonHorizontalDistanceBetween: CGFloat = 4
-    var buttonsDistanceFromVerticalEdge: CGFloat = 7
-    var buttonsDistanceFromBottomEdge: CGFloat = 7
+protocol CalculatorMeasurements {
+    var width: CGFloat { get }
+    var height: CGFloat { get }
     
-    var switchWidth: CGFloat = 14
-    var switchHeight: CGFloat = 10
-    var switchDistanceFromBottom: CGFloat = 72
-    var switchDistanceToLeftEdge: CGFloat = 16.5
+    var screenWidth: CGFloat { get }
+    var screenHeight: CGFloat { get }
+    var distanceFromTopToScreen: CGFloat { get }
+    
+    var buttonRows: Int { get }
+    var buttonColumns: Int { get }
+    var buttonHeight: CGFloat { get }
+    var buttonWidth: CGFloat { get }
+    var buttonVerticalDistanceBetween: CGFloat { get }
+    var buttonVerticalDistanceToTopRow: CGFloat { get }
+    var buttonHorizontalDistanceBetween: CGFloat { get }
+    var buttonsDistanceFromVerticalEdge: CGFloat { get }
+    var buttonsDistanceFromBottomEdge: CGFloat { get }
+    
+    var switchWidth: CGFloat { get }
+    var switchHeight: CGFloat  { get }
+    var switchDistanceFromBottom: CGFloat { get }
+    var switchDistanceToLeftEdge: CGFloat  { get }
 }
 
 /**
@@ -37,18 +41,21 @@ struct CalculatorMeasurements {
  */
 class CalculatorDimensions {
         
-    public let original = CalculatorMeasurements()
+    public let original: CalculatorMeasurements
     
     /**
      The ratio by which to multiple original measures to get the corresponding screen measures.
      */
     var ratio: CGFloat
     
-    init(width: CGFloat) {
-        
+    /**
+     Initisalise a new calculator dimensions instance
+     */
+    init(width: CGFloat, originalMeasurements: CalculatorMeasurements) {
+        self.original = originalMeasurements
         self.ratio = width/original.width
         
-        // force the wxh ratio based on the original MG-880
+        // force the wxh ratio based on the original dimensions
         self.size = CGSize(width: width, height: original.height * ratio)
     }
 

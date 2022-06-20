@@ -14,6 +14,7 @@ protocol MainRouterApi: RouterProtocol {
 
 //MARK: - MainView API
 protocol MainViewApi: UserInterfaceProtocol {
+    func displayCalculator(_ calculator: CalculatorSkin)
 }
 
 //MARK: - MainPresenter API

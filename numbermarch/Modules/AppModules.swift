@@ -12,6 +12,7 @@ import Viperit
 enum AppModules: String, ViperitModule {
     case loader
     case main
+    case list
     var viewType: ViperitViewType {
         if self == .loader {
             return .storyboard

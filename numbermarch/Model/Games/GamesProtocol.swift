@@ -11,6 +11,7 @@ import Foundation
  Protocol all games must implement. The CalculatorView will only interact with games through this interface
  */
 protocol GamesProtocol {
+    var showScreenCellBorders: Bool { get }
     var name: String { get }
     var isGameStarted: Bool { get }
     var isPaused: Bool { get }

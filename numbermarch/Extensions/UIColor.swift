@@ -27,9 +27,12 @@ extension UIColor {
         return .black
     }
     
+    public class var gameBlue: UIColor {
+        return UIColor(red: 93/255, green: 114/255, blue: 145/255, alpha: 1)
+    }
+    
     public class var gameBattlefieldTextBackground: UIColor {
-        //return UIColor(red: 186/255, green: 191/255, blue: 178/255, alpha: 1)
-        return .calculatorScreen
+        return UIColor(red: 183/255, green: 180/255, blue: 186/255, alpha: 1)
     }
     
     public class var calculatorBackground: UIColor {

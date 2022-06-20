@@ -11,5 +11,5 @@ import Viperit
 
 // MARK: - MainDisplayData class
 final class MainDisplayData: DisplayData {
-    
+    public var calculator: CalculatorSkin?
 }

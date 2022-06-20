@@ -9,7 +9,9 @@ import Foundation
 import SpriteKit
 
 /**
- Recognised keys that can be pressed on the calculator
+ Recognised keys that can be pressed on a calculator.
+ 
+ Note, not all calculators skins will recognise all the keys.
  */
 enum CalculatorKey: Int {
     case zero = 0

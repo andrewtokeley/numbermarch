@@ -26,24 +26,25 @@ enum EightEnemyType: Int {
     case topMissing = 0
     case middleMissing = 1
     case bottomMissing = 2
-    case complete = 3
+    /**
+     Special H shaped mothership that is worth extra points
+     */
+    case mothership = 3
     
     /**
-     Returns a random type
+     Returns a random (non mothership) type
      */
     static func random() -> EightEnemyType {
-        let random = Int.random(in: 0..<4)
+        let random = Int.random(in: 0..<3)
         return EightEnemyType(rawValue: random)!
     }
     
     /**
-     Returns a random EightEnemyType not equal to the one provided
-     
-     This is intended to be used by unit tests only.
+     Returns a random EightEnemyType not equal to self (and also not a mothership)
      */
-    static func not(_ type: EightEnemyType) -> EightEnemyType {
+    func not() -> EightEnemyType {
         var new: EightEnemyType = .topMissing
-        while new != type {
+        while new == self {
             new = EightEnemyType.random()
         }
         return new
@@ -56,7 +57,8 @@ enum EightEnemyType: Int {
         if self == .topMissing && missileType == .top { return true }
         if self == .middleMissing && missileType == .middle { return true }
         if self == .bottomMissing && missileType == .bottom { return true }
-        if self == .complete { return true }
+        // Anything can kill a mothership
+        if self == .mothership { return true }
         return false
     }
     
@@ -67,8 +69,24 @@ enum EightEnemyType: Int {
         if self == .topMissing { return .top }
         if self == .middleMissing { return .middle }
         if self == .bottomMissing { return .bottom }
-        if self == .complete { return .middle }
+        if self == .mothership { return .middle }
         return .middle
+    }
+    
+    /**
+     Returns a digital character representation of the enemy
+     */
+    var asDigitalCharacter: DigitalCharacter {
+        switch self {
+        case .topMissing:
+            return DigitalCharacter.upsideDownA
+        case .bottomMissing:
+            return DigitalCharacter.A
+        case .mothership:
+            return DigitalCharacter.H
+        case .middleMissing:
+            return DigitalCharacter.zero
+        }
     }
 
 }
@@ -93,20 +111,20 @@ class EightEnemy {
         if type == .topMissing { return "V" }
         if type == .bottomMissing { return "A" }
         if type == .middleMissing { return "O" }
-        if type == .complete { return "8" }
+        if type == .mothership { return "8" }
         return ""
     }
     
-    var asDigitalCharacter: DigitalCharacter {
-        switch self.type {
-        case .topMissing:
-            return DigitalCharacter.upsideDownA
-        case .bottomMissing:
-            return DigitalCharacter.A
-        case .complete:
-            return DigitalCharacter.eight
-        case .middleMissing:
-            return DigitalCharacter.zero
-        }
-    }
+//    var asDigitalCharacter: DigitalCharacter {
+//        switch self.type {
+//        case .topMissing:
+//            return DigitalCharacter.upsideDownA
+//        case .bottomMissing:
+//            return DigitalCharacter.A
+//        case .complete:
+//            return DigitalCharacter.eight
+//        case .middleMissing:
+//            return DigitalCharacter.zero
+//        }
+//    }
 }
