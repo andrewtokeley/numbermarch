@@ -12,35 +12,6 @@ class EightBattleTests: XCTestCase {
 
     var rules = ClassicEightAttackRules()
     
-//    func testEnenyChange() throws {
-//        let battle = EightBattle(screenSize: 9, rules: self.rules)
-//        battle.readyToStartGame()
-//        battle.readyForNextLevel() // add an enemy to position 1, moving right
-//
-//        if let enemy = battle.enemy {
-//            let originalType = enemy.type
-//
-//            // should change yet
-//            XCTAssertEqual(rules.shouldChangeEnemyShape(level: battle.level, enemyDistanceFromStart: battle.enemyDistanceFromStart(enemy)), false)
-//
-//            let _ = battle.advanceEnemy() // 2
-//            let _ = battle.advanceEnemy() // 3
-//
-//            // mock rules say should change after a distance is 4 is reached
-//            let _ = battle.advanceEnemy() // 4
-//            XCTAssertEqual(rules.shouldChangeEnemyShape(level: battle.level, enemyDistanceFromStart: battle.enemyDistanceFromStart(enemy)), true)
-//
-//            let _ = battle.advanceEnemy() // 5
-//            XCTAssertNotEqual(originalType, enemy.type)
-//            XCTAssertEqual(rules.shouldChangeEnemyShape(level: battle.level, enemyDistanceFromStart: battle.enemyDistanceFromStart(enemy)), false)
-//
-//
-//        } else {
-//            XCTFail()
-//        }
-//
-//    }
-    
     func testEnemyToggle() throws {
         // Create a battle with enemies changing alternative steps
         let battle = EightBattle(screenSize: 9, rules: MockRulesWithToggle())
@@ -89,80 +60,6 @@ class EightBattleTests: XCTestCase {
 
     }
 
-//    func testCanKillAfterEnemyChanges_WithDelegate() throws {
-//        let battle = EightBattle(screenSize: 9, rules: self.rules)
-//        let delegate = MockEightBattleDelegate(self)
-//        battle.delegate = delegate
-//        battle.readyToStartGame()
-//        battle.readyForNextLevel() // add an enemy to position 1
-//
-//        if let enemy = battle.enemy {
-//            let originalType = enemy.type
-//            let _ = battle.advanceEnemy() // 2
-//            let _ = battle.advanceEnemy() // 3
-//            let _ = battle.advanceEnemy() // 4
-//            let _ = battle.advanceEnemy() // 5 // will have changed type
-//            battle.addMissile(type: enemy.type.canBeKilledByMissleType) // 9
-//
-//            let delegateMethod = "enemyKilled"
-//            delegate.createExpectation("testCanKillAfterEnemyChanges_WithDelegate", methodOfInterest: delegateMethod)
-//
-//            // this should kill the enemy and call the delegate method
-//            let _ = self.advanceMissile(battle, times: 4) // move from 9 to 5
-//
-//            // wait until the delegate fires
-//            self.waitForExpectations(timeout: 5, handler: nil)
-//
-//            XCTAssertEqual(delegate.method, delegateMethod)
-//
-//            // test that the enemy killed doesn't have the same type as original
-//            XCTAssertNotEqual((delegate.parameters[0] as? EightEnemy)?.type, originalType)
-//
-//        } else {
-//            XCTFail()
-//        }
-//    }
-//
-//    func testCanKillJUSTBeforeEnemyChanges_WithDelegate() throws {
-//        let battle = EightBattle(screenSize: 9, rules: self.rules)
-//        let delegate = MockEightBattleDelegate(self)
-//        battle.delegate = delegate
-//        battle.readyToStartGame()
-//        battle.readyForNextLevel() // add an enemy to position 1
-//
-//        if let enemy = battle.enemy {
-//            let originalType = enemy.type
-//
-//            let _ = battle.advanceEnemy() // 2
-//            let _ = battle.advanceEnemy() // 3
-//            let _ = battle.advanceEnemy() // 4
-//            XCTAssertEqual(battle.enemy?.type, originalType)
-//
-//            // won't have changed yet, but is one move from changing
-//
-//            let delegateMethod = "enemyKilled"
-//            delegate.createExpectation("testCanKillJUSTBeforeEnemyChanges_WithDelegate", methodOfInterest: delegateMethod)
-//
-//            // this should kill the enemy based on it's original type
-//            battle.addMissile(type: originalType.canBeKilledByMissleType) // 9
-//            let _ = self.advanceMissile(battle, times: 5) // move from 9 to 4
-//
-//            // wait until the delegate fires
-//            self.waitForExpectations(timeout: 5, handler: nil)
-//
-//            XCTAssertEqual(delegate.method, delegateMethod)
-//
-//            // test kill
-////            XCTAssertEqual(battle.enemy?.isDead, true)
-////            XCTAssertEqual((delegate.parameters[0] as? EightEnemy)?.isDead, true)
-////            XCTAssertEqual((delegate.parameters[0] as? EightEnemy)?.position, 4)
-////            XCTAssertEqual((delegate.parameters[0] as? EightEnemy)?.type, originalType)
-//
-//        } else {
-//            XCTFail()
-//        }
-//    }
-//
     func testEightEnemyTypeNot() throws {
         let type = EightEnemyType.bottomMissing
         XCTAssertNotEqual(type, type.not())

@@ -61,6 +61,8 @@ class ScreenNode: SKSpriteNode {
      */
     public var decimalPointNodes: [DigitalDecimalPointNode] = [DigitalDecimalPointNode]()
     
+    private var subTextNodes: [SKLabelNode] = [SKLabelNode]()
+    
     private var cellBorderNodes: [SKShapeNode] = [SKShapeNode]()
     
     /**
@@ -104,6 +106,7 @@ class ScreenNode: SKSpriteNode {
         self.addDigitalCharacterNodes()
         self.addDecimalPointNodes()
         self.addCellBorders()
+        self.addSubTextNodes()
     }
     
     /**
@@ -183,6 +186,24 @@ class ScreenNode: SKSpriteNode {
     }
     
     /**
+     Adds small subtext label nodes below each cell
+     */
+    private func addSubTextNodes() {
+        // default to all hidden
+        for position in 1...self.numberOfCharacters {
+            let node = SKLabelNode(text: "")
+            node.fontName = "Arial"
+            node.fontSize = self.GAP * 1.4
+            node.fontColor = .gameBattlefieldText
+            let x = self.cgPointAtScreenPositionForDecimal(position).x
+            let y = -self.size.height/2 - GAP * 1.3
+            node.position = CGPoint(x: x, y: y)
+            self.subTextNodes.append(node)
+            self.addChild(node)
+        }
+    }
+    
+    /**
      Add the decimal place nodes in hidden state
      */
     private func addDecimalPointNodes() {
@@ -257,14 +278,15 @@ extension ScreenNode: ScreenProtocol {
         self.textLabel.text = text.uppercased()
     }
     
+    func displaySubText(text: String, position: Int) {
+        guard position.isBetween(1, self.numberOfCharacters, true) else { return }
+        self.subTextNodes[position - 1].text = text
+    }
+    
     func freezeCharacters(screenPosition: Int) {
         guard screenPosition.isBetween(1, self.numberOfCharacters, true) else { return }
         
         self.freezePosition = screenPosition
-    }
-    
-    func clearScreen() {
-        self.clearScreen(includingMessageText: true)
     }
     
     func clearScreen(includingMessageText: Bool) {

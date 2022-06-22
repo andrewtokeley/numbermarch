@@ -144,7 +144,7 @@ extension SKNode
             } else if (!parentIs0x0 && childIs0x0) {
                 y = self.frame.height - child.frame.height
             } else {
-                y = self.frame.width/2 - child.frame.width/2
+                y = self.frame.height/2 - child.frame.height/2
             }
         } else if verticalAlign == .bottom {
             if (parentIs0x0 && childIs0x0) {

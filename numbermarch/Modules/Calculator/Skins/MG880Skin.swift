@@ -46,11 +46,11 @@ class MG880Skin: CalculatorSkin {
         return MG_880_Measurements()
     }
     
-    convenience init() {
-        self.init(width: 100)
-    }
-    
-    init(width: CGFloat) {
+//    convenience init() {
+//        self.init(width: 100)
+//    }
+//    
+    required init(width: CGFloat) {
         self.width = width
     }
     
@@ -88,15 +88,26 @@ class MG880Skin: CalculatorSkin {
         }
     }
     
-    func calculatorEngine(_ screen: ScreenProtocol) -> CalculatorEngine? {
-        return CalculatorEngine(screen: screen)
+    func engineForSwitchPosition(_ switchPosition: CalculatorSwitchPosition, screen: ScreenProtocol) -> NumberEngine? {
+        if switchPosition == .off {
+            return nil
+        } else if switchPosition == .on1 {
+            return MusicEngine(screen: screen)
+        } else if switchPosition == .on2 {
+            return CalculatorEngine(screen: screen)
+        }
+        return nil
     }
     
-    func musicEngine(_ screen: ScreenProtocol) -> MusicEngine? {
-        return MusicEngine(screen: screen)
-    }
+//    func switch1Engine(_ screen: ScreenProtocol) -> NumberEngine? {
+//        return CalculatorEngine(screen: screen)
+//    }
+//
+//    func switch2Function(_ screen: ScreenProtocol) -> NumberEngine? {
+//        return MusicEngine(screen: screen)
+//    }
     
-    func gameEngine(_ screen: ScreenProtocol) -> GamesProtocol? {
+    func game(_ screen: ScreenProtocol) -> GamesProtocol? {
         return SpaceInvaders(screen: screen, rules: DigitalInvadersClassicRules())
     }
     
@@ -107,5 +118,6 @@ class MG880Skin: CalculatorSkin {
     func keyAt(_ point: CGPoint) -> CalculatorKey? {
         return self.dimensions.keyAt(point)
     }
-    
+      
 }
+

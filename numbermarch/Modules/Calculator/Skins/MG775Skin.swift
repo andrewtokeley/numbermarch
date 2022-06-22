@@ -14,7 +14,7 @@ import SpriteKit
 struct MG775_Measurements: CalculatorMeasurements {
     var width: CGFloat = 125
     var height: CGFloat = 210
-    var screenWidth: CGFloat = 77
+    var screenWidth: CGFloat = 70
     var screenHeight: CGFloat = 22
     var distanceFromTopToScreen: CGFloat = 17
     var buttonRows: Int = 5
@@ -35,6 +35,10 @@ struct MG775_Measurements: CalculatorMeasurements {
 
 class MG775Skin: CalculatorSkin {
     
+    required init(width: CGFloat) {
+        self.width = width
+    }
+    
     var screenSize: Int {
         return 8
     }
@@ -45,13 +49,13 @@ class MG775Skin: CalculatorSkin {
         return MG775_Measurements()
     }
     
-    convenience init() {
-        self.init(width: 100)
-    }
-    
-    init(width: CGFloat) {
-        self.width = width
-    }
+//    convenience init() {
+//        self.init(width: 100)
+//    }
+//    
+//    init(width: CGFloat) {
+//        self.width = width
+//    }
     
     // MARK: - CalculatorSkin Protocol
     
@@ -87,15 +91,30 @@ class MG775Skin: CalculatorSkin {
         }
     }
     
-    func calculatorEngine(_ screen: ScreenProtocol) -> CalculatorEngine? {
-        return CalculatorEngine(screen: screen)
+    func subText(_ position: Int) -> String? {
+        return String(self.screenSize - (position - 1))
     }
     
-    func musicEngine(_ screen: ScreenProtocol) -> MusicEngine? {
-        return MusicEngine(screen: screen)
+    func engineForSwitchPosition(_ switchPosition: CalculatorSwitchPosition, screen: ScreenProtocol) -> NumberEngine? {
+        if switchPosition == .off {
+            return nil
+        } else if switchPosition == .on1 {
+            return CalculatorEngine(screen: screen)
+        } else if switchPosition == .on2 {
+            return CalculatorEngine(screen: screen)
+        }
+        return nil
     }
     
-    func gameEngine(_ screen: ScreenProtocol) -> GamesProtocol? {
+//    func switch1Engine(_ screen: ScreenProtocol) -> NumberEngine? {
+//        return CalculatorEngine(screen: screen)
+//    }
+//
+//    func switch2Function(_ screen: ScreenProtocol) -> MusicEngine? {
+//        return CalculatorEngine(screen: screen)
+//    }
+    
+    func game(_ screen: ScreenProtocol) -> GamesProtocol? {
         return EightAttack(screen: screen, rules: ClassicEightAttackRules())
     }
     

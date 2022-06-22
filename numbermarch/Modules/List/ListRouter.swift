@@ -15,7 +15,7 @@ final class ListRouter: Router {
     func navigateToMain(_ calculator: CalculatorSkin) {
         let module = AppModules.main.build()
         (module.displayData as? MainDisplayData)?.calculator = calculator
-        module.router.show(from: viewController, embedInNavController: false, setupData: nil)
+        module.router.show(from: viewController, embedInNavController: true, setupData: nil)
     }
     
 }

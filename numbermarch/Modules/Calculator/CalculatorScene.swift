@@ -21,9 +21,18 @@ enum CalculatorSwitchPosition: Int {
 
 class CalculatorScene: SKScene {
     
+    /**
+     If defined then a game is in progress
+     */
     private var game: GamesProtocol?
-    private var calculatorEngine: CalculatorEngine?
-    private var musicEngine: MusicEngine?
+    
+    /**
+     If defined, this engine will be used to respond to key presses on the calcluator
+     */
+    private var numberEngine: NumberEngine?
+    
+//    private var calculatorEngine: CalculatorEngine?
+//    private var musicEngine: MusicEngine?
     private var haptic = UIImpactFeedbackGenerator(style: .light)
     
     private var skin: CalculatorSkin
@@ -47,12 +56,6 @@ class CalculatorScene: SKScene {
         }
     }
     
-    //private var dimensions: CalculatorDimensions!
-    
-//    private var sizeButton: CGSize {
-//        return CGSize(width: self.frame.width/7, height: self.frame.height/20)
-//    }
-    
     /**
      The delegate will be advised of any key presses within the calculator
      */
@@ -62,20 +65,31 @@ class CalculatorScene: SKScene {
         super.sceneDidLoad()
         self.backgroundColor = .white
         haptic.prepare()
-        //self.dimensions = CalculatorDimensions(width: self.size.width * 0.9)
-        self.addChildNodes()
-        self.switchToOff()
+        self.switchToPosition(.off)
+        
+        // Note child nodes are added in the didChangeSize override because otherwise things dont work!
     }
     
     // MARK: - Child Nodes
     
     private func addChildNodes() {
-        self.addChild(self.calculatorBackground, verticalAlign: .top, horizontalAlign: .centre, offSet: CGVector(dx: 0, dy: -100))
-        self.addChild(self.screen, verticalAlign: .top, horizontalAlign: .centre, offSet: CGVector(dx: 0, dy: -100-skin.dimensions.distanceFromTopToScreenTop))
+        let topGap:CGFloat = 0
         
+        // Remove so we can call this method mutliple times (hack because of Swift's resizing lifecycle)
+        self.calculatorBackground.removeFromParent()
+        self.screen.removeFromParent()
+        self.calculatorSwitch.removeFromParent()
+        
+        self.addChild(self.calculatorBackground, verticalAlign: .top, horizontalAlign: .centre, offSet: CGVector(dx: 0, dy: -topGap))
+        self.calculatorBackground.addChild(self.screen, verticalAlign: .top, horizontalAlign: .centre, offSet: CGVector(dx: 0, dy: -topGap-skin.dimensions.distanceFromTopToScreenTop))
         self.calculatorSwitch.position = skin.dimensions.switchCentre
         self.calculatorBackground.addChild(self.calculatorSwitch)
-        //self.addChild(self.calculatorSwitch, verticalAlign: .centre, horizontalAlign: .left)
+        
+        for i in 1...self.screen.numberOfCharacters {
+            if let text = self.skin.subText(i) {
+                self.screen.displaySubText(text: text, position: i)
+            }
+        }
     }
     
     /**
@@ -111,55 +125,90 @@ class CalculatorScene: SKScene {
     private func startGame() {
         self.screen.showCellBorders = true
         self.onOffSwitch = .on2
-        self.calculatorEngine = nil
-        self.musicEngine = nil
+        
+        // make sure the calculator doesn't respond to standard number engine
+        self.numberEngine = nil
         
         self.game?.stop()
-        
-        //self.game = SpaceInvaders(screen: screen, rules: DigitalInvadersClassicRules())
-        self.game = self.skin.gameEngine(self.screen)
-        
+        self.game = self.skin.game(self.screen)
         self.keyboardDelegate = game as? KeyboardDelegate
-        
-        // game starts automatically
         game?.start()
     }
     
-    private func switchToOff() {
-        self.onOffSwitch = .off
-        self.screen.clearScreen()
-        self.screen.showCellBorders = false
+    private func switchToPosition(_ switchPosition: CalculatorSwitchPosition) {
+        self.onOffSwitch = switchPosition
+        
+        self.numberEngine = self.skin.engineForSwitchPosition(switchPosition, screen: self.screen)
+        self.keyboardDelegate = self.numberEngine
+        
+        if switchPosition == .off {
+            self.screen.clearScreen(includingMessageText: true)
+        } else {
+            self.screen.display("0")
+        }
+        
+        // if you've moved the switch any game is over
         self.game?.stop()
-        self.keyboardDelegate = nil
         self.game = nil
-        self.calculatorEngine = nil
     }
     
-    private func switchToCalculator() {
-        self.onOffSwitch = .on2
-        self.screen.showCellBorders = false
-        self.game?.stop()
-        self.game = nil
-        
-        self.screen.clearScreen()
-        self.screen.display("0")
-        
-        self.calculatorEngine = self.skin.calculatorEngine(self.screen)
-        self.keyboardDelegate = self.calculatorEngine
-    }
+//    private func switchToOff() {
+//        self.onOffSwitch = .off
+//        self.screen.clearScreen()
+//        self.screen.showCellBorders = false
+//        self.game?.stop()
+//        self.keyboardDelegate = nil
+//        self.game = nil
+//        self.numberEngine = nil
+//    }
     
-    private func switchToMusic() {
-        self.screen.showCellBorders = false
-        self.onOffSwitch = .on1
-        self.game?.stop()
-        self.game = nil
-        
-        self.screen.clearScreen()
-        self.screen.display("0")
-        
-        self.musicEngine = self.skin.musicEngine(self.screen)
-        self.keyboardDelegate = self.musicEngine
-    }
+//    private func switchToPosition1() {
+//        self.onOffSwitch = .on1
+//        self.screen.clearScreen()
+//
+//        // always stop the game
+//        game?.stop()
+//        self.game = nil
+//        self.keyboardDelegate = nil
+//
+//        if let numberEngine = self.skin.switch1Engine(self.screen) {
+//            self.numberEngine = numberEngine
+//            self.keyboardDelegate = self.numberEngine
+//            self.screen.display("0")
+//        }
+//    }
+    
+    
+    //private func switchToCalculator() {
+//        self.onOffSwitch = .on2
+//        self.screen.showCellBorders = false
+//        self.game?.stop()
+//        self.game = nil
+//
+//        self.screen.clearScreen()
+//        self.screen.display("0")
+//
+//        self.calculatorEngine = self.skin.switch1Engine(self.screen)
+//        self.keyboardDelegate = self.calculatorEngine
+    //}
+    
+//    private func switchToPosition2() {
+//        self.onOffSwitch = .on2
+//        self.screen.clearScreen()
+//    }
+    
+//    private func switchToMusic() {
+//        self.screen.showCellBorders = false
+//        self.onOffSwitch = .on1
+//        self.game?.stop()
+//        self.game = nil
+//
+//        self.screen.clearScreen()
+//        self.screen.display("0")
+//
+//        self.musicEngine = self.skin.switch2Function(self.screen)
+//        self.keyboardDelegate = self.musicEngine
+//    }
     /**
      Lets the scene know about any keys that have been pressed on the calculator. Touch events are captured by the CalculatorView and passes through this method to the scene.
      
@@ -167,13 +216,14 @@ class CalculatorScene: SKScene {
         - key: the key that was pressed
      */
     public func keyPressed(key: CalculatorKey) {
+        
         if key == .onoffSwitch {
             if onOffSwitch == .off {
-                self.switchToOff()
-            } else if onOffSwitch == .on2 {
-                self.switchToCalculator()
+                self.switchToPosition(.off)
             } else if onOffSwitch == .on1 {
-                self.switchToMusic()
+                self.switchToPosition(.on1)
+            } else if onOffSwitch == .on2 {
+                self.switchToPosition(.on2)
             }
             return
         }
@@ -229,5 +279,11 @@ class CalculatorScene: SKScene {
                 }
             }
         }
+    }
+    
+    override func didChangeSize(_ oldSize: CGSize) {
+        print(self.size)
+        print(oldSize)
+        self.addChildNodes()
     }
 }

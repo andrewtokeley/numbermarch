@@ -35,7 +35,6 @@ final class MainView: UserInterface {
         let view = SKView()
         view.allowsTransparency = true
         view.ignoresSiblingOrder = true
-        view.backgroundColor = .blue
         return view
     }()
     
@@ -43,20 +42,18 @@ final class MainView: UserInterface {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = .white
     }
     
     override func loadView() {
         super.loadView()
-        self.view.backgroundColor = .gameBackground
+        
         self.view.addSubview(calculatorView)
         self.setConstraints()
     }
     
     private func setConstraints() {
-        calculatorView.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
-        calculatorView.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
-        calculatorView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
-        calculatorView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
+        calculatorView.autoPinEdgesToSuperviewSafeArea()
     }
     
     override var shouldAutorotate: Bool {
@@ -105,6 +102,10 @@ final class MainView: UserInterface {
 
 //MARK: - MainView API
 extension MainView: MainViewApi {
+    
+    func displayTitle(_ title: String) {
+        self.navigationItem.title = title
+    }
     
     func displayCalculator(_ calculator: CalculatorSkin) {
         

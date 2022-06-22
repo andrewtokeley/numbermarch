@@ -36,22 +36,12 @@ struct MG_885_Measurements: CalculatorMeasurements {
 
 class MG885Skin: CalculatorSkin {
     
-    var screenSize: Int {
-        return 8
+    required init(width: CGFloat) {
+        self.width = width
     }
-    
-    public var width: CGFloat
     
     private var originalMeasurements: CalculatorMeasurements {
         return MG_885_Measurements()
-    }
-    
-    convenience init() {
-        self.init(width: 100)
-    }
-    
-    init(width: CGFloat) {
-        self.width = width
     }
     
     // MARK: - CalculatorSkin Protocol
@@ -59,6 +49,12 @@ class MG885Skin: CalculatorSkin {
     var name: String {
         return "MG-885"
     }
+    
+    var screenSize: Int {
+        return 8
+    }
+    
+    var width: CGFloat
     
     var description: String {
         return """
@@ -88,15 +84,26 @@ class MG885Skin: CalculatorSkin {
         }
     }
     
-    func calculatorEngine(_ screen: ScreenProtocol) -> CalculatorEngine? {
-        return CalculatorEngine(screen: screen)
+    func engineForSwitchPosition(_ switchPosition: CalculatorSwitchPosition, screen: ScreenProtocol) -> NumberEngine? {
+        if switchPosition == .off {
+            return nil
+        } else if switchPosition == .on1 {
+            return CalculatorEngine(screen: screen)
+        } else if switchPosition == .on2 {
+            return CalculatorEngine(screen: screen)
+        }
+        return nil
     }
     
-    func musicEngine(_ screen: ScreenProtocol) -> MusicEngine? {
-        return MusicEngine(screen: screen)
-    }
+//    func switch1Engine(_ screen: ScreenProtocol) -> NumberEngine? {
+//        return CalculatorEngine(screen: screen)
+//    }
+//
+//    func switch2Function(_ screen: ScreenProtocol) -> NumberEngine? {
+//        return CalculatorEngine(screen: screen)
+//    }
     
-    func gameEngine(_ screen: ScreenProtocol) -> GamesProtocol? {
+    func game(_ screen: ScreenProtocol) -> GamesProtocol? {
         return EightAttack(screen: screen, rules: ClassicEightAttackRules())
     }
     
@@ -108,5 +115,8 @@ class MG885Skin: CalculatorSkin {
         return self.dimensions.keyAt(point)
     }
     
+    func subText(_ position: Int) -> String? {
+        return String(self.screenSize - (position - 1))
+    }
 }
 

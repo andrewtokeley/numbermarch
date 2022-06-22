@@ -14,19 +14,13 @@ final class MainPresenter: Presenter {
     
     var calculator: CalculatorSkin?
     
-//    override func setupView(data: Any) {
-//        if let data = data as? MainDisplayData {
-//            self.calculator = data.calculator
-//        }
-//    }
-    
     override func viewHasLoaded() {
         if let data = view._displayData as? MainDisplayData {
             if let calculator = data.calculator {
                 view.displayCalculator(calculator)
+                view.displayTitle(calculator.name)
             }
         }
-        
     }
     
 }

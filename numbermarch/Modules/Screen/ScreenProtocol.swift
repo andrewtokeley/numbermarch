@@ -47,8 +47,6 @@ protocol ScreenProtocol {
         - includingMessageText: if true the message text will also be cleared. Default is true.
      */
     func clearScreen(includingMessageText: Bool)
-    func clearScreen()
-    
     
     // MARK: - Display Methods
     
@@ -113,6 +111,11 @@ protocol ScreenProtocol {
      */
     func displayTextMessage(text: String)
     
+    /**
+     Displays a subtext character at the given position
+     */
+    func displaySubText(text: String, position: Int)
+    
     // MARK: - Append Methods
     
     /**
@@ -150,9 +153,13 @@ protocol ScreenProtocol {
     func findPosition(_ character: DigitalCharacter, fromPosition: Int) -> Int?
 }
 
-// MARK: - ScreenProtocol Extensions
+// MARK: - ScreenProtocol, Default Implementations
 
 extension ScreenProtocol {
+    
+    func clearScreen(includingMessageText: Bool = true) {
+        clearScreen(includingMessageText: includingMessageText)
+    }
     
     func displayDecimalPoint(_ screenPosition: Int = -1, makeUnique: Bool = true) {
         let position = screenPosition == -1 ? self.numberOfCharacters : screenPosition
