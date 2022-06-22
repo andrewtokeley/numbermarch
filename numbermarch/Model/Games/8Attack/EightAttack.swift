@@ -160,7 +160,7 @@ extension EightAttack: EightBattleDelegate {
     }
     
     func battleGameOver(_ battle: EightBattle) {
-        self.screen.displayTextMessage(text: "GAME OVER")
+        self.screen.displayTextMessage(text: "OVER")
         self.stopBattle()
         self.displayScore(level: self.battle.level, score: self.battle.score)
     }
