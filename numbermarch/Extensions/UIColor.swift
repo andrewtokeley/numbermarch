@@ -24,7 +24,8 @@ extension UIColor {
     }
     
     public class var gameBattlefieldText: UIColor {
-        return .black
+        return UIColor(red: 55/255, green: 59/255, blue: 58/255, alpha: 1)
+        //return .black
     }
     
     public class var gameBlue: UIColor {

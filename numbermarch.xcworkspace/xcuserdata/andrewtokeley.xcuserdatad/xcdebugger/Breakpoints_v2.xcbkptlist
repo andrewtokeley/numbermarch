@@ -190,8 +190,8 @@
             filePath = "numbermarch/Modules/Calculator/CalculatorScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
             landmarkName = "startGame()"
             landmarkType = "7">
          </BreakpointContent>
@@ -206,8 +206,8 @@
             filePath = "numbermarchTests/EightBattleTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "202"
-            endingLineNumber = "202"
+            startingLineNumber = "305"
+            endingLineNumber = "305"
             landmarkName = "testMovedPositionFromDelegate()"
             landmarkType = "7">
          </BreakpointContent>
@@ -222,8 +222,8 @@
             filePath = "numbermarchTests/EightBattleTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "271"
-            endingLineNumber = "271"
+            startingLineNumber = "374"
+            endingLineNumber = "374"
             landmarkName = "testEnemyKilledDelegate()"
             landmarkType = "7">
             <Locations>
@@ -270,8 +270,8 @@
             filePath = "numbermarchTests/EightBattleTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "364"
-            endingLineNumber = "364"
+            startingLineNumber = "467"
+            endingLineNumber = "467"
             landmarkName = "eightBattle(_:enemyKilled:)"
             landmarkType = "7">
             <Locations>
@@ -364,8 +364,8 @@
             filePath = "numbermarchTests/EightBattleTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "264"
-            endingLineNumber = "264"
+            startingLineNumber = "367"
+            endingLineNumber = "367"
             landmarkName = "testEnemyKilledDelegate()"
             landmarkType = "7">
          </BreakpointContent>
@@ -380,8 +380,8 @@
             filePath = "numbermarchTests/EightBattleTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
+            startingLineNumber = "276"
+            endingLineNumber = "276"
             landmarkName = "testLoseLife()"
             landmarkType = "7">
             <Locations>
@@ -508,8 +508,8 @@
             filePath = "numbermarchTests/EightBattleTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
             landmarkName = "testHitWhenAddingMissile()"
             landmarkType = "7">
          </BreakpointContent>
@@ -604,8 +604,8 @@
             filePath = "numbermarchTests/EightBattleTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
+            startingLineNumber = "211"
+            endingLineNumber = "211"
             landmarkName = "testMissileHitAndMiss()"
             landmarkType = "7">
          </BreakpointContent>
@@ -620,8 +620,8 @@
             filePath = "numbermarchTests/EightBattleTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
+            startingLineNumber = "209"
+            endingLineNumber = "209"
             landmarkName = "testMissileHitAndMiss()"
             landmarkType = "7">
          </BreakpointContent>
@@ -716,8 +716,8 @@
             filePath = "numbermarch/Modules/Screen/ScreenNode.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
             landmarkName = "setCellBorders(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -732,8 +732,8 @@
             filePath = "numbermarch/Modules/Screen/ScreenNode.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
             landmarkName = "init(numberOfCharacters:size:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -748,8 +748,8 @@
             filePath = "numbermarch/Modules/Calculator/CalculatorScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
             landmarkName = "screen"
             landmarkType = "24">
          </BreakpointContent>
@@ -812,8 +812,8 @@
             filePath = "numbermarchTests/EightBattleTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
             landmarkName = "testDistanceFromStart_MovingRight()"
             landmarkType = "7">
          </BreakpointContent>
@@ -869,6 +869,150 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "14D8CB67-13D3-4830-81F7-81231D32C0A8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "numbermarchTests/EightBattleTests.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
+            landmarkName = "EightBattleTests"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F53221A2-1549-4D1A-B90A-F6C39523A48B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "numbermarchTests/EightBattleTests.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
+            landmarkName = "EightBattleTests"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "F53221A2-1549-4D1A-B90A-F6C39523A48B - 3c96e925d192f3b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "numbermarchTests.EightBattleTests.testCanKillJUSTBeforeEnemyChanges_WithDelegate() throws -&gt; ()"
+                  moduleName = "numbermarchTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrewtokeley/Documents/Dev/numbermarch/numbermarchTests/EightBattleTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "129"
+                  endingLineNumber = "129"
+                  offsetFromSymbolStart = "788">
+               </Location>
+               <Location
+                  uuid = "F53221A2-1549-4D1A-B90A-F6C39523A48B - 3c96e925d192f3b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "numbermarchTests.EightBattleTests.testCanKillJUSTBeforeEnemyChanges_WithDelegate() throws -&gt; ()"
+                  moduleName = "numbermarchTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrewtokeley/Documents/Dev/numbermarch/numbermarchTests/EightBattleTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "129"
+                  endingLineNumber = "129"
+                  offsetFromSymbolStart = "984">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5050CCA8-402A-4E5E-92C5-1D3FB6C9A823"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "numbermarchTests/EightBattleTests.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "EightBattleTests"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "5050CCA8-402A-4E5E-92C5-1D3FB6C9A823 - 3c96e925d192ef9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "numbermarchTests.EightBattleTests.testCanKillJUSTBeforeEnemyChanges_WithDelegate() throws -&gt; ()"
+                  moduleName = "numbermarchTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrewtokeley/Documents/Dev/numbermarch/numbermarchTests/EightBattleTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "127"
+                  endingLineNumber = "127"
+                  offsetFromSymbolStart = "692">
+               </Location>
+               <Location
+                  uuid = "5050CCA8-402A-4E5E-92C5-1D3FB6C9A823 - 3c96e925d192e9e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "numbermarchTests.EightBattleTests.testCanKillJUSTBeforeEnemyChanges_WithDelegate() throws -&gt; ()"
+                  moduleName = "numbermarchTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrewtokeley/Documents/Dev/numbermarch/numbermarchTests/EightBattleTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "126"
+                  endingLineNumber = "126"
+                  offsetFromSymbolStart = "972">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "42666EF2-DC7E-411E-A028-7B3B174C1CE4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "numbermarchTests/EightBattleTests.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
+            landmarkName = "EightBattleTests"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4524D18D-E432-4D1A-8753-616C1A981D2A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "numbermarchTests/EightBattleTests.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
+            landmarkName = "EightBattleTests"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
             uuid = "6748EDA6-8F9C-4C57-9F0B-4886E19C9D51"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -876,8 +1020,8 @@
             filePath = "numbermarch/Modules/Calculator/CalculatorScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "screen"
             landmarkType = "24">
          </BreakpointContent>
@@ -908,8 +1052,8 @@
             filePath = "numbermarch/Modules/Screen/ScreenNode.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "308"
-            endingLineNumber = "308"
+            startingLineNumber = "286"
+            endingLineNumber = "286"
             landmarkName = "append(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -924,8 +1068,8 @@
             filePath = "numbermarch/Modules/Screen/ScreenNode.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "444"
-            endingLineNumber = "444"
+            startingLineNumber = "422"
+            endingLineNumber = "422"
             landmarkName = "display(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -972,8 +1116,8 @@
             filePath = "numbermarch/Modules/Screen/ScreenNode.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "455"
-            endingLineNumber = "455"
+            startingLineNumber = "433"
+            endingLineNumber = "433"
             landmarkName = "display(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -988,8 +1132,8 @@
             filePath = "numbermarch/Modules/Screen/ScreenNode.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "394"
-            endingLineNumber = "394"
+            startingLineNumber = "372"
+            endingLineNumber = "372"
             landmarkName = "display(_:screenPosition:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1132,8 +1276,8 @@
             filePath = "numbermarch/Modules/Main/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
             landmarkName = "displayCalculator(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1141,81 +1285,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "862DFFB7-A8E3-48D9-A826-EFE0FE29D4DE"
+            uuid = "52FF4ED3-09BB-4D47-A7AA-F80366EE1CE4"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "numbermarch/Modules/Main/MainView.swift"
+            filePath = "numbermarch/Modules/Main/MainPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
-            landmarkName = "displayTitle(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "848E2ADB-07F7-4585-BD1C-DCF52D2867FB"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "numbermarch/Extensions/SKNode.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "isAnchor0x0"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A2788B27-6792-4750-A598-E3544C42FA28"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "numbermarch/Extensions/SKNode.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
-            landmarkName = "positionForChild(_:verticalAlign:horizontalAlign:offSet:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "93384275-B23A-4100-9165-D4D510CF24E9"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "numbermarch/Extensions/SKNode.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
-            landmarkName = "positionForChild(_:verticalAlign:horizontalAlign:offSet:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8964FBCB-441E-4D43-ABC4-183A823A4AE8"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "numbermarch/Modules/Calculator/CalculatorScene.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
-            landmarkName = "screen"
-            landmarkType = "24">
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "MainPresenter"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

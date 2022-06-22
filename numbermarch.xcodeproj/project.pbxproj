@@ -75,6 +75,7 @@
 		D8C1EDB7286028D0003A1092 /* ListModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1EDB1286028CF003A1092 /* ListModuleApi.swift */; };
 		D8C1EDB8286028D0003A1092 /* ListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1EDB2286028CF003A1092 /* ListInteractor.swift */; };
 		D8C1EDB9286028D0003A1092 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1EDB3286028CF003A1092 /* ListView.swift */; };
+		D8E31FDF2862B27500E41CD8 /* OperationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E31FDE2862B27500E41CD8 /* OperationNode.swift */; };
 		D8E721AF28587AE50023B2BF /* EightAttack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E721AE28587AE50023B2BF /* EightAttack.swift */; };
 		D8E721B128587E580023B2BF /* EightBattle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E721B028587E580023B2BF /* EightBattle.swift */; };
 		D8E721B3285881070023B2BF /* EightBattleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E721B2285881070023B2BF /* EightBattleDelegate.swift */; };
@@ -174,6 +175,7 @@
 		D8C1EDB1286028CF003A1092 /* ListModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModuleApi.swift; sourceTree = "<group>"; };
 		D8C1EDB2286028CF003A1092 /* ListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListInteractor.swift; sourceTree = "<group>"; };
 		D8C1EDB3286028CF003A1092 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		D8E31FDE2862B27500E41CD8 /* OperationNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationNode.swift; sourceTree = "<group>"; };
 		D8E721AE28587AE50023B2BF /* EightAttack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EightAttack.swift; sourceTree = "<group>"; };
 		D8E721B028587E580023B2BF /* EightBattle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EightBattle.swift; sourceTree = "<group>"; };
 		D8E721B2285881070023B2BF /* EightBattleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EightBattleDelegate.swift; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 		D824E4182841D03700C144F1 /* Calculator */ = {
 			isa = PBXGroup;
 			children = (
+				D878A8942841DA56001CD2F9 /* Screen */,
 				D8C1EDA4285EBD26003A1092 /* Skins */,
 				D8338DF22844C9E7000007C6 /* CalculatorScene.swift */,
 				D878A89C284AE6B9001CD2F9 /* CalculatorDimensions.swift */,
@@ -356,7 +359,6 @@
 			isa = PBXGroup;
 			children = (
 				D8C1EDAD2860287E003A1092 /* List */,
-				D878A8942841DA56001CD2F9 /* Screen */,
 				D86B8C0A28572685005045B1 /* Main */,
 				D824E4182841D03700C144F1 /* Calculator */,
 				D86D00B028303E3D00113F26 /* AppModules.swift */,
@@ -398,6 +400,7 @@
 				D8F39B562851A17900FA57C7 /* DigitalDecimalPlaceNode.swift */,
 				D878A8952841DA6C001CD2F9 /* ScreenNode.swift */,
 				D878A8902841D5D1001CD2F9 /* ScreenProtocol.swift */,
+				D8E31FDE2862B27500E41CD8 /* OperationNode.swift */,
 			);
 			path = Screen;
 			sourceTree = "<group>";
@@ -672,6 +675,7 @@
 				D82F3E2A2830783500436EDF /* UIColor.swift in Sources */,
 				D87ED4D828349FED00BA6DF4 /* DigitalInvadersClassicRules.swift in Sources */,
 				D82F3E3628317E0B00436EDF /* SKNode.swift in Sources */,
+				D8E31FDF2862B27500E41CD8 /* OperationNode.swift in Sources */,
 				D86B8C13285726B3005045B1 /* MainDisplayData.swift in Sources */,
 				D8E94F48284DF06F00AC87C2 /* ScoreService.swift in Sources */,
 				D8E721AF28587AE50023B2BF /* EightAttack.swift in Sources */,
