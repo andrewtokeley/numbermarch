@@ -51,6 +51,11 @@ protocol ScreenProtocol {
     // MARK: - Display Methods
     
     /**
+     Display an operation symbol on the screen. This will appear on the top right of the screen and always in the order /, *, -, +
+     */
+    func displayOperationSymbol(_ symbol: OperationSymbol)
+    
+    /**
      Displays a decimal point at the given position. The position is to the right of where digits are rendered at the same position.
      
      - Parameters:
@@ -179,4 +184,5 @@ extension ScreenProtocol {
         let position = screenPosition == -1 ? self.numberOfCharacters : screenPosition
         display(characters, screenPosition: position, delay: delay, completion: completion)
     }
+    
 }

@@ -22,7 +22,7 @@ class ScreenNode: SKSpriteNode {
      Proportional distance for the smallest margin gap
      */
     private var GAP: CGFloat {
-        return 0.15 * self.frame.height
+        return 0.24 * self.frame.height
     }
     
     // MARK: - Private Properties
@@ -60,6 +60,11 @@ class ScreenNode: SKSpriteNode {
      Reference to the digital decimal points displayed between digits on the screen
      */
     public var decimalPointNodes: [DigitalDecimalPointNode] = [DigitalDecimalPointNode]()
+    
+    /**
+     Reference to the nodes for each operation symbol, presented in the top rright of the screen.
+     */
+    private var operationSymbols: [OperationNode] = [OperationNode]()
     
     private var subTextNodes: [SKLabelNode] = [SKLabelNode]()
     
@@ -99,14 +104,13 @@ class ScreenNode: SKSpriteNode {
     init(numberOfCharacters: Int, size: CGSize = CGSize(width: 300, height: 100)) {
         self.numberOfCharacters = numberOfCharacters
         super.init(texture: nil, color: .clear, size: size)
-        
         self.textLabel.position = CGPoint(x: -self.frame.width/2 + self.spaceBetweenCharacters + self.characterSize.width, y: self.frame.height/2 - 0.5 * GAP)
         self.addChild(self.textLabel)
-        
         self.addDigitalCharacterNodes()
         self.addDecimalPointNodes()
         self.addCellBorders()
         self.addSubTextNodes()
+        self.addOperationNodes()
     }
     
     /**
@@ -141,6 +145,7 @@ class ScreenNode: SKSpriteNode {
         // ...
         let x = (self.spaceBetweenCharacters + 0.5 * self.characterSize.width) + (self.characterSize.width + self.spaceBetweenCharacters) * (CGFloat(screenPosition) - 1)
         
+        // set y to position slightly lower than centred
         return CGPoint(x: x - self.size.width/2, y: -GAP)
     }
     
@@ -161,10 +166,10 @@ class ScreenNode: SKSpriteNode {
     private lazy var textLabel: SKLabelNode = {
         let label = SKLabelNode()
         label.fontName = "Arial"
-        label.fontSize = self.GAP * 1.3
+        label.fontSize = self.GAP
         label.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         label.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
-        label.fontColor = .black //UIColor.gameBattlefieldText
+        label.fontColor = UIColor.gameBattlefieldText
         return label
     }()
     
@@ -193,7 +198,7 @@ class ScreenNode: SKSpriteNode {
         for position in 1...self.numberOfCharacters {
             let node = SKLabelNode(text: "")
             node.fontName = "Arial"
-            node.fontSize = self.GAP * 1.4
+            node.fontSize = self.GAP
             node.fontColor = .gameBattlefieldText
             let x = self.cgPointAtScreenPositionForDecimal(position).x
             let y = -self.size.height/2 - GAP * 1.3
@@ -219,6 +224,21 @@ class ScreenNode: SKSpriteNode {
     }
     
     /**
+     Add the operation nodes, initally hidden
+     */
+    private func addOperationNodes() {
+        let size = CGSize(width: self.GAP, height: self.GAP)
+        for i in 0...3 {
+            if let symbol = OperationSymbol(rawValue: i) {
+                let node = OperationNode(size: size, operationSymbol: symbol, fillColour: .gameBattlefieldText, fontColour: .lightGray)
+                let position = cgPointAtScreenPosition(self.numberOfCharacters - i).offsetBy(dx: 0, dy: +self.characterSize.height/2 + size.height/2 + GAP/1.5)
+                node.position = position
+                self.addChild(node)
+            }
+        }
+    }
+    
+    /**
      Returns the screen position of the first decimal point. If no decimal point is visible this function returns nil. When the screen is displaying numbers there will only be one decimal point, but theoretcially you could display many.
      */
     private func decimalPointPosition() -> Int? {
@@ -233,13 +253,22 @@ class ScreenNode: SKSpriteNode {
      Adds the cell border cells, initially in a clear state. Can be shown by setting the ``showCellBorders`` property
      */
     private func addCellBorders() {
+        let cellSize = self.characterSize.offSetBy(dw: GAP, dh: GAP/2)
+        
         for position in 1...self.numberOfCharacters {
-            let border = SKShapeNode(rectOf: self.characterSize.offSetBy(dw: GAP, dh: GAP))
-            border.fillColor = .clear
-            border.strokeColor = .clear
-            border.position = cgPointAtScreenPosition(position)
-            self.cellBorderNodes.append(border)
-            self.addChild(border)
+            let line = UIBezierPath()
+            let w = cellSize.width
+            let h = cellSize.height
+            line.move(to: CGPoint(x: -w/2, y: -h/2)) // bottom left
+            line.addLine(to: CGPoint(x: -w/2, y: h/2)) // top left
+            line.addLine(to: CGPoint(x: w/2, y: h/2)) // top right
+            line.addLine(to: CGPoint(x: w/2, y: -h/2)) // bottom right
+            
+            let node = SKShapeNode(path: line.cgPath)
+            node.strokeColor = .gameBlue
+            node.position = cgPointAtScreenPosition(position)
+            self.cellBorderNodes.append(node)
+            self.addChild(node)
         }
     }
 }
@@ -272,6 +301,10 @@ extension ScreenNode: ScreenProtocol {
             }
         }
         return result
+    }
+    
+    func displayOperationSymbol(_ symbol: OperationSymbol) {
+        
     }
     
     func displayTextMessage(text: String) {

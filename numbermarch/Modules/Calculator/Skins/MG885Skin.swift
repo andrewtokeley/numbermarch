@@ -15,8 +15,8 @@ struct MG_885_Measurements: CalculatorMeasurements {
     var width: CGFloat = 120
     var height: CGFloat = 188
     var screenWidth: CGFloat = 71
-    var screenHeight: CGFloat = 20
-    var distanceFromTopToScreen: CGFloat = 11
+    var screenHeight: CGFloat = 18
+    var distanceFromTopToScreen: CGFloat = 13
     var buttonRows: Int = 5
     var buttonColumns: Int = 5
     var buttonHeight: CGFloat = 14
